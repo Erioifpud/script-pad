@@ -53,6 +53,9 @@ dependencies:
   zustand:
     specifier: ^4.5.2
     version: 4.5.2(@types/react@18.3.2)(react@18.3.1)
+  zustand-debounce:
+    specifier: ^1.1.2
+    version: 1.1.2
 
 devDependencies:
   '@tauri-apps/cli':
@@ -3356,6 +3359,10 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zustand-debounce@1.1.2:
+    resolution: {integrity: sha512-yNKM2+8shp54AhbpWsJrn0q/LxvfOr5nQz7j8NeezFcosMtQDtrW4FYM1DNZG9jbuwKjxgGWi0Q5KmNGe+GimQ==}
+    dev: false
 
   /zustand@4.5.2(@types/react@18.3.2)(react@18.3.1):
     resolution: {integrity: sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==}
