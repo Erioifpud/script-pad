@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { createSelectors } from './utils'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { storage } from './utils/storage'
+import { appStorage } from './utils/storage'
 import { merge as deepMerge } from 'lodash-es'
 
 interface GlobalVars {
@@ -32,8 +32,8 @@ const AppStore = create<AppState>()(
       setScripts: (scripts) => set({ scripts }),
     }),
     {
-      name: 'script-pad-storage',
-      storage: createJSONStorage(() => storage),
+      name: 'script-pad-app',
+      storage: createJSONStorage(() => appStorage),
       // 只持久化数据字段
       partialize: (state) => ({ scripts: state.scripts }),
       // 当前版本

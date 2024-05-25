@@ -1,18 +1,20 @@
-import { BaseDirectory, readTextFile, removeFile, writeFile } from '@tauri-apps/api/fs';
 import { StateStorage } from 'zustand/middleware';
-
-const CONFIG_DIR = BaseDirectory.AppConfig
-const APP_CONFIG_FILE = 'script-pad-app.json';
+import { Store } from "tauri-plugin-store-api";
 
 // Tauri Storage
-export const storage: StateStorage = ({
+const getStore: (store: Store) => StateStorage = (store) => ({
   getItem: async (name: string): Promise<string | null> => {
-    return null
+    console.log('[PLUGIN-STORE]', 'READ:', name)
+    return (await store.get(name)) || null
   },
   setItem: async (name: string, value: string): Promise<void> => {
-
+    console.log('[PLUGIN-STORE]', 'WRITE:', name, value)
+    await store.set(name, value)
   },
   removeItem: async (name: string): Promise<void> => {
-
+    console.log('[PLUGIN-STORE]', 'DELETE:', name)
+    await store.delete(name)
   },
 })
+
+export const appStorage = getStore(new Store('.script-pad-app.dat'))
