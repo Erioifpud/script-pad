@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { GearIcon } from '@radix-ui/react-icons';
-import EditPanel from './components/EditPanel';
+import EditPanel from './_components/EditPanel';
 
 // 获取数据，预生成指定静态页面的，用作 SEO
 export async function generateStaticParams() {
