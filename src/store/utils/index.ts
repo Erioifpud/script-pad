@@ -1,3 +1,4 @@
+'use client';
 import { StoreApi, UseBoundStore } from 'zustand'
 
 type WithSelectors<S> = S extends { getState: () => infer T }
@@ -14,4 +15,8 @@ export const createSelectors = <S extends UseBoundStore<StoreApi<object>>>(
   }
 
   return store
+}
+
+export const randomUUID = () => {
+  return self.crypto.randomUUID()
 }
