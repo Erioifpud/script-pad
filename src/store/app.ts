@@ -27,6 +27,8 @@ export type FullVersionScript = ScriptV1
 export interface AppState {
   scripts: Script[]
   setScripts: (scripts: Script[]) => void
+  selectedScriptId: string | null
+  setSelectedScriptId: (id: string | null) => void
   createScript: () => void
 }
 
@@ -35,6 +37,8 @@ export const useAppStore = create<AppState>()(
     (set) => ({
       scripts: [],
       setScripts: (scripts) => set({ scripts }),
+      selectedScriptId: '',
+      setSelectedScriptId: (id) => set({ selectedScriptId: id }),
       createScript: () => {
         const script = {
           id: randomUUID(),

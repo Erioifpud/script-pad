@@ -1,12 +1,14 @@
 import { Button } from '@/components/ui/button';
 import { GearIcon } from '@radix-ui/react-icons';
 import EditPanel from './_components/EditPanel';
+import { useAppStore } from '@/store/app';
 
 // 获取数据，预生成指定静态页面的，用作 SEO
 export async function generateStaticParams() {
-  return [
-    { id: '1' }
-  ]
+  const ids = useAppStore.getState().scripts.map((script) => ({
+    id: script.id,
+  }));
+  return ids;
 }
 
 export default function Edit() {
