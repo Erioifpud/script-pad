@@ -16,6 +16,11 @@
       "fs": {
         "all": true,
         "scope": ["$APPDATA/script-pad/*"]
+      },
+      "clipboard": {
+        "all": false,
+        "readText": false,
+        "writeText": true
       }
     },
     "bundle": {
