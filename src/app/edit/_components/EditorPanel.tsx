@@ -29,7 +29,7 @@ export default function EditPanel() {
       editScriptCode(currentScript.id, tempCode);
     },
     [tempCode],
-  { wait: 2000 }
+  { wait: 1000 }
   )
 
   if (!currentScript) {
