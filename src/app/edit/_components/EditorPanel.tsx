@@ -7,6 +7,7 @@ import { useAppStore } from '@/store/app';
 import { useDebounceEffect } from 'ahooks';
 import { Script } from '@/store/app'
 import { clipboard } from '@tauri-apps/api';
+import { useToast } from '@/components/ui/use-toast';
 
 interface PropsTitle {
   script: Script
@@ -14,12 +15,16 @@ interface PropsTitle {
 
 const Title = memo((props: PropsTitle) => {
   const { script } = props;
+  const { toast } = useToast();
 
   const handleClick = useCallback(() => {
     clipboard.writeText(script.id).then(() => {
-      console.log('复制成功');
+      toast({
+        title: '复制成功',
+        description: '脚本 ID 已复制到剪贴板',
+      })
     })
-  }, [script])
+  }, [script.id, toast])
 
   return (
     <h1 className="text-xl font-semibold w-full overflow-hidden flex-grow">
