@@ -26,7 +26,6 @@ export default function Editor(props: Props) {
       className="relative"
       height="100%"
       defaultLanguage="javascript"
-      defaultValue="// some comment"
       theme="Solarized-light"
       beforeMount={handleBeforeMount}
       value={value}
