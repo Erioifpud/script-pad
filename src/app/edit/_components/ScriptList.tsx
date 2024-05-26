@@ -3,8 +3,8 @@ import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Script, useAppStore } from '@/store/app';
 import { useCommonStore } from '@/store/common';
+import { executeScript } from '@/vm';
 import { ChevronDownIcon, PlusIcon } from '@radix-ui/react-icons';
-import { tauri } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { memo, useCallback } from 'react';
 
@@ -40,7 +40,7 @@ const ActionMenu = memo((props: MenuProps) => {
 
 ActionMenu.displayName = 'ActionMenu';
 
-export default function ScriptList () {
+function ScriptList () {
   const scripts = useAppStore(state => state.scripts);
   const createScript = useAppStore(state => state.createScript);
   const selectedScriptId = useCommonStore(state => state.selectedScriptId);
@@ -53,7 +53,7 @@ export default function ScriptList () {
   // 执行脚本
   const handleExecute = useCallback((script: Script) => {
     console.log('execute', script);
-    tauri.invoke('execute_script', { code: script.code, id: script.id });
+    executeScript(script.code);
   }, [])
 
   // 删除脚本
@@ -110,3 +110,5 @@ export default function ScriptList () {
     </div>
   )
 }
+
+export default memo(ScriptList)
