@@ -2,9 +2,38 @@ import { Button } from '@/components/ui/button';
 import { GearIcon } from '@radix-ui/react-icons';
 import Editor from './Editor';
 import { useCurrentScript } from '../_hooks/useCurrentScript';
-import { useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { useAppStore } from '@/store/app';
 import { useDebounceEffect } from 'ahooks';
+import { Script } from '@/store/app'
+import { clipboard } from '@tauri-apps/api';
+
+interface PropsTitle {
+  script: Script
+}
+
+const Title = memo((props: PropsTitle) => {
+  const { script } = props;
+
+  const handleClick = useCallback(() => {
+    clipboard.writeText(script.id).then(() => {
+      console.log('复制成功');
+    })
+  }, [script])
+
+  return (
+    <h1 className="text-xl font-semibold w-full overflow-hidden flex-grow">
+      <div
+        className="truncate cursor-pointer"
+        onClick={handleClick}
+      >
+        {script.title}
+      </div>
+    </h1>
+  )
+});
+
+Title.displayName = 'Title';
 
 export default function EditPanel() {
   const currentScript = useCurrentScript();
@@ -39,13 +68,11 @@ export default function EditPanel() {
   return (
     <div className="relative w-full h-full flex flex-col">
       <header className="sticky top-0 z-10 flex h-[53px] items-center gap-1 border-b bg-background px-4 flex-shrink-0">
-        <h1 className="text-xl font-semibold">
-          草稿 1
-        </h1>
+        <Title script={currentScript}></Title>
         <Button
           variant="outline"
           size="sm"
-          className="ml-auto gap-1.5 text-sm"
+          className="ml-auto gap-1.5 text-sm flex-shrink-0"
         >
           <GearIcon className="size-3.5" />
           设置
