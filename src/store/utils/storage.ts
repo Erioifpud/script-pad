@@ -8,7 +8,7 @@ const getStore: (store: Store) => StateStorage = (store) => ({
     return (await store.get(name)) || null
   },
   setItem: async (name: string, value: string): Promise<void> => {
-    console.log('[PLUGIN-STORE]', 'WRITE:', name, value)
+    console.log('[PLUGIN-STORE]', 'WRITE:', name)
     await store.set(name, value)
     await store.save()
   },
