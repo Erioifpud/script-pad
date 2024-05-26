@@ -1,17 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { GearIcon } from '@radix-ui/react-icons';
-import EditPanel from './_components/EditPanel';
-import { useAppStore } from '@/store/app';
+import Editor from './Editor';
 
-// 获取数据，预生成指定静态页面的，用作 SEO
-export async function generateStaticParams() {
-  const ids = useAppStore.getState().scripts.map((script) => ({
-    id: script.id,
-  }));
-  return ids;
-}
-
-export default function Edit() {
+export default function EditPanel() {
   return (
     <div className="relative w-full h-full flex flex-col">
       <header className="sticky top-0 z-10 flex h-[53px] items-center gap-1 border-b bg-background px-4 flex-shrink-0">
@@ -28,7 +19,7 @@ export default function Edit() {
         </Button>
       </header>
       <div className="relative flex-grow h-full overflow-hidden">
-        <EditPanel></EditPanel>
+        <Editor></Editor>
       </div>
     </div>
   );
