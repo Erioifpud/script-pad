@@ -1,6 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/store/app';
+import { useCommonStore } from '@/store/common';
 import { PlusIcon } from '@radix-ui/react-icons';
 import classNames from 'classnames';
 import { useCallback } from 'react';
@@ -8,8 +9,8 @@ import { useCallback } from 'react';
 export default function ScriptList () {
   const scripts = useAppStore(state => state.scripts);
   const createScript = useAppStore(state => state.createScript);
-  const selectedScriptId = useAppStore(state => state.selectedScriptId);
-  const setSelectedScriptId = useAppStore(state => state.setSelectedScriptId);
+  const selectedScriptId = useCommonStore(state => state.selectedScriptId);
+  const setSelectedScriptId = useCommonStore(state => state.setSelectedScriptId);
 
   const handleSelectScript = useCallback((scriptId: string) => {
     setSelectedScriptId(scriptId);

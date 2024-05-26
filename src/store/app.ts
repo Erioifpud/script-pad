@@ -28,8 +28,6 @@ export interface AppState {
   scripts: Script[]
   setScripts: (scripts: Script[]) => void
   editScriptCode: (id: string, code: string) => void
-  selectedScriptId: string | null
-  setSelectedScriptId: (id: string | null) => void
   createScript: () => void
 }
 
@@ -50,8 +48,6 @@ export const useAppStore = create<AppState>()(
           }
         ))
       },
-      selectedScriptId: '',
-      setSelectedScriptId: (id) => set({ selectedScriptId: id }),
       createScript: () => {
         const script = {
           id: randomUUID(),
