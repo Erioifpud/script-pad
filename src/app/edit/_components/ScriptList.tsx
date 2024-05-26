@@ -4,6 +4,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Script, useAppStore } from '@/store/app';
 import { useCommonStore } from '@/store/common';
 import { ChevronDownIcon, PlusIcon } from '@radix-ui/react-icons';
+import { tauri } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { memo, useCallback } from 'react';
 
@@ -52,6 +53,7 @@ export default function ScriptList () {
   // 执行脚本
   const handleExecute = useCallback((script: Script) => {
     console.log('execute', script);
+    tauri.invoke('execute_script', { code: script.code, id: script.id });
   }, [])
 
   // 删除脚本
