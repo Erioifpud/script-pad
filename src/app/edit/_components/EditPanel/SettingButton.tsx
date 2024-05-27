@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Script, useAppStore } from '@/store/app';
 import { GearIcon } from '@radix-ui/react-icons';
 import { memo } from 'react';
+import RecordEdit from '../RecordEdit';
 
 interface Props {
   script: Script
@@ -55,6 +56,15 @@ const SettingButton = memo((props: Props) => {
               value={script.description}
               onChange={(e) => editScript(script.id, { description: e.target.value })}
             />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label className="text-right">
+              公共变量
+            </Label>
+            <RecordEdit
+              data={script.globalVars}
+              onChange={(e) => editScript(script.id, { globalVars: e })}
+            ></RecordEdit>
           </div>
         </div>
         {/* <DialogFooter>
