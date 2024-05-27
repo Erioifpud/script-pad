@@ -24,6 +24,10 @@
       },
       "dialog": {
         "all": true
+      },
+      "http": {
+        "all": true,
+        "scope": ["http://*", "https://*"]
       }
     },
     "bundle": {
