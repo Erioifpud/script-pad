@@ -21,7 +21,7 @@ const ActionMenu = memo((props: MenuProps) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon">
           <ChevronDownIcon />
         </Button>

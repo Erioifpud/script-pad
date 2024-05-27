@@ -97,7 +97,7 @@ const TemplateForm = memo(function TemplateForm(props: Props) {
               value={`${values[node.id]}`}
               onValueChange={(value) => onChange(node.id, value)}
             >
-              <SelectTrigger className="w-[220px]">
+              <SelectTrigger className="w-[220px]" asChild>
                 <SelectValue placeholder={node.placeholder} />
               </SelectTrigger>
               <SelectContent>
