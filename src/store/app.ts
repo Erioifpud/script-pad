@@ -6,11 +6,11 @@ import { merge as deepMerge } from 'lodash-es'
 import { createDebouncedJSONStorage } from 'zustand-debounce'
 import { produce } from 'immer'
 
-const DEFAULT_CODE =`(async () => {
+const DEFAULT_CODE =`// 运行环境在 Async 的 iife 中
   await App.start()
   console.log('Hello World!')
   await App.done()
-})()`
+`
 
 interface GlobalVars {
   [key: string]: string
