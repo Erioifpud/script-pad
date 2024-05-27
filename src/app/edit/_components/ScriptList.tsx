@@ -5,6 +5,7 @@ import { Script, useAppStore } from '@/store/app';
 import { useCommonStore } from '@/store/common';
 import { executeScript } from '@/vm';
 import { ChevronDownIcon, PlusIcon } from '@radix-ui/react-icons';
+import { dialog } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { memo, useCallback } from 'react';
 
@@ -43,6 +44,7 @@ ActionMenu.displayName = 'ActionMenu';
 function ScriptList () {
   const scripts = useAppStore(state => state.scripts);
   const createScript = useAppStore(state => state.createScript);
+  const setScripts = useAppStore(state => state.setScripts);
   const selectedScriptId = useCommonStore(state => state.selectedScriptId);
   const setSelectedScriptId = useCommonStore(state => state.setSelectedScriptId);
 
@@ -58,8 +60,13 @@ function ScriptList () {
 
   // 删除脚本
   const handleDelete = useCallback((script: Script) => {
-    console.log('delete', script);
-  }, [])
+    dialog.confirm('确定删除该脚本？').then(flag => {
+      if (!flag) {
+        return
+      }
+      setScripts(scripts.filter(item => item.id !== script.id))
+    })
+  }, [scripts, setScripts])
 
   // 固定脚本
   const handlePinned = useCallback((script: Script) => {
