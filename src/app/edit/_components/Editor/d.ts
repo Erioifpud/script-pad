@@ -270,6 +270,12 @@ class HTML {
   static async getPlainText(html: string): Promise<string>;
 }
 
+// -------- App --------
+
+class App {
+  static async showText(text: string): Promise<void>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
