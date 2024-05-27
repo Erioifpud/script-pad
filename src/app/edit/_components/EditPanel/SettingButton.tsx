@@ -31,7 +31,7 @@ const SettingButton = memo((props: Props) => {
         <DialogHeader>
           <DialogTitle>编辑脚本信息</DialogTitle>
           <DialogDescription>
-            修改会直接保存
+            修改会直接保存（公共变量除外）
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -63,7 +63,7 @@ const SettingButton = memo((props: Props) => {
             </Label>
             <RecordEdit
               data={script.globalVars}
-              onChange={(e) => editScript(script.id, { globalVars: e })}
+              onChange={(e) => editScript(script.id, { globalVars: e }, false)}
             ></RecordEdit>
           </div>
         </div>

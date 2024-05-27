@@ -33,7 +33,7 @@ export type FullVersionScript = ScriptV1
 export interface AppState {
   scripts: Script[]
   setScripts: (scripts: Script[]) => void
-  editScript: (id: string, script: Partial<Script>) => void
+  editScript: (id: string, script: Partial<Script>, isMerge?: boolean) => void
   editScriptCode: (id: string, code: string) => void
   createScript: () => void
 }
@@ -43,13 +43,17 @@ export const useAppStore = create<AppState>()(
     (set) => ({
       scripts: [],
       setScripts: (scripts) => set({ scripts }),
-      editScript: (id, script) => {
+      editScript: (id, script, isMerge = true) => {
         set((state) => produce(
           state,
           (draft) => {
             const index = draft.scripts.findIndex((script) => script.id === id)
             if (index !== -1) {
-              deepMerge(draft.scripts[index], script)
+              if (isMerge) {
+                deepMerge(draft.scripts[index], script)
+              } else {
+                draft.scripts[index] = { ...draft.scripts[index], ...script }
+              }
               draft.scripts[index].updatedAt = Date.now()
             }
           }
