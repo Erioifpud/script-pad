@@ -38,6 +38,7 @@ export default function Editor(props: Props) {
           enabled: false,
         },
         wordWrap: 'on',
+        fontSize: 15,
       }}
       defaultLanguage={language}
       theme="Solarized-light"
