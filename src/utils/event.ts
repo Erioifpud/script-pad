@@ -19,6 +19,16 @@ export class EventBus {
     }
   }
 
+  once(event: string) {
+    return new Promise((resolve) => {
+      const fn = (...args: any[]) => {
+        this.off(event, fn);
+        resolve(args);
+      };
+      this.on(event, fn);
+    })
+  }
+
   clear(event: string) {
     this.listeners.delete(event);
   }
