@@ -190,10 +190,77 @@ class HTTP {
   static post(url: string, options?: Omit<FetchOptions, 'method'>): Promise<Response>;
 }
 
+-------- AI --------
+
+interface CommonMessage {
+  role: string
+  content: string
+}
+
+type Message = CommonMessage
+
+interface Choice {
+  message: Message
+  finish_reason: string
+}
+
+interface QwenOptions {
+  model: string
+  input: {
+    prompt?: string
+    messages?: Message[]
+  }
+  parameters?: {
+    result_format?: string
+    seed?: number
+    max_tokens?: number
+    top_p?: number
+    top_k?: number
+    repetition_penalty?: number
+    temperature?: number
+    stop?: string | string[]
+    enable_search?: boolean
+    incremental_output?: boolean
+    // tools?: any
+  }
+}
+
+interface QwenResponse {
+  output: {
+    text: string
+    finish_reason: string
+    choices: Choice[]
+  }
+  usage: {
+    output_tokens: number
+    input_tokens: number
+    total_tokens: number
+  }
+  request_id: string
+}
+
+interface QwenChatRawOptions {
+  model: string
+  messages: Message[]
+  key: string
+}
+
+interface QwenChatOptions {
+  model: string
+  question: string
+  key: string
+}
+
+class AI {
+  static async qwenChatRaw(options: QwenChatRawOptions): Promise<QwenResponse>;
+  static async qwenChat(options: QwenChatOptions): Promise<string>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
-    Request: Request;
+    HTTP: HTTP;
+    AI: AI;
   }
 }
 `
