@@ -18,6 +18,13 @@ export default function Editor(props: Props) {
     monaco.editor.setTheme('Solarized-light');
   }, []);
 
+  const handleMount = useCallback((editor: any, monaco: Monaco) => {
+    // 设置缩进
+    monaco.editor.getModels().forEach(model => {
+      model.updateOptions({ tabSize: 2 });
+    });
+  }, []);
+
   const handleChange = useCallback((value: string | undefined) => {
     onChange(value || '');
   }, [onChange]);
@@ -29,6 +36,7 @@ export default function Editor(props: Props) {
       defaultLanguage={language}
       theme="Solarized-light"
       beforeMount={handleBeforeMount}
+      onMount={handleMount}
       value={value}
       onChange={handleChange}
     ></MonacoEditor>
