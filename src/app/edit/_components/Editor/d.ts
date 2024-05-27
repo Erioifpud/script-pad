@@ -50,9 +50,150 @@ class FileManager {
   static exists(path: string): Promise<boolean>;
 }
 
+-------- Request --------
+
+declare class Body {
+  type: string;
+  payload: unknown;
+  /** @ignore */
+  private constructor();
+  /**
+   * Creates a new form data body. The form data is an object where each key is the entry name,
+   * and the value is either a string or a file object.
+   *
+   * By default it sets the \`application/x-www-form-urlencoded\` Content-Type header,
+   * but you can set it to \`multipart/form-data\` if the Cargo feature \`http-multipart\` is enabled.
+   *
+   * Note that a file path must be allowed in the \`fs\` allowlist scope.
+   *
+   * @example
+   * \`\`\`typescript
+   * import { Body } from "@tauri-apps/api/http"
+   * const body = Body.form({
+   *   key: 'value',
+   *   image: {
+   *     file: '/path/to/file', // either a path or an array buffer of the file contents
+   *     mime: 'image/jpeg', // optional
+   *     fileName: 'image.jpg' // optional
+   *   }
+   * });
+   *
+   * // alternatively, use a FormData:
+   * const form = new FormData();
+   * form.append('key', 'value');
+   * form.append('image', file, 'image.png');
+   * const formBody = Body.form(form);
+   * \`\`\`
+   *
+   * @param data The body data.
+   *
+   * @returns The body object ready to be used on the POST and PUT requests.
+   */
+  static form(data: FormInput): Body;
+  /**
+   * Creates a new JSON body.
+   * @example
+   * \`\`\`typescript
+   * import { Body } from "@tauri-apps/api/http"
+   * Body.json({
+   *   registered: true,
+   *   name: 'tauri'
+   * });
+   * \`\`\`
+   *
+   * @param data The body JSON object.
+   *
+   * @returns The body object ready to be used on the POST and PUT requests.
+   */
+  static json(data: Record<any, any>): Body;
+  /**
+   * Creates a new UTF-8 string body.
+   * @example
+   * \`\`\`typescript
+   * import { Body } from "@tauri-apps/api/http"
+   * Body.text('The body content as a string');
+   * \`\`\`
+   *
+   * @param value The body string.
+   *
+   * @returns The body object ready to be used on the POST and PUT requests.
+   */
+  static text(value: string): Body;
+  /**
+   * Creates a new byte array body.
+   * @example
+   * \`\`\`typescript
+   * import { Body } from "@tauri-apps/api/http"
+   * Body.bytes(new Uint8Array([1, 2, 3]));
+   * \`\`\`
+   *
+   * @param bytes The body byte array.
+   *
+   * @returns The body object ready to be used on the POST and PUT requests.
+   */
+  static bytes(bytes: Iterable<number> | ArrayLike<number> | ArrayBuffer): Body;
+}
+
+type HttpVerb = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS' | 'CONNECT' | 'TRACE';
+
+declare enum ResponseType {
+  JSON = 1,
+  Text = 2,
+  Binary = 3
+}
+
+interface Duration {
+    secs: number;
+    nanos: number;
+}
+
+/**
+ * Options object sent to the backend.
+ *
+ * @since 1.0.0
+ */
+interface HttpOptions {
+    method: HttpVerb;
+    url: string;
+    headers?: Record<string, any>;
+    query?: Record<string, any>;
+    body?: Body;
+    timeout?: number | Duration;
+    responseType?: ResponseType;
+}
+
+type FetchOptions = Omit<HttpOptions, 'url'>;
+
+/**
+ * Response object.
+ *
+ * @since 1.0.0
+ * */
+declare class Response<T> {
+    /** The request URL. */
+    url: string;
+    /** The response status code. */
+    status: number;
+    /** A boolean indicating whether the response was successful (status in the range 200–299) or not. */
+    ok: boolean;
+    /** The response headers. */
+    headers: Record<string, string>;
+    /** The response raw headers. */
+    rawHeaders: Record<string, string[]>;
+    /** The response data. */
+    data: T;
+}
+
+class HTTP {
+  static raw(url: string, options: FetchOptions): Promise<Response>;
+  static get(url: string, options?: Omit<FetchOptions, 'method'>): Promise<Response>;
+  static post(url: string, options?: Omit<FetchOptions, 'method'>): Promise<Response>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
+    Request: Request;
   }
 }
 `
