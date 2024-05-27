@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
 import Link from 'next/link';
 import { Toaster } from '@/components/ui/toaster';
+import { Playground } from '@/components/Playground';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,6 +55,7 @@ export default function RootLayout({
             </div>
           </div>
         </TooltipProvider>
+        <Playground />
         <Toaster />
       </body>
     </html>
