@@ -253,7 +253,8 @@ interface QwenChatOptions {
 
 class AI {
   static async qwenChatRaw(options: QwenChatRawOptions): Promise<QwenResponse>;
-  static async qwenChat(options: QwenChatOptions): Promise<string>;
+  static async qwenChatSimple(options: QwenChatOptions): Promise<string>;
+  static async qwenChat(options: QwenChatRawOptions): Promise<string>;
 }
 
 // -------- Config --------

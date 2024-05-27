@@ -76,11 +76,14 @@ export class AI {
           result_format: 'message',
         }
       } as QwenOptions)
-    })
-    return resp as QwenResponse
+    }) as QwenResponse
+    if ('code' in resp) {
+      throw new Error(`Qwen 请求错误：${JSON.stringify(resp)}`)
+    }
+    return resp
   }
 
-  static async qwenChat(options: QwenChatOptions) {
+  static async qwenChatSimple(options: QwenChatOptions) {
     const resp = await AI.qwenChatRaw({
       model: options.model,
       messages: [
@@ -91,6 +94,17 @@ export class AI {
       ],
       key: options.key
     })
+    if (resp.output.finish_reason === 'error') {
+      throw new Error(resp.output.text)
+    }
+    const answers = resp.output.choices.map(choice => {
+      return choice.message.content
+    })
+    return answers.join('\n')
+  }
+
+  static async qwenChat(options: QwenChatRawOptions) {
+    const resp = await AI.qwenChatRaw(options)
     if (resp.output.finish_reason === 'error') {
       throw new Error(resp.output.text)
     }
