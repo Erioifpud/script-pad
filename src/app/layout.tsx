@@ -4,11 +4,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
-import Link from 'next/link';
 import { Toaster } from '@/components/ui/toaster';
 import { Playground } from '@/components/Playground';
 import { InputDialog } from '@/components/InputDialog';
-import { Component1Icon } from '@radix-ui/react-icons';
+import { CodeIcon } from '@radix-ui/react-icons';
 import IndicatorButton from '@/components/IndicatorButton';
 
 const inter = Inter({ subsets: ["latin"] });
@@ -41,11 +40,11 @@ export default function RootLayout({
                       className="rounded-lg bg-muted"
                       aria-label="Playground"
                     >
-                      1
+                      <CodeIcon />
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent side="right" sideOffset={5}>
-                    1
+                    脚本编辑
                   </TooltipContent>
                 </Tooltip>
               </nav>
