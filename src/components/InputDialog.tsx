@@ -190,7 +190,7 @@ export const InputDialog = memo(() => {
             修改会直接保存
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4 h-72 overflow-auto">
+        <div className="grid gap-4 py-4 max-h-72 overflow-auto">
           <TemplateForm
             template={template}
             values={values}
