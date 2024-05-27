@@ -51,7 +51,22 @@
   }
 }
 
-
+/* 全局滚动条样式 */
+*::-webkit-scrollbar {
+  width: 2px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #eee;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #ddd;
+}
+*::-webkit-scrollbar-thumb:active {
+  background: #cbcbcb;
+}
+*::-webkit-scrollbar-track {
+  background-color: #fff;
+}
 
 @layer base {
   * {
