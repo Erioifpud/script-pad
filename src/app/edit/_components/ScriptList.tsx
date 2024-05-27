@@ -54,7 +54,6 @@ function ScriptList () {
 
   // 执行脚本
   const handleExecute = useCallback((script: Script) => {
-    console.log('execute', script);
     executeScript(script.code);
   }, [])
 
