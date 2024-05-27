@@ -264,6 +264,12 @@ class Config {
   static async values(): Promise<any[]>;
 }
 
+// -------- HTML --------
+
+class HTML {
+  static async getPlainText(html: string): Promise<string>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
