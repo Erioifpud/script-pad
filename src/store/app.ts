@@ -6,6 +6,10 @@ import { merge as deepMerge } from 'lodash-es'
 import { createDebouncedJSONStorage } from 'zustand-debounce'
 import { produce } from 'immer'
 
+const DEFAULT_CODE =`(async () => {
+  console.log('Hello World!')
+})()`
+
 interface GlobalVars {
   [key: string]: string
 }
@@ -67,7 +71,7 @@ export const useAppStore = create<AppState>()(
           title: '草稿',
           description: '',
           globalVars: {},
-          code: '// 在这里输入你的代码',
+          code: DEFAULT_CODE,
           pinned: false,
           createdAt: Date.now(),
           updatedAt: Date.now(),
