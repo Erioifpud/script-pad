@@ -50,7 +50,7 @@ class FileManager {
   static exists(path: string): Promise<boolean>;
 }
 
--------- Request --------
+// -------- Request --------
 
 declare class Body {
   type: string;
@@ -190,7 +190,7 @@ class HTTP {
   static post(url: string, options?: Omit<FetchOptions, 'method'>): Promise<Response>;
 }
 
--------- AI --------
+// -------- AI --------
 
 interface CommonMessage {
   role: string
@@ -256,11 +256,20 @@ class AI {
   static async qwenChat(options: QwenChatOptions): Promise<string>;
 }
 
+// -------- Config --------
+
+class Config {
+  static async get(key: string): Promise<any>;
+  static async keys(): Promise<string[]>;
+  static async values(): Promise<any[]>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
     HTTP: HTTP;
     AI: AI;
+    Config: Config;
   }
 }
 `

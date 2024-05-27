@@ -54,7 +54,7 @@ function ScriptList () {
 
   // 执行脚本
   const handleExecute = useCallback((script: Script) => {
-    executeScript(script.code);
+    executeScript(script.code, script.globalVars);
   }, [])
 
   // 删除脚本
