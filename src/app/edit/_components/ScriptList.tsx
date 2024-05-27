@@ -82,16 +82,16 @@ function ScriptList () {
               className={
                 classNames(
                   "h-28 border-b border-solid border-gray-100",
-                  "flex-col p-4 grid grid-cols-[1fr_39px] items-start gap-4 space-y-0",
+                  "flex-col p-4 grid grid-cols-[1fr_39px] items-start gap-4 space-y-0 w-full overflow-hidden",
                   selectedScriptId === script.id ? "bg-gray-100" : ""
                 )
               }
             >
-              <div>
+              <div className="w-full overflow-hidden">
                 <h3 className="font-semibold leading-none tracking-tight">
                   {script.title}
                 </h3>
-                <p className="text-sm text-muted-foreground mt-1">
+                <p className="text-sm text-muted-foreground mt-1 line-clamp-2 w-full whitespace-normal break-all">
                   {script.description}
                 </p>
               </div>
