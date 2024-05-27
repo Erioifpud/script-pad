@@ -6,10 +6,11 @@ import themeConfig from './Solarized-light.json'
 interface Props {
   value: string;
   onChange: (value: string) => void;
+  language?: string;
 }
 
 export default function Editor(props: Props) {
-  const { value, onChange } = props;
+  const { value, onChange, language = 'javascript' } = props;
 
   const handleBeforeMount = useCallback((monaco: Monaco) => {
     // @ts-ignore
@@ -25,7 +26,7 @@ export default function Editor(props: Props) {
     <MonacoEditor
       className="relative"
       height="100%"
-      defaultLanguage="javascript"
+      defaultLanguage={language}
       theme="Solarized-light"
       beforeMount={handleBeforeMount}
       value={value}
