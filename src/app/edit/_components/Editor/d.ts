@@ -274,9 +274,11 @@ class HTML {
 
 class App {
   static async showText(text: string): Promise<void>;
+  static async start(): Promise<void>;
+  static async done(): Promise<void>;
 }
 
-// -------- App --------
+// -------- Input --------
 
 interface BaseNode<T> {
   id: string

@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { Toaster } from '@/components/ui/toaster';
 import { Playground } from '@/components/Playground';
 import { InputDialog } from '@/components/InputDialog';
+import { Component1Icon } from '@radix-ui/react-icons';
+import IndicatorButton from '@/components/IndicatorButton';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,10 +30,7 @@ export default function RootLayout({
           <div className="grid h-screen w-full pl-[53px]">
             <aside className="inset-y fixed  left-0 z-20 flex h-full flex-col border-r">
               <div className="border-b p-2">
-                <Button variant="outline" size="icon" aria-label="Home">
-                  {/* <Triangle className="size-5 fill-foreground" /> */}
-                  <Link href="/">/</Link>
-                </Button>
+                <IndicatorButton />
               </div>
               <nav className="grid gap-1 p-2">
                 <Tooltip>
