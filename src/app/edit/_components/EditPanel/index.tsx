@@ -1,13 +1,14 @@
 import { Button } from '@/components/ui/button';
 import { GearIcon } from '@radix-ui/react-icons';
-import Editor from './Editor';
-import { useCurrentScript } from '../_hooks/useCurrentScript';
+import Editor from '../Editor';
+import { useCurrentScript } from '../../_hooks/useCurrentScript';
 import { memo, useCallback, useEffect, useState } from 'react';
 import { useAppStore } from '@/store/app';
 import { useDebounceEffect } from 'ahooks';
 import { Script } from '@/store/app'
 import { clipboard } from '@tauri-apps/api';
 import { useToast } from '@/components/ui/use-toast';
+import SettingButton from './SettingButton';
 
 interface PropsTitle {
   script: Script
@@ -74,14 +75,7 @@ export default function EditPanel() {
     <div className="relative w-full h-full flex flex-col">
       <header className="sticky top-0 z-10 flex h-[53px] items-center gap-1 border-b bg-background px-4 flex-shrink-0">
         <Title script={currentScript}></Title>
-        <Button
-          variant="outline"
-          size="sm"
-          className="ml-auto gap-1.5 text-sm flex-shrink-0"
-        >
-          <GearIcon className="size-3.5" />
-          设置
-        </Button>
+        <SettingButton script={currentScript} />
       </header>
       <div className="relative flex-grow h-full overflow-hidden">
         <Editor
