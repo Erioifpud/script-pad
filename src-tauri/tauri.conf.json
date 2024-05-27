@@ -15,7 +15,7 @@
       "all": false,
       "fs": {
         "all": true,
-        "scope": ["$APPDATA/script-pad/*"]
+        "scope": ["**", "**/*", "/**/*"]
       },
       "clipboard": {
         "all": false,
