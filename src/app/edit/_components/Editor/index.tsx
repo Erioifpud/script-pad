@@ -2,6 +2,7 @@
 import { Editor as MonacoEditor, Monaco } from '@monaco-editor/react';
 import { useCallback } from 'react';
 import themeConfig from './Solarized-light.json'
+import { dts } from './d';
 
 interface Props {
   value: string;
@@ -23,6 +24,8 @@ export default function Editor(props: Props) {
     monaco.editor.getModels().forEach(model => {
       model.updateOptions({ tabSize: 2 });
     });
+    monaco.languages.typescript.javascriptDefaults.addExtraLib(dts, 'index.d.ts')
+    monaco.languages.typescript.typescriptDefaults.addExtraLib(dts, 'index.d.ts')
   }, []);
 
   const handleChange = useCallback((value: string | undefined) => {
