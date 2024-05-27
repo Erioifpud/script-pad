@@ -20,10 +20,6 @@ export default function Editor(props: Props) {
   }, []);
 
   const handleMount = useCallback((editor: any, monaco: Monaco) => {
-    // 设置缩进
-    monaco.editor.getModels().forEach(model => {
-      model.updateOptions({ tabSize: 2 });
-    });
     monaco.languages.typescript.javascriptDefaults.addExtraLib(dts, 'index.d.ts')
     monaco.languages.typescript.typescriptDefaults.addExtraLib(dts, 'index.d.ts')
   }, []);
@@ -36,6 +32,13 @@ export default function Editor(props: Props) {
     <MonacoEditor
       className="relative"
       height="100%"
+      options={{
+        tabSize: 2,
+        minimap: {
+          enabled: false,
+        },
+        wordWrap: 'on',
+      }}
       defaultLanguage={language}
       theme="Solarized-light"
       beforeMount={handleBeforeMount}
