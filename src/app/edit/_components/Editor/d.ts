@@ -276,12 +276,54 @@ class App {
   static async showText(text: string): Promise<void>;
 }
 
+// -------- App --------
+
+interface BaseNode<T> {
+  id: string
+  value: T
+  placeholder: string
+}
+
+interface TextNode extends BaseNode<string> {
+  type: 'text'
+}
+
+interface AreaNode extends BaseNode<string> {
+  type: 'area'
+}
+
+interface SelectOption {
+  label: string
+  value: string
+}
+
+interface SelectNode extends BaseNode<string> {
+  type: 'select'
+  options: SelectOption[]
+}
+
+interface SliderNode extends BaseNode<number> {
+  type: 'slider'
+  min: number
+  max: number
+  step: number
+}
+
+type Node = TextNode | AreaNode | SelectNode | SliderNode;
+
+class Input {
+  static async create(template: Node[]): Promise<void>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
     HTTP: HTTP;
     AI: AI;
     Config: Config;
+    HTML: HTML;
+    App: App;
+    Input: Input;
   }
 }
 `

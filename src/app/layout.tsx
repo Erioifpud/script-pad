@@ -7,6 +7,7 @@ import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/comp
 import Link from 'next/link';
 import { Toaster } from '@/components/ui/toaster';
 import { Playground } from '@/components/Playground';
+import { InputDialog } from '@/components/InputDialog';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -56,6 +57,7 @@ export default function RootLayout({
           </div>
         </TooltipProvider>
         <Playground />
+        <InputDialog />
         <Toaster />
       </body>
     </html>
