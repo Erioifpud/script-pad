@@ -7,7 +7,9 @@ import { createDebouncedJSONStorage } from 'zustand-debounce'
 import { produce } from 'immer'
 
 const DEFAULT_CODE =`(async () => {
+  await App.start()
   console.log('Hello World!')
+  await App.done()
 })()`
 
 interface GlobalVars {
