@@ -314,10 +314,10 @@ interface SliderNode extends BaseNode<number> {
   step: number
 }
 
-type Node = TextNode | AreaNode | SelectNode | SliderNode;
+type FormNode = TextNode | AreaNode | SelectNode | SliderNode;
 
 class Input {
-  static async create(template: Node[]): Promise<void>;
+  static async create(template: FormNode[]): Promise<void>;
 }
 
 declare global {
