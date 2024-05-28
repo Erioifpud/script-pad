@@ -4,6 +4,9 @@ import { CSSProperties, ReactNode, memo, useCallback, useEffect, useMemo, useRef
 import { Textarea } from './ui/textarea';
 import { createPortal } from 'react-dom';
 import { Sheet, SheetClose, SheetContent, SheetFooter } from './ui/sheet';
+import { ArrowUpIcon } from '@radix-ui/react-icons';
+import { downloadImage, takeScreenshot } from '@/utils';
+import { useToast } from './ui/use-toast';
 
 interface WrapperProps {
   children: ReactNode
@@ -12,27 +15,55 @@ interface WrapperProps {
 
 // 为组件隔离样式
 const Wrapper = memo((props: WrapperProps) => {
+  const { toast } = useToast()
   const { payload } = props
   const [contentRef, setContentRef] = useState<HTMLIFrameElement | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
   const mountNode = useMemo(() => {
     if (!contentRef) return null
     return contentRef.contentWindow?.document.body
   }, [contentRef])
 
+  const handleShot = useCallback(async () => {
+    if (!containerRef.current) return
+    console.log(containerRef.current)
+    const data = await takeScreenshot(containerRef.current)
+    await downloadImage(data, '保存组件截图')
+    toast({ description: '截图成功' })
+  }, [toast])
+
   return (
-    <iframe
-      frameBorder={0}
-      ref={setContentRef}
-      className="relative w-full h-full"
-      style={payload?.wrapperStyle || {}}
-    >
-      {mountNode && createPortal((
-        <>
-          {payload && payload.style && <style type="text/css">{payload.style}</style>}
-          {props.children}
-        </>
-      ), mountNode)}
-    </iframe>
+    <>
+      <iframe
+        frameBorder={0}
+        ref={setContentRef}
+        className="relative w-full h-full"
+        style={payload?.wrapperStyle || {}}
+      >
+        {mountNode && createPortal((
+          <>
+            <style>{`html, body { margin: 0; padding: 0; }`}</style>
+            {payload && payload.style && <style type="text/css">{payload.style}</style>}
+            <div
+              style={{
+                position: 'relative',
+                width: 'fit-content',
+                height: 'fit-content',
+                display: 'inline-block',
+              }}
+              ref={containerRef}
+            >
+              {props.children}
+            </div>
+          </>
+        ), mountNode)}
+      </iframe>
+      <Button variant="outline" className="w-full" onClick={handleShot}>
+        <ArrowUpIcon></ArrowUpIcon>
+        截图
+      </Button>
+    </>
   )
 })
 
