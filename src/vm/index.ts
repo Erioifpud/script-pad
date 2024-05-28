@@ -15,6 +15,7 @@ const template = (code: string) => {
       ${code}
     } catch(err) {
       console.error(err);
+    } finally {
       App.done();
     }
   })()`
