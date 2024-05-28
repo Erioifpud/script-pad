@@ -204,9 +204,9 @@ export const InputDialog = memo(() => {
     >
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>编辑脚本信息</DialogTitle>
+          <DialogTitle>填写参数</DialogTitle>
           <DialogDescription>
-            修改会直接保存
+            没有 required 所以需要自己做验证
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4 max-h-72 overflow-auto">
