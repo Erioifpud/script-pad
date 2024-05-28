@@ -1,3 +1,5 @@
+// @ts-ignore
+import * as Babel from '@babel/standalone';
 import { FileManager as ModuleFile } from './modules/File'
 import { Request as ModuleRequest } from './modules/Request';
 import { AI as ModuleAI } from './modules/AI';
@@ -5,6 +7,7 @@ import { Config as ModuleConfig } from './modules/Config'
 import { HTML as ModuleHTML } from './modules/HTML';
 import { App as ModuleApp } from './modules/App';
 import { Input as ModuleInput } from './modules/Input';
+import ReactLib from 'react';
 
 const template = (code: string) => {
   return `(async () => {
@@ -26,10 +29,17 @@ export function executeScript(code: string, vars: Record<string, any>) {
     const HTML = ModuleHTML;
     const App = ModuleApp;
     const Input = ModuleInput;
+    const React = ReactLib;
     ModuleConfig.vars = vars;
-    // 定义上下文中的类和函数
+
+    const fullCode = template(code)
+
+    const transformed = Babel.transform(fullCode, {
+      presets: ['react']
+    })
+
     eval(
-      template(code)
+      transformed.code
     );
   }
   return executeWithScope(code);
