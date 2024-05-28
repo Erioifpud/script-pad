@@ -59,7 +59,7 @@ const Wrapper = memo((props: WrapperProps) => {
           </>
         ), mountNode)}
       </iframe>
-      <Button variant="outline" className="w-full" onClick={handleShot}>
+      <Button variant="default" className="w-full mt-2" onClick={handleShot}>
         <ArrowUpIcon></ArrowUpIcon>
         截图
       </Button>
