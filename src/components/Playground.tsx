@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button';
-import { Drawer, DrawerClose, DrawerContent, DrawerFooter } from '@/components/ui/drawer';
 import { EventBus } from '@/utils/event';
 import { ReactNode, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Textarea } from './ui/textarea';
 import { createPortal } from 'react-dom';
+import { Sheet, SheetClose, SheetContent, SheetFooter } from './ui/sheet';
 
 interface WrapperProps {
   children: ReactNode
@@ -20,7 +20,11 @@ const Wrapper = memo((props: WrapperProps) => {
   }, [contentRef])
 
   return (
-    <iframe frameBorder={0} ref={setContentRef} className="relative w-full h-full">
+    <iframe
+      frameBorder={0}
+      ref={setContentRef}
+      className="relative w-full h-full"
+    >
       {mountNode && createPortal((
         <>
           {payload && payload.style && <style type="text/css">{payload.style}</style>}
@@ -83,7 +87,9 @@ export const Playground = memo(() => {
 
   useEffect(() => {
     playgroundEventBus.on('show-text', showText)
-    playgroundEventBus.on('show-component', (node: React.ReactNode, style: string) => showComponent(node, style))
+    playgroundEventBus.on('show-component', (node: React.ReactNode, style: string, height: string) => {
+      showComponent(node, style)
+    })
     playgroundEventBus.on('show-raw-component', showRawComponent)
     return () => {
       playgroundEventBus.clear('show-text')
@@ -94,32 +100,32 @@ export const Playground = memo(() => {
   }, [])
 
   return (
-    <Drawer
+    <Sheet
       open={isShow}
       onOpenChange={setIsShow}
     >
-      <DrawerContent>
-        <div className="mx-auto w-full overflow-hidden">
-          <div className="p-4 flex w-full overflow-auto flex-nowrap gap-4">
+      <SheetContent className="w-[600px] max-w-[600px] min-w-[600px] h-full">
+        <div className="w-full h-full overflow-hidden pb-10 pt-4">
+          <div className="py-4 flex flex-col w-full h-full overflow-auto flex-nowrap gap-4">
             {contents.map((content, index) => {
               return (
                 <div
                   key={index}
-                  className="w-64 lg:w-96 xl:w-[500px] flex-shrink-0"
+                  className="w-64 lg:w-[550px] flex-shrink-0"
                 >
                   {content.content}
                 </div>
               )
             })}
           </div>
-          <DrawerFooter>
-            <DrawerClose asChild>
+          <SheetFooter>
+            <SheetClose asChild>
               <Button variant="outline">确定</Button>
-            </DrawerClose>
-          </DrawerFooter>
+            </SheetClose>
+          </SheetFooter>
         </div>
-      </DrawerContent>
-    </Drawer>
+      </SheetContent>
+    </Sheet>
   )
 })
 
