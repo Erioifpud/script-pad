@@ -20,7 +20,7 @@ const Wrapper = memo((props: WrapperProps) => {
   }, [contentRef])
 
   return (
-    <iframe frameBorder={0} ref={setContentRef}>
+    <iframe frameBorder={0} ref={setContentRef} className="relative w-full h-full">
       {mountNode && createPortal((
         <>
           {payload && payload.style && <style type="text/css">{payload.style}</style>}
