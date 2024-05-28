@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { EventBus } from '@/utils/event';
-import { ReactNode, memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { CSSProperties, ReactNode, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Textarea } from './ui/textarea';
 import { createPortal } from 'react-dom';
 import { Sheet, SheetClose, SheetContent, SheetFooter } from './ui/sheet';
@@ -24,6 +24,7 @@ const Wrapper = memo((props: WrapperProps) => {
       frameBorder={0}
       ref={setContentRef}
       className="relative w-full h-full"
+      style={payload?.wrapperStyle || {}}
     >
       {mountNode && createPortal((
         <>
@@ -62,12 +63,12 @@ export const Playground = memo(() => {
   }, [])
 
   // 显示组件（带样式隔离）
-  const showComponent = useCallback((Component: React.ReactNode, style: string) => {
+  const showComponent = useCallback((Component: React.ReactNode, style: string, wrapperStyle: CSSProperties) => {
     setContents((oldList) => [
       ...oldList,
       {
         type: 'component',
-        content: <Wrapper payload={{ style }}>{Component}</Wrapper>
+        content: <Wrapper payload={{ style, wrapperStyle }}>{Component}</Wrapper>
       }
     ])
     setIsShow(true)
@@ -87,8 +88,8 @@ export const Playground = memo(() => {
 
   useEffect(() => {
     playgroundEventBus.on('show-text', showText)
-    playgroundEventBus.on('show-component', (node: React.ReactNode, style: string, height: string) => {
-      showComponent(node, style)
+    playgroundEventBus.on('show-component', (node: React.ReactNode, style: string, wrapperStyle: CSSProperties) => {
+      showComponent(node, style, wrapperStyle)
     })
     playgroundEventBus.on('show-raw-component', showRawComponent)
     return () => {
@@ -135,8 +136,8 @@ export const showText = (text: string) => {
   playgroundEventBus.emit('show-text', text)
 }
 
-export const showComponent = (node: ReactNode, style: string = '') => {
-  playgroundEventBus.emit('show-component', node, style)
+export const showComponent = (node: ReactNode, style: string = '', wrapperStyle: CSSProperties = {}) => {
+  playgroundEventBus.emit('show-component', node, style, wrapperStyle)
 }
 
 export const showRawComponent = (node: ReactNode) => {
