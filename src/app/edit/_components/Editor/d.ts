@@ -324,6 +324,12 @@ class Input {
   static async create(template: FormNode[]): Promise<void>;
 }
 
+// -------- Input --------
+
+class TTS {
+  static async speak(text: string): Promise<void>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
@@ -333,6 +339,7 @@ declare global {
     HTML: HTML;
     App: App;
     Input: Input;
+    TTS: TTS;
   }
 }
 `

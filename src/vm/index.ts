@@ -7,6 +7,7 @@ import { Config as ModuleConfig } from './modules/Config'
 import { HTML as ModuleHTML } from './modules/HTML';
 import { App as ModuleApp } from './modules/App';
 import { Input as ModuleInput } from './modules/Input';
+import { TTS as ModuleTTS } from './modules/TTS';
 import ReactLib from 'react';
 
 const template = (code: string) => {
@@ -31,6 +32,7 @@ export function executeScript(code: string, vars: Record<string, any>) {
     const App = ModuleApp;
     const Input = ModuleInput;
     const React = ReactLib;
+    const TTS = ModuleTTS;
     ModuleConfig.vars = vars;
 
     const fullCode = template(code)
