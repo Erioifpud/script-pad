@@ -314,7 +314,11 @@ interface SliderNode extends BaseNode<number> {
   step: number
 }
 
-type FormNode = TextNode | AreaNode | SelectNode | SliderNode;
+interface ColorNode extends BaseNode<string> {
+  type: 'color'
+}
+
+type FormNode = TextNode | AreaNode | SelectNode | SliderNode | ColorNode;
 
 class Input {
   static async create(template: FormNode[]): Promise<void>;

@@ -43,7 +43,11 @@ interface SliderNode extends BaseNode<number> {
   step: number
 }
 
-export type Node = TextNode | AreaNode | SelectNode | SliderNode;
+interface ColorNode extends BaseNode<string> {
+  type: 'color'
+}
+
+export type Node = TextNode | AreaNode | SelectNode | SliderNode | ColorNode;
 
 interface Props {
   template: Node[]
@@ -127,6 +131,21 @@ const TemplateForm = memo(function TemplateForm(props: Props) {
               step={node.step}
               className="w-[220px]"
             />
+          </div>
+        )
+      case 'color':
+        return (
+          <div className="grid grid-cols-4 items-center gap-4" key={node.id}>
+            <Label htmlFor={node.id} className="text-right">
+              {node.id}
+            </Label>
+            <input
+              id={node.id}
+              type="color"
+              value={values[node.id] || '#ffffff'}
+              onChange={(e) => onChange(node.id, e.target.value)}
+            />
+            <span className="text-xs text-gray-400">{node.placeholder}</span>
           </div>
         )
       default:
