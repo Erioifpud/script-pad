@@ -344,6 +344,12 @@ class Clipboard {
   static async readFiles(): Promise<string[]>;
 }
 
+// -------- UUID --------
+
+class UUID {
+  static async generate(): Promise<string>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
@@ -355,6 +361,7 @@ declare global {
     Input: Input;
     TTS: TTS;
     Clipboard: Clipboard;
+    UUID: UUID;
   }
 }
 `
