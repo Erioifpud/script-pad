@@ -11,6 +11,8 @@ import { TTS as ModuleTTS } from './modules/TTS';
 import { Clipboard as ModuleClipboard } from './modules/Clipboard';
 import { UUID as ModuleUUID } from './modules/UUID';
 import ReactLib from 'react';
+// @ts-ignore
+import vm from 'vm-browserify'
 
 const template = (code: string) => {
   return `(async () => {
@@ -24,7 +26,7 @@ const template = (code: string) => {
   })()`
 }
 
-export function executeScript(code: string, vars: Record<string, any>) {
+export function executeScriptEval(code: string, vars: Record<string, any>) {
   function executeWithScope(code: string) {
     const FileManager = ModuleFile;
     const HTTP = ModuleRequest;
@@ -50,4 +52,42 @@ export function executeScript(code: string, vars: Record<string, any>) {
     );
   }
   return executeWithScope(code);
+}
+
+export function executeScript(code: string, vars: Record<string, any>) {
+  const FileManager = ModuleFile;
+  const HTTP = ModuleRequest;
+  const AI = ModuleAI;
+  const Config = ModuleConfig;
+  const HTML = ModuleHTML;
+  const App = ModuleApp;
+  const Input = ModuleInput;
+  const React = ReactLib;
+  const TTS = ModuleTTS;
+  const Clipboard = ModuleClipboard;
+  const UUID = ModuleUUID;
+  ModuleConfig.vars = vars;
+
+  const fullCode = template(code)
+
+  const transformed = Babel.transform(fullCode, {
+    presets: ['react']
+  })
+
+  return vm.runInNewContext(transformed.code, {
+    FileManager,
+    HTTP,
+    AI,
+    Config,
+    HTML,
+    App,
+    Input,
+    React,
+    TTS,
+    Clipboard,
+    UUID,
+    console: window.console,
+    setTimeout: (callback: Function, wait: number) => setTimeout(() => callback(), wait),
+    clearTimeout: (handle: number) => clearTimeout(handle)
+  })
 }
