@@ -1,4 +1,4 @@
-import { convert, HtmlToTextOptions } from 'html-to-text'
+import { convert } from 'html-to-text'
 
 export class HTML {
   static async getPlainText(html: string) {
