@@ -8,6 +8,7 @@ import { HTML as ModuleHTML } from './modules/HTML';
 import { App as ModuleApp } from './modules/App';
 import { Input as ModuleInput } from './modules/Input';
 import { TTS as ModuleTTS } from './modules/TTS';
+import { Clipboard as ModuleClipboard } from './modules/Clipboard';
 import ReactLib from 'react';
 
 const template = (code: string) => {
@@ -33,6 +34,7 @@ export function executeScript(code: string, vars: Record<string, any>) {
     const Input = ModuleInput;
     const React = ReactLib;
     const TTS = ModuleTTS;
+    const Clipboard = ModuleClipboard;
     ModuleConfig.vars = vars;
 
     const fullCode = template(code)

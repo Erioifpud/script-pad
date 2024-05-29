@@ -324,10 +324,24 @@ class Input {
   static async create(template: FormNode[]): Promise<void>;
 }
 
-// -------- Input --------
+// -------- TTS --------
 
 class TTS {
   static async speak(text: string): Promise<void>;
+}
+
+// -------- Clipboard --------
+
+class Clipboard {
+  static async readImageBase64(): Promise<string>;
+  static async readImageBytes(): Promise<Uint8Array>;
+  static async writeImage(data: number[] | string): Promise<void>;
+  static async readHTML(): Promise<string>;
+  static async readRichText(): Promise<string>;
+  static async readPlain(): Promise<string>;
+  static async writeRichText(data: string): Promise<void>;
+  static async writeText(data: string): Promise<void>;
+  static async readFiles(): Promise<string[]>;
 }
 
 declare global {
@@ -340,6 +354,7 @@ declare global {
     App: App;
     Input: Input;
     TTS: TTS;
+    Clipboard: Clipboard;
   }
 }
 `
