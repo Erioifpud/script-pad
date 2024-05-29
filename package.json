@@ -40,6 +40,7 @@
     "tauri-plugin-clipboard-api": "^0.6.10",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#v1",
     "vaul": "^0.9.1",
+    "vm-browserify": "^1.1.2",
     "zustand": "^4.5.2",
     "zustand-debounce": "^1.1.2"
   },

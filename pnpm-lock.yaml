@@ -95,6 +95,9 @@ dependencies:
   vaul:
     specifier: ^0.9.1
     version: 0.9.1(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
+  vm-browserify:
+    specifier: ^1.1.2
+    version: 1.1.2
   zustand:
     specifier: ^4.5.2
     version: 4.5.2(@types/react@18.3.2)(immer@10.1.1)(react@18.3.1)
@@ -3962,6 +3965,10 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
+    dev: false
+
+  /vm-browserify@1.1.2:
+    resolution: {integrity: sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==}
     dev: false
 
   /which-boxed-primitive@1.0.2:
