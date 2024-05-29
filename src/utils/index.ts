@@ -50,8 +50,9 @@ export function downloadImage(data: string, title: string) {
     ]
   }).then(path => {
     if (!path) {
-      return
+      return false
     }
-    return fs.writeBinaryFile(path, imageDataToBinary(data))
+    fs.writeBinaryFile(path, imageDataToBinary(data))
+    return true
   })
 }

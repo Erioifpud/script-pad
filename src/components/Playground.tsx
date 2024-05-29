@@ -27,10 +27,11 @@ const Wrapper = memo((props: WrapperProps) => {
 
   const handleShot = useCallback(async () => {
     if (!containerRef.current) return
-    console.log(containerRef.current)
-    const data = await takeScreenshot(containerRef.current)
-    await downloadImage(data, '保存组件截图')
-    toast({ description: '截图成功' })
+    const data: string = await takeScreenshot(containerRef.current)
+    const success = await downloadImage(data, '保存组件截图')
+    if (success) {
+      toast({ description: '截图保存成功' })
+    }
   }, [toast])
 
   return (
@@ -59,10 +60,12 @@ const Wrapper = memo((props: WrapperProps) => {
           </>
         ), mountNode)}
       </iframe>
-      <Button variant="default" className="w-full mt-2" onClick={handleShot}>
-        <ArrowUpIcon></ArrowUpIcon>
-        截图
-      </Button>
+      <div className="flex justify-between">
+        <Button variant="default" className="w-full mt-2" onClick={handleShot}>
+          <ArrowUpIcon></ArrowUpIcon>
+          截图
+        </Button>
+      </div>
     </>
   )
 })
