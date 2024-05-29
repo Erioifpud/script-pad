@@ -7,7 +7,7 @@ import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/comp
 import { Toaster } from '@/components/ui/toaster';
 import { Playground } from '@/components/Playground';
 import { InputDialog } from '@/components/InputDialog';
-import { CodeIcon } from '@radix-ui/react-icons';
+import { CodeIcon, ReaderIcon } from '@radix-ui/react-icons';
 import IndicatorButton from '@/components/IndicatorButton';
 
 const inter = Inter({ subsets: ["latin"] });
@@ -31,7 +31,7 @@ export default function RootLayout({
               <div className="border-b p-2">
                 <IndicatorButton />
               </div>
-              <nav className="grid gap-1 p-2">
+              <nav className="flex flex-col gap-1 p-2 h-full">
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
@@ -45,6 +45,25 @@ export default function RootLayout({
                   </TooltipTrigger>
                   <TooltipContent side="right" sideOffset={5}>
                     脚本编辑
+                  </TooltipContent>
+                </Tooltip>
+
+                <div className="flex-grow"></div>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="rounded-lg bg-blue-500 row-span-2 text-white hover:bg-blue-200"
+                      aria-label="Docs"
+                      onClick={() => window.open('https://erioifpud.github.io/script-pad-docs/', '_blank')}
+                    >
+                      <ReaderIcon />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="right" sideOffset={5}>
+                    文档
                   </TooltipContent>
                 </Tooltip>
               </nav>
