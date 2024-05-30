@@ -8,6 +8,7 @@ import { ArrowUpIcon } from '@radix-ui/react-icons';
 import { downloadImage, takeScreenshot } from '@/utils';
 import { useToast } from './ui/use-toast';
 import { usePlaygroundStore } from '@/store/playground';
+import { dialog } from '@tauri-apps/api';
 
 interface WrapperProps {
   children: ReactNode
@@ -82,6 +83,14 @@ export const Playground = memo(() => {
   const addContent = usePlaygroundStore((state) => state.addContent)
   const setContents = usePlaygroundStore((state) => state.setContents)
 
+  const handleClear = useCallback(() => {
+    dialog.ask('确定要清空内容吗？', { type: 'warning' }).then((res) => {
+      if (res) {
+        setContents([])
+      }
+    })
+  }, [setContents])
+
   // 显示文本
   const showText = useCallback((text: string) => {
     addContent({
@@ -142,7 +151,8 @@ export const Playground = memo(() => {
               )
             })}
           </div>
-          <SheetFooter>
+          <SheetFooter className="flex justify-between">
+            <Button variant="destructive" onClick={handleClear}>清空</Button>
             <SheetClose asChild>
               <Button variant="outline">确定</Button>
             </SheetClose>
