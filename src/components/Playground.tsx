@@ -7,6 +7,7 @@ import { Sheet, SheetClose, SheetContent, SheetFooter } from './ui/sheet';
 import { ArrowUpIcon } from '@radix-ui/react-icons';
 import { downloadImage, takeScreenshot } from '@/utils';
 import { useToast } from './ui/use-toast';
+import { usePlaygroundStore } from '@/store/playground';
 
 interface WrapperProps {
   children: ReactNode
@@ -74,51 +75,39 @@ Wrapper.displayName = 'Wrapper'
 
 export const playgroundEventBus = new EventBus()
 
-interface Content {
-  type: 'text' | 'component'
-  content: ReactNode,
-  payload?: Record<string, any>
-}
-
 export const Playground = memo(() => {
-  const [isShow, setIsShow] = useState<boolean>(false)
-  const [contents, setContents] = useState<Content[]>([])
+  const isShow = usePlaygroundStore((state) => state.isShow)
+  const setIsShow = usePlaygroundStore((state) => state.setIsShow)
+  const contents = usePlaygroundStore((state) => state.contents)
+  const addContent = usePlaygroundStore((state) => state.addContent)
+  const setContents = usePlaygroundStore((state) => state.setContents)
 
   // 显示文本
   const showText = useCallback((text: string) => {
-    setContents((oldList) => [
-      ...oldList,
-      {
-        type: 'text',
-        content: <Textarea value={text} rows={5} readOnly className="resize-none" />
-      }
-    ])
+    addContent({
+      type: 'text',
+      content: <Textarea value={text} rows={5} readOnly className="resize-none" />
+    })
     setIsShow(true)
-  }, [])
+  }, [addContent, setIsShow])
 
   // 显示组件（带样式隔离）
   const showComponent = useCallback((Component: React.ReactNode, style: string, wrapperStyle: CSSProperties) => {
-    setContents((oldList) => [
-      ...oldList,
-      {
-        type: 'component',
-        content: <Wrapper payload={{ style, wrapperStyle }}>{Component}</Wrapper>
-      }
-    ])
+    addContent({
+      type: 'component',
+      content: <Wrapper payload={{ style, wrapperStyle }}>{Component}</Wrapper>
+    })
     setIsShow(true)
-  }, [])
+  }, [addContent, setIsShow])
 
   // 显示组件（不带样式隔离，需要使用内联样式）
   const showRawComponent = useCallback((Component: React.ReactNode) => {
-    setContents((oldList) => [
-      ...oldList,
-      {
-        type: 'component',
-        content: Component
-      }
-    ])
+    addContent({
+      type: 'component',
+      content: Component
+    })
     setIsShow(true)
-  }, [])
+  }, [addContent, setIsShow])
 
   useEffect(() => {
     playgroundEventBus.on('show-text', showText)
