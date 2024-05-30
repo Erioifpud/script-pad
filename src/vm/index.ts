@@ -10,6 +10,7 @@ import { Input as ModuleInput } from './modules/Input';
 import { TTS as ModuleTTS } from './modules/TTS';
 import { Clipboard as ModuleClipboard } from './modules/Clipboard';
 import { UUID as ModuleUUID } from './modules/UUID';
+import { Lib as ModuleLib } from './modules/Lib';
 import ReactLib from 'react';
 // @ts-ignore
 import vm from 'vm-browserify'
@@ -17,6 +18,7 @@ import vm from 'vm-browserify'
 const template = (code: string) => {
   return `(async () => {
     try {
+      Lib.win = window;
       ${code}
     } catch(err) {
       console.error(err);
@@ -39,6 +41,7 @@ export function executeScriptEval(code: string, vars: Record<string, any>) {
     const TTS = ModuleTTS;
     const Clipboard = ModuleClipboard;
     const UUID = ModuleUUID;
+    const Lib = ModuleLib;
     ModuleConfig.vars = vars;
 
     const fullCode = template(code)
@@ -66,6 +69,7 @@ export function executeScript(code: string, vars: Record<string, any>) {
   const TTS = ModuleTTS;
   const Clipboard = ModuleClipboard;
   const UUID = ModuleUUID;
+  const Lib = ModuleLib;
   ModuleConfig.vars = vars;
 
   const fullCode = template(code)
@@ -86,6 +90,7 @@ export function executeScript(code: string, vars: Record<string, any>) {
     TTS,
     Clipboard,
     UUID,
+    Lib,
     console: window.console,
     setTimeout: (callback: Function, wait: number) => setTimeout(() => callback(), wait),
     clearTimeout: (handle: number) => clearTimeout(handle)

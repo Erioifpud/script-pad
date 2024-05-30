@@ -350,6 +350,12 @@ class UUID {
   static async generate(): Promise<string>;
 }
 
+// -------- Lib --------
+
+class Lib {
+  static async load(originName: string): Promise<string[]>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
@@ -362,6 +368,7 @@ declare global {
     TTS: TTS;
     Clipboard: Clipboard;
     UUID: UUID;
+    Lib: Lib;
   }
 }
 `
