@@ -5,10 +5,11 @@ import { toast } from '@/components/ui/use-toast';
 import { Script, useAppStore } from '@/store/app';
 import { useCommonStore } from '@/store/common';
 import { executeScript } from '@/vm';
-import { PlusIcon } from '@radix-ui/react-icons';
+import { DotsVerticalIcon, PlusIcon } from '@radix-ui/react-icons';
 import { dialog } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { memo, useCallback } from 'react';
+import { OptionsButton } from './OptionsButton';
 
 interface MenuProps {
   children: React.ReactNode;
@@ -84,11 +85,15 @@ function ScriptList () {
   }, [])
 
   return (
-    <div className="h-full flex-shrink-0 overflow-hidden flex flex-col border-r border-solid border-gray-200 w-52 md:w-72 lg:w-96 xl:w-[420px]">
-      <header className="border-b border-solid border-gray-200 h-[53px] flex-shrink-0 flex items-center justify-around">
-        <Button size="sm" onClick={createScript}>
+    <div className="relative h-full flex-shrink-0 overflow-hidden flex flex-col border-r border-solid border-gray-200 w-52 md:w-72 lg:w-96 xl:w-[420px]">
+      <header className="border-b border-solid border-gray-200 h-[53px] flex-shrink-0 flex items-center px-2 gap-1">
+        <div className="flex-grow"></div>
+        <Button size="sm" className="w-full" onClick={createScript}>
           <PlusIcon></PlusIcon>
+          <span>创建</span>
         </Button>
+        <OptionsButton />
+
       </header>
       <div className="flex-grow h-full overflow-auto">
         {scripts.map(script => {

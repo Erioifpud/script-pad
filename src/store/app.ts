@@ -16,7 +16,7 @@ interface GlobalVars {
   [key: string]: string
 }
 
-interface ScriptV1 {
+export interface ScriptV1 {
   id: string
   title: string
   description: string
@@ -29,6 +29,8 @@ interface ScriptV1 {
 
 export type Script = ScriptV1
 export type FullVersionScript = ScriptV1
+
+export const VERSION = 0;
 
 export interface AppState {
   scripts: Script[]
@@ -119,7 +121,7 @@ export const useAppStore = create<AppState>()(
       // 只持久化数据字段
       partialize: (state) => ({ scripts: state.scripts }),
       // 当前版本
-      version: 0,
+      version: VERSION,
       migrate: (persistedState, version) => {
         // 读取到的版本如果低于当前版本，则需要做的迁移处理
         if (version === 0) {
