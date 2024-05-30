@@ -1,6 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuTrigger } from '@/components/ui/context-menu';
+import { toast } from '@/components/ui/use-toast';
 import { Script, useAppStore } from '@/store/app';
 import { useCommonStore } from '@/store/common';
 import { executeScript } from '@/vm';
@@ -15,10 +16,11 @@ interface MenuProps {
   onExecute: (script: Script) => void;
   onDelete: (script: Script) => void;
   onPinned: (script: Script) => void;
+  onCopy: (script: Script) => void;
 }
 
 const ActionMenu = memo((props: MenuProps) => {
-  const { script, onExecute, onDelete, onPinned, children } = props;
+  const { script, onExecute, onDelete, onPinned, onCopy, children } = props;
 
   return (
     <ContextMenu>
@@ -30,6 +32,9 @@ const ActionMenu = memo((props: MenuProps) => {
         <ContextMenuSeparator />
         <ContextMenuItem inset onClick={() => onExecute(script)}>
           运行
+        </ContextMenuItem>
+        <ContextMenuItem inset onClick={() => onCopy(script)}>
+          复制
         </ContextMenuItem>
         <ContextMenuItem inset className="text-red-500" onClick={() => onDelete(script)}>
           删除
@@ -44,6 +49,7 @@ ActionMenu.displayName = 'ActionMenu';
 function ScriptList () {
   const scripts = useAppStore(state => state.scripts);
   const createScript = useAppStore(state => state.createScript);
+  const copyScript = useAppStore(state => state.copyScript);
   const setScripts = useAppStore(state => state.setScripts);
   const selectedScriptId = useCommonStore(state => state.selectedScriptId);
   const setSelectedScriptId = useCommonStore(state => state.setSelectedScriptId);
@@ -67,6 +73,11 @@ function ScriptList () {
     })
   }, [scripts, setScripts])
 
+  const handleCopy = useCallback((script: Script) => {
+    copyScript(script.id)
+    toast({ title: '复制成功' })
+  }, [copyScript])
+
   // 固定脚本
   const handlePinned = useCallback((script: Script) => {
     console.log('pinned', script);
@@ -86,6 +97,7 @@ function ScriptList () {
               key={script.id}
               script={script}
               onExecute={handleExecute}
+              onCopy={handleCopy}
               onDelete={handleDelete}
               onPinned={handlePinned}
             >

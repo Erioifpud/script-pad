@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { randomUUID } from './utils'
 import { persist } from 'zustand/middleware'
 import { appStorage } from './utils/storage'
-import { merge as deepMerge } from 'lodash-es'
+import { cloneDeep, merge as deepMerge } from 'lodash-es'
 import { createDebouncedJSONStorage } from 'zustand-debounce'
 import { produce } from 'immer'
 
@@ -36,6 +36,7 @@ export interface AppState {
   editScript: (id: string, script: Partial<Script>, isMerge?: boolean) => void
   editScriptCode: (id: string, code: string) => void
   createScript: () => void
+  copyScript: (id: string) => void
 }
 
 export const useAppStore = create<AppState>()(
@@ -89,6 +90,26 @@ export const useAppStore = create<AppState>()(
           }
         ))
       },
+      copyScript: (id) => {
+        set((state) => produce(
+          state,
+          (draft) => {
+            const script = draft.scripts.find((script) => script.id === id)
+            if (script) {
+              const newScript = {
+                // 要深拷贝，因为 script.globalVars 是引用类型
+                ...cloneDeep(script),
+                id: randomUUID(),
+                title: `${script.title} - 副本`,
+                createdAt: Date.now(),
+                updatedAt:Date.now(),
+                pinned: false,
+              }
+              draft.scripts.unshift(newScript)
+            }
+          }
+        ))
+      }
     }),
     {
       name: 'script-pad-app',
