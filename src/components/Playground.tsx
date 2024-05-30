@@ -139,7 +139,7 @@ export const Playground = memo(() => {
     >
       <SheetContent className="w-[600px] max-w-[600px] min-w-[600px] h-full">
         <div className="w-full h-full overflow-hidden pb-10 pt-4">
-          <div className="py-4 flex flex-col w-full h-full overflow-auto flex-nowrap gap-4">
+          <div className="py-4 flex flex-col w-full h-full overflow-auto flex-nowrap gap-4 overflow-x-hidden">
             {contents.map((content, index) => {
               return (
                 <div
