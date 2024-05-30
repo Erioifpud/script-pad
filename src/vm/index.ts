@@ -14,6 +14,7 @@ import { Lib as ModuleLib } from './modules/Lib';
 import ReactLib from 'react';
 // @ts-ignore
 import vm from 'vm-browserify'
+import { proxyConsole } from './modules/Console';
 
 const template = (code: string) => {
   return `(async () => {
@@ -91,7 +92,7 @@ export function executeScript(code: string, vars: Record<string, any>) {
     Clipboard,
     UUID,
     Lib,
-    console: window.console,
+    console: proxyConsole,
     setTimeout: (callback: Function, wait: number) => setTimeout(() => callback(), wait),
     clearTimeout: (handle: number) => clearTimeout(handle)
   })
