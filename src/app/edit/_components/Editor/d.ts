@@ -362,6 +362,12 @@ class Notice {
   static async send(title: string, body: string): Promise<void>;
 }
 
+// -------- Misc --------
+
+class Misc {
+  static async retry<T>(task: Promise<T>, times: number, delay: number);
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
@@ -375,6 +381,8 @@ declare global {
     Clipboard: Clipboard;
     UUID: UUID;
     Lib: Lib;
+    Notice: Notice;
+    Misc: Misc;
   }
 }
 `
