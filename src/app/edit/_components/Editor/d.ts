@@ -356,6 +356,12 @@ class Lib {
   static async load(originName: string): Promise<string[]>;
 }
 
+// -------- Notice --------
+
+class Notice {
+  static async send(title: string, body: string): Promise<void>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;

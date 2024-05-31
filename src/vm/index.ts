@@ -11,6 +11,7 @@ import { TTS as ModuleTTS } from './modules/TTS';
 import { Clipboard as ModuleClipboard } from './modules/Clipboard';
 import { UUID as ModuleUUID } from './modules/UUID';
 import { Lib as ModuleLib } from './modules/Lib';
+import { Notice as ModuleNotice } from './modules/Notice';
 import ReactLib from 'react';
 // @ts-ignore
 import vm from 'vm-browserify'
@@ -43,6 +44,7 @@ export function executeScriptEval(code: string, vars: Record<string, any>) {
     const Clipboard = ModuleClipboard;
     const UUID = ModuleUUID;
     const Lib = ModuleLib;
+    const Notice = ModuleNotice;
     ModuleConfig.vars = vars;
 
     const fullCode = template(code)
@@ -71,6 +73,7 @@ export function executeScript(code: string, vars: Record<string, any>) {
   const Clipboard = ModuleClipboard;
   const UUID = ModuleUUID;
   const Lib = ModuleLib;
+  const Notice = ModuleNotice;
   ModuleConfig.vars = vars;
 
   const fullCode = template(code)
@@ -92,6 +95,7 @@ export function executeScript(code: string, vars: Record<string, any>) {
     Clipboard,
     UUID,
     Lib,
+    Notice,
     console: proxyConsole,
     setTimeout: (callback: Function, wait: number) => setTimeout(() => callback(), wait),
     clearTimeout: (handle: number) => clearTimeout(handle)
