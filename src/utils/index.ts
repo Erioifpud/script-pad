@@ -1,5 +1,5 @@
 import { dialog, fs } from '@tauri-apps/api';
-// @ts-ignore
+// @ts-expect-error 这个库没有类型定义
 import domtoimage from 'dom-to-image-more'
 
 /**

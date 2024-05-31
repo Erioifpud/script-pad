@@ -4,6 +4,8 @@ import { create } from 'zustand'
 export interface Content {
   type: 'text' | 'component'
   content: ReactNode,
+  // payload 的类型确实是随意传的
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload?: Record<string, any>
 }
 

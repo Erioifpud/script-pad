@@ -14,11 +14,13 @@ export default function Editor(props: Props) {
   const { value, onChange, language = 'javascript' } = props;
 
   const handleBeforeMount = useCallback((monaco: Monaco) => {
-    // @ts-ignore
+    // @ts-expect-error 不用管类型检查，这里的格式没有错
     monaco.editor.defineTheme('Solarized-light', themeConfig);
     monaco.editor.setTheme('Solarized-light');
   }, []);
 
+  // @ts-expect-error 这里的 editor 类型 lib 没有导出，实际上是 IStandaloneCodeEditor
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMount = useCallback((editor: any, monaco: Monaco) => {
     monaco.languages.typescript.javascriptDefaults.addExtraLib(dts, 'index.d.ts')
     monaco.languages.typescript.typescriptDefaults.addExtraLib(dts, 'index.d.ts')

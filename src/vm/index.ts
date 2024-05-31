@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-expect-error 这个库没有类型定义
 import * as Babel from '@babel/standalone';
 import { FileManager as ModuleFile } from './modules/File'
 import { Request as ModuleRequest } from './modules/Request';
@@ -14,7 +14,7 @@ import { Lib as ModuleLib } from './modules/Lib';
 import { Notice as ModuleNotice } from './modules/Notice';
 import { Misc as ModuleMisc } from './modules/Misc';
 import ReactLib from 'react';
-// @ts-ignore
+// @ts-expect-error 这个库没有类型定义
 import vm from 'vm-browserify'
 import { proxyConsole } from './modules/Console';
 
@@ -31,38 +31,53 @@ const template = (code: string) => {
   })()`
 }
 
-export function executeScriptEval(code: string, vars: Record<string, any>) {
-  function executeWithScope(code: string) {
-    const FileManager = ModuleFile;
-    const HTTP = ModuleRequest;
-    const AI = ModuleAI;
-    const Config = ModuleConfig;
-    const HTML = ModuleHTML;
-    const App = ModuleApp;
-    const Input = ModuleInput;
-    const React = ReactLib;
-    const TTS = ModuleTTS;
-    const Clipboard = ModuleClipboard;
-    const UUID = ModuleUUID;
-    const Lib = ModuleLib;
-    const Notice = ModuleNotice;
-    const Misc = ModuleMisc;
-    ModuleConfig.vars = vars;
+// export function executeScriptEval(code: string, vars: Record<string, any>) {
+//   function executeWithScope(code: string) {
+//     // 无需在意，这里只是为了给 eval 提供上下文
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const FileManager = ModuleFile;
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const HTTP = ModuleRequest;
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const AI = ModuleAI;
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const Config = ModuleConfig;
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const HTML = ModuleHTML;
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const App = ModuleApp;
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const Input = ModuleInput;
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const React = ReactLib;
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const TTS = ModuleTTS;
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const Clipboard = ModuleClipboard;
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const UUID = ModuleUUID;
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const Lib = ModuleLib;
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const Notice = ModuleNotice;
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const Misc = ModuleMisc;
+//     ModuleConfig.vars = vars;
 
-    const fullCode = template(code)
+//     const fullCode = template(code)
 
-    const transformed = Babel.transform(fullCode, {
-      presets: ['react']
-    })
+//     const transformed = Babel.transform(fullCode, {
+//       presets: ['react']
+//     })
 
-    eval(
-      transformed.code
-    );
-  }
-  return executeWithScope(code);
-}
+//     eval(
+//       transformed.code
+//     );
+//   }
+//   return executeWithScope(code);
+// }
 
-export function executeScript(code: string, vars: Record<string, any>) {
+export function executeScript(code: string, vars: Record<string, string>) {
   const FileManager = ModuleFile;
   const HTTP = ModuleRequest;
   const AI = ModuleAI;
@@ -101,7 +116,11 @@ export function executeScript(code: string, vars: Record<string, any>) {
     Notice,
     Misc,
     console: proxyConsole,
-    setTimeout: (callback: Function, wait: number) => setTimeout(() => callback(), wait),
+    // 用于修复 iframe 中的 setTimeout 失效的问题（在 iframe 被清理前还没有执行的那些）
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    setTimeout: function (callback: Function, wait: number) {
+      return setTimeout(() => callback(), wait);
+    },
     clearTimeout: (handle: number) => clearTimeout(handle)
   })
 }

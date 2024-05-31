@@ -8,11 +8,13 @@ import { dialog } from '@tauri-apps/api'
 import { useCallback } from 'react'
 
 // TODO: 在需要迁移前，保持 any[]
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const migrates: any[] = [
   // (old: ScriptV1) => new, 0 -> 1，如果读取的版本 n 和 VERSION 对不上，就从 index n 开始遍历执行
 ]
 
 // 注意传入的是 data，带有 version 的
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function migrateData(readData: any) {
   const dataVersion = readData.version
   let scripts = readData.scripts

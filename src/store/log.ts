@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { create } from 'zustand'
 import { randomUUID } from './utils'
 
-export type LogContent = ReactNode | string | number | boolean | undefined | null | symbol | bigint | object | Function
+export type LogContent = ReactNode | string | number | boolean | undefined | null | symbol | bigint | object
 
 export interface LogItem {
   id: string

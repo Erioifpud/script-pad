@@ -1,53 +1,17 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuTrigger } from '@/components/ui/context-menu';
 import { toast } from '@/components/ui/use-toast';
 import { Script, useAppStore } from '@/store/app';
 import { useCommonStore } from '@/store/common';
 import { executeScript } from '@/vm';
-import { DotsVerticalIcon, PlusIcon } from '@radix-ui/react-icons';
+import { PlusIcon } from '@radix-ui/react-icons';
 import { dialog } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { memo, useCallback } from 'react';
 import { OptionsButton } from './OptionsButton';
+import ActionMenu from './ActionMenu';
 
-interface MenuProps {
-  children: React.ReactNode;
-  script: Script;
-  onExecute: (script: Script) => void;
-  onDelete: (script: Script) => void;
-  onPinned: (script: Script) => void;
-  onCopy: (script: Script) => void;
-}
-
-const ActionMenu = memo((props: MenuProps) => {
-  const { script, onExecute, onDelete, onPinned, onCopy, children } = props;
-
-  return (
-    <ContextMenu>
-      <ContextMenuTrigger asChild>
-        {children}
-      </ContextMenuTrigger>
-      <ContextMenuContent>
-        <ContextMenuLabel inset>动作</ContextMenuLabel>
-        <ContextMenuSeparator />
-        <ContextMenuItem inset onClick={() => onExecute(script)}>
-          运行
-        </ContextMenuItem>
-        <ContextMenuItem inset onClick={() => onCopy(script)}>
-          复制
-        </ContextMenuItem>
-        <ContextMenuItem inset className="text-red-500" onClick={() => onDelete(script)}>
-          删除
-        </ContextMenuItem>
-      </ContextMenuContent>
-    </ContextMenu>
-  )
-})
-
-ActionMenu.displayName = 'ActionMenu';
-
-function ScriptList () {
+const ScriptList = memo(() => {
   const scripts = useAppStore(state => state.scripts);
   const createScript = useAppStore(state => state.createScript);
   const copyScript = useAppStore(state => state.copyScript);
@@ -134,6 +98,6 @@ function ScriptList () {
       </div>
     </div>
   )
-}
+})
 
-export default memo(ScriptList)
+export default ScriptList

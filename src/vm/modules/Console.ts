@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useLogStore } from '@/store/log';
 
-// @ts-ignore
+// @ts-expect-error 不用理会，这只是个 hook，类型问题不影响使用
 class CustomConsole implements Console {
   public originalConsole: Console;
 
@@ -106,7 +107,7 @@ class CustomConsole implements Console {
 const myConsole = new CustomConsole(console);
 
 // 创建一个代理来处理其他的console方法
-// @ts-ignore
+// @ts-expect-error 原因同上
 export const proxyConsole: Console = new Proxy(myConsole, {
   get(target: CustomConsole, propKey: string | symbol) {
     if (typeof propKey === 'string' && propKey in target) {

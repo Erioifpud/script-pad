@@ -1,5 +1,5 @@
 export class Config {
-  static vars: Record<string, any> = {}
+  static vars: Record<string, string> = {}
 
   static async get(key: string) {
     return Config.vars[key]

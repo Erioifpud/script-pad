@@ -1,7 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { ExclamationTriangleIcon, GearIcon, UpdateIcon } from '@radix-ui/react-icons';
+import { UpdateIcon } from '@radix-ui/react-icons';
 import Editor from '../Editor';
-import { useCurrentScript } from '../../_hooks/useCurrentScript';
+import { useCurrentScript } from '../../hooks/useCurrentScript';
 import { memo, useCallback, useEffect, useState } from 'react';
 import { useAppStore } from '@/store/app';
 import { useDebounceEffect } from 'ahooks';

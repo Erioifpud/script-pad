@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import { EventBus } from '@/utils/event';
 import { CSSProperties, ReactNode, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Textarea } from '../ui/textarea';
 import { createPortal } from 'react-dom';
@@ -13,6 +12,7 @@ import { playgroundEventBus } from '@/event';
 
 interface WrapperProps {
   children: ReactNode
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload?: Record<string, any>
 }
 
@@ -143,7 +143,7 @@ export const Playground = memo(() => {
               return (
                 <div
                   key={index}
-                  className="w-64 lg:w-[550px] flex-shrink-0"
+                  className="w-[550px] flex-shrink-0"
                 >
                   {content.content}
                 </div>

@@ -1,6 +1,5 @@
 import { memo, useEffect, useState } from 'react';
 import { Button } from '../ui/button';
-import Link from 'next/link';
 import { Component1Icon, UpdateIcon } from '@radix-ui/react-icons';
 import { indicatorEventBus } from '@/event';
 
@@ -16,14 +15,14 @@ const IndicatorButton = memo(() => {
 
   return (
     <Button variant="outline" size="icon" aria-label="Home">
-      <Link href="/">
+      <a href="/">
         {loading && (
           <UpdateIcon className="animate-spin" />
         )}
         {!loading && (
           <Component1Icon />
         )}
-      </Link>
+      </a>
     </Button>
   )
 })

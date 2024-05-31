@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-types */
+// TODO: 暂时没有找到更好的 EventBus 类型描述方案
 export class EventBus {
   private listeners: Map<string, Function[]> = new Map();
 
