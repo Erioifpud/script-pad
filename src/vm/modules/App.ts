@@ -1,9 +1,9 @@
-import { indicatorEventBus } from '@/components/IndicatorButton';
+import { indicatorEventBus } from '@/event';
 import {
   showText as showTextInPlayground,
   showComponent as showComponentInPlayground,
   showRawComponent as showRawComponentInPlayground,
-} from '@/components/Playground';
+} from '@/components/Playground/utils';
 import { CSSProperties, ReactNode } from 'react';
 
 export class App {

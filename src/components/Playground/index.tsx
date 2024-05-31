@@ -1,14 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { EventBus } from '@/utils/event';
 import { CSSProperties, ReactNode, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Textarea } from './ui/textarea';
+import { Textarea } from '../ui/textarea';
 import { createPortal } from 'react-dom';
-import { Sheet, SheetClose, SheetContent, SheetFooter } from './ui/sheet';
+import { Sheet, SheetClose, SheetContent, SheetFooter } from '../ui/sheet';
 import { ArrowUpIcon } from '@radix-ui/react-icons';
 import { downloadImage, takeScreenshot } from '@/utils';
-import { useToast } from './ui/use-toast';
+import { useToast } from '../ui/use-toast';
 import { usePlaygroundStore } from '@/store/playground';
 import { dialog } from '@tauri-apps/api';
+import { playgroundEventBus } from '@/event';
 
 interface WrapperProps {
   children: ReactNode
@@ -73,8 +74,6 @@ const Wrapper = memo((props: WrapperProps) => {
 })
 
 Wrapper.displayName = 'Wrapper'
-
-export const playgroundEventBus = new EventBus()
 
 export const Playground = memo(() => {
   const isShow = usePlaygroundStore((state) => state.isShow)
@@ -164,15 +163,3 @@ export const Playground = memo(() => {
 })
 
 Playground.displayName = 'Playground'
-
-export const showText = (text: string) => {
-  playgroundEventBus.emit('show-text', text)
-}
-
-export const showComponent = (node: ReactNode, style: string = '', wrapperStyle: CSSProperties = {}) => {
-  playgroundEventBus.emit('show-component', node, style, wrapperStyle)
-}
-
-export const showRawComponent = (node: ReactNode) => {
-  playgroundEventBus.emit('show-raw-component', node)
-}

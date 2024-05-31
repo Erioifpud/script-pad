@@ -1,10 +1,8 @@
 import { memo, useEffect, useState } from 'react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import Link from 'next/link';
 import { Component1Icon, UpdateIcon } from '@radix-ui/react-icons';
-import { EventBus } from '@/utils/event';
-
-export const indicatorEventBus = new EventBus();
+import { indicatorEventBus } from '@/event';
 
 const IndicatorButton = memo(() => {
   const [loading, setLoading] = useState(false);
