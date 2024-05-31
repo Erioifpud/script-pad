@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { GearIcon } from '@radix-ui/react-icons';
+import { ExclamationTriangleIcon, GearIcon, UpdateIcon } from '@radix-ui/react-icons';
 import Editor from '../Editor';
 import { useCurrentScript } from '../../_hooks/useCurrentScript';
 import { memo, useCallback, useEffect, useState } from 'react';
@@ -45,6 +45,7 @@ export default function EditPanel() {
   const currentScript = useCurrentScript();
   const editScriptCode = useAppStore((state) => state.editScriptCode);
   const [tempCode, setTempCode] = useState('');
+  const [isSaved, setIsSaved] = useState(true);
 
   // 切换选中的草稿时恢复代码
   useEffect(() => {
@@ -54,6 +55,11 @@ export default function EditPanel() {
     setTempCode(currentScript.code || '');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentScript?.id]);
+
+  // 更新是否保存的状态
+  useEffect(() => {
+    setIsSaved(tempCode === currentScript?.code);
+  }, [tempCode, currentScript?.code]);
 
   // 编辑器修改 tempCode，去抖后将 tempCode 保存到 store
   useDebounceEffect(
@@ -75,6 +81,9 @@ export default function EditPanel() {
     <div className="relative w-full h-full flex flex-col">
       <header className="sticky top-0 z-10 flex h-[53px] items-center gap-1 border-b bg-background px-4 flex-shrink-0">
         <Title script={currentScript}></Title>
+        {isSaved ? null : (
+          <UpdateIcon className="text-amber-500 text-lg w-6 h-6 mx-2 animate-spin"></UpdateIcon>
+        )}
         <SettingButton script={currentScript} />
       </header>
       <div className="relative flex-grow h-full overflow-hidden">
