@@ -28,6 +28,9 @@
       "http": {
         "all": true,
         "scope": ["http://*", "https://*"]
+      },
+      "notification": {
+        "all": true
       }
     },
     "bundle": {
