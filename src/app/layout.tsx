@@ -7,10 +7,12 @@ import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/comp
 import { Toaster } from '@/components/ui/toaster';
 import { Playground } from '@/components/Playground';
 import { InputDialog } from '@/components/InputDialog';
-import { ArchiveIcon, CodeIcon, ReaderIcon } from '@radix-ui/react-icons';
+import { ArchiveIcon, CodeIcon, DesktopIcon, ReaderIcon } from '@radix-ui/react-icons';
 import IndicatorButton from '@/components/IndicatorButton';
 import classNames from 'classnames';
 import { usePlaygroundStore } from '@/store/playground';
+import { useLogStore } from '@/store/log';
+import Log from '@/components/Log';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -57,7 +59,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const toggle = usePlaygroundStore(state => state.toggle)
+  const togglePlayground = usePlaygroundStore(state => state.toggle)
+  const toggleLog = useLogStore(state => state.toggle)
 
   return (
     <html lang="en">
@@ -80,8 +83,16 @@ export default function RootLayout({
                 <div className="flex-grow"></div>
 
                 <TooltipButton
+                  className="bg-red-400 row-span-2 text-white hover:bg-red-200"
+                  onClick={toggleLog}
+                  tooltip="日志"
+                >
+                  <DesktopIcon />
+                </TooltipButton>
+
+                <TooltipButton
                   className="bg-orange-400 row-span-2 text-white hover:bg-orange-200"
-                  onClick={toggle}
+                  onClick={togglePlayground}
                   tooltip="试验场"
                 >
                   <ArchiveIcon />
@@ -101,6 +112,7 @@ export default function RootLayout({
             </div>
           </div>
         </TooltipProvider>
+        <Log />
         <Playground />
         <InputDialog />
         <Toaster />

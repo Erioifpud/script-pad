@@ -1,3 +1,5 @@
+import { useLogStore } from '@/store/log';
+
 // @ts-ignore
 class CustomConsole implements Console {
   public originalConsole: Console;
@@ -7,28 +9,32 @@ class CustomConsole implements Console {
   }
 
   log(message?: any, ...optionalParams: any[]): void {
-    this.originalConsole.log('My hook before log: ', message, ...optionalParams);
+    useLogStore.getState().addLog('log', [message, ...optionalParams]);
     this.originalConsole.log(message, ...optionalParams);
   }
 
   error(message?: any, ...optionalParams: any[]): void {
-    this.originalConsole.error('My hook before error: ', message, ...optionalParams);
+    useLogStore.getState().addLog('error', [message, ...optionalParams]);
     this.originalConsole.error(message, ...optionalParams);
   }
 
   debug(message?: any, ...optionalParams: any[]): void {
+    useLogStore.getState().addLog('debug', [message, ...optionalParams]);
     this.originalConsole.debug(message, ...optionalParams);
   }
 
   info(message?: any, ...optionalParams: any[]): void {
+    useLogStore.getState().addLog('info', [message, ...optionalParams]);
     this.originalConsole.info(message, ...optionalParams);
   }
 
   warn(message?: any, ...optionalParams: any[]): void {
+    useLogStore.getState().addLog('warn', [message, ...optionalParams]);
     this.originalConsole.warn(message, ...optionalParams);
   }
 
   clear(): void {
+    useLogStore.getState().setLogs([]);
     this.originalConsole.clear();
   }
 
