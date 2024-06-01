@@ -5,10 +5,11 @@ import { Playground } from '@/components/Playground';
 import { Button } from '@/components/ui/button';
 import { Toaster } from '@/components/ui/toaster';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { useLogStore } from '@/store/log';
 import { usePlaygroundStore } from '@/store/playground';
 import { ArchiveIcon, CodeIcon, DesktopIcon, ReaderIcon } from '@radix-ui/react-icons';
+import { invoke } from '@tauri-apps/api';
 import classNames from 'classnames';
+import { useCallback } from 'react';
 
 interface TooltipButtonProps {
   className?: string;
@@ -49,7 +50,10 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   const togglePlayground = usePlaygroundStore(state => state.toggle)
-  const toggleLog = useLogStore(state => state.toggle)
+
+  const handleOpenDevtool = useCallback(() => {
+    invoke('open_devtools')
+  }, [])
 
   return (
     <div className="relative w-full h-full overflow-hidden">
@@ -72,7 +76,7 @@ export default function Layout({
 
               <TooltipButton
                 className="bg-red-400 row-span-2 text-white hover:bg-red-200"
-                onClick={toggleLog}
+                onClick={handleOpenDevtool}
                 tooltip="日志"
               >
                 <DesktopIcon />

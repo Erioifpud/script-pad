@@ -16,7 +16,6 @@ import { Misc as ModuleMisc } from './modules/Misc';
 import ReactLib from 'react';
 // @ts-expect-error 这个库没有类型定义
 import vm from 'vm-browserify'
-import { proxyConsole } from './modules/Console';
 
 const template = (code: string) => {
   return `(async () => {
@@ -115,7 +114,6 @@ export function executeScript(code: string, vars: Record<string, string>) {
     Lib,
     Notice,
     Misc,
-    console: proxyConsole,
     // 用于修复 iframe 中的 setTimeout 失效的问题（在 iframe 被清理前还没有执行的那些）
     // eslint-disable-next-line @typescript-eslint/ban-types
     setTimeout: function (callback: Function, wait: number) {
