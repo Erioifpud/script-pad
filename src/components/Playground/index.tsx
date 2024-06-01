@@ -143,7 +143,7 @@ export const Playground = memo(() => {
               return (
                 <div
                   key={index}
-                  className="w-[550px] flex-shrink-0"
+                  className="relative w-[550px] flex-shrink-0 flex flex-col"
                 >
                   {content.content}
                 </div>
