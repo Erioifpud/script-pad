@@ -115,6 +115,33 @@ const TemplateForm = memo(function TemplateForm(props: Props) {
   })
 })
 
+// 根据 template 生成默认值
+function initValues(template: Node[]) {
+  const values: Record<string, string | number> = {};
+  template.forEach(node => {
+    switch (node.type) {
+      case 'text':
+        values[node.id] = '';
+        break;
+      case 'area':
+        values[node.id] = '';
+        break;
+      case 'select':
+        values[node.id] = node.options[0].value;
+        break;
+      case 'slider':
+        values[node.id] = node.min;
+        break;
+      case 'color':
+        values[node.id] = '#ffffff';
+        break;
+      default:
+        break;
+    }
+  })
+  return values;
+}
+
 export const InputDialog = memo(() => {
   const [isShow, setIsShow] = useState(false);
   const [template, setTemplate] = useState<Node[]>([]);
@@ -132,6 +159,7 @@ export const InputDialog = memo(() => {
   const show = useCallback<(template: Node[]) => void>(template => {
     setTemplate(template)
     setIsShow(true);
+    setValues(initValues(template))
   }, [])
 
   // 根据事件触发打开弹窗
@@ -149,19 +177,17 @@ export const InputDialog = memo(() => {
     setIsShow(false)
   }, [values])
 
-  // 开启时清空 values，关闭时清除 submit 监听器，避免不点提交直接关闭
-  useEffect(() => {
-    if (!isShow) {
+  const handleChangeShow = useCallback((status: boolean) => {
+    if (!status) {
       inputEventBus.clear('submit')
-    } else {
-      setValues({})
     }
-  }, [isShow])
+    setIsShow(status)
+  }, [])
 
   return (
     <Dialog
       open={isShow}
-      onOpenChange={setIsShow}
+      onOpenChange={handleChangeShow}
     >
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
