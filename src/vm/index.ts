@@ -114,6 +114,7 @@ export function executeScript(code: string, vars: Record<string, string>) {
     Lib,
     Notice,
     Misc,
+    console: window.console,
     // 用于修复 iframe 中的 setTimeout 失效的问题（在 iframe 被清理前还没有执行的那些）
     // eslint-disable-next-line @typescript-eslint/ban-types
     setTimeout: function (callback: Function, wait: number) {
