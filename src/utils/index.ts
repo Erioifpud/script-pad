@@ -30,7 +30,17 @@ export function imageDataToBinary(imageData: string) {
  * @returns Promise<string> 图片 Base64 数据
  */
 export function takeScreenshot(element: HTMLElement) {
-  return domtoimage.toPng(element, { quality: 1 })
+  const width = element.offsetWidth
+  const height = element.offsetHeight
+  return domtoimage.toPng(element, {
+    quality: 2,
+    width: width * 2,
+    height: height * 2,
+    style: {
+      transform: 'scale(2)',
+      transformOrigin: 'top left',
+    },
+  })
 }
 
 /**
