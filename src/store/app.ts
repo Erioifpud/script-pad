@@ -1,9 +1,9 @@
 import { create } from 'zustand'
 import { randomUUID } from './utils'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 import { appStorage } from './utils/storage'
 import { cloneDeep, merge as deepMerge } from 'lodash-es'
-import { createDebouncedJSONStorage } from 'zustand-debounce'
+// import { createDebouncedJSONStorage } from 'zustand-debounce'
 import { produce } from 'immer'
 
 const DEFAULT_CODE =`// 运行环境在 Async 的 iife 中
@@ -115,9 +115,10 @@ export const useAppStore = create<AppState>()(
     }),
     {
       name: 'script-pad-app',
-      storage: createDebouncedJSONStorage(appStorage, {
-        debounceTime: 2000,
-      }),
+      // storage: createDebouncedJSONStorage(appStorage, {
+      //   debounceTime: 2000,
+      // }),
+      storage: createJSONStorage(() => appStorage),
       // 只持久化数据字段
       partialize: (state) => ({ scripts: state.scripts }),
       // 当前版本
