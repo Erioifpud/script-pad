@@ -87,6 +87,7 @@ export default function EditPanel() {
       </header>
       <div className="relative flex-grow h-full overflow-hidden">
         <Editor
+          key={currentScript?.id}
           value={tempCode}
           onChange={setTempCode}
         ></Editor>
