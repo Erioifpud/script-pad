@@ -2,6 +2,7 @@
 import { Editor as MonacoEditor, Monaco } from '@monaco-editor/react';
 import { useCallback } from 'react';
 import themeConfig from './Solarized-light.json'
+import { emmetCSS, emmetHTML, emmetJSX } from "emmet-monaco-es";
 import { dts } from './d';
 
 interface Props {
@@ -19,12 +20,18 @@ export default function Editor(props: Props) {
     monaco.editor.setTheme('Solarized-light');
   }, []);
 
-  // @ts-expect-error 这里的 editor 类型 lib 没有导出，实际上是 IStandaloneCodeEditor
+  // 这里的 editor 类型 lib 没有导出，实际上是 IStandaloneCodeEditor
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleMount = useCallback((editor: any, monaco: Monaco) => {
+  const handleMount = useCallback((_: any, monaco: Monaco) => {
     monaco.languages.typescript.javascriptDefaults.addExtraLib(dts, 'index.d.ts')
     monaco.languages.typescript.typescriptDefaults.addExtraLib(dts, 'index.d.ts')
-  }, []);
+
+    if (['typescript', 'javascript'].includes(language)) {
+      emmetJSX(monaco)
+      emmetHTML(monaco)
+      emmetCSS(monaco)
+    }
+  }, [language]);
 
   const handleChange = useCallback((value: string | undefined) => {
     onChange(value || '');
