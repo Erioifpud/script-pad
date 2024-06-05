@@ -8,7 +8,7 @@ import { downloadImage, takeScreenshot } from '@/utils';
 import { useToast } from '../ui/use-toast';
 import { usePlaygroundStore } from '@/store/playground';
 import { dialog } from '@tauri-apps/api';
-import { playgroundEventBus } from '@/event';
+import { eventBus } from '@/event';
 
 interface WrapperProps {
   children: ReactNode
@@ -118,15 +118,19 @@ export const Playground = memo(() => {
   }, [addContent, setIsShow])
 
   useEffect(() => {
-    playgroundEventBus.on('show-text', showText)
-    playgroundEventBus.on('show-component', (node: React.ReactNode, style: string, wrapperStyle: CSSProperties) => {
-      showComponent(node, style, wrapperStyle)
+    const cancelShowtextSub = eventBus.subscribe('playground-show-text', (event) => {
+      showText(event.text)
     })
-    playgroundEventBus.on('show-raw-component', showRawComponent)
+    const cancelShowComponentSub = eventBus.subscribe('playground-show-component', (event) => {
+      showComponent(event.node, event.style, event.wrapperStyle)
+    })
+    const cancelShowRawComponentSub = eventBus.subscribe('playground-show-raw-component', (event) => {
+      showRawComponent(event.node)
+    })
     return () => {
-      playgroundEventBus.clear('show-text')
-      playgroundEventBus.clear('show-component')
-      playgroundEventBus.clear('show-raw-component')
+      cancelShowtextSub && cancelShowtextSub()
+      cancelShowComponentSub && cancelShowComponentSub()
+      cancelShowRawComponentSub && cancelShowRawComponentSub()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

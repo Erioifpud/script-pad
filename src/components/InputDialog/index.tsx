@@ -7,8 +7,9 @@ import { Textarea } from '../ui/textarea';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select';
 import { Button } from '../ui/button';
 import { Slider } from '../ui/slider';
-import { inputEventBus } from '@/event';
+import { eventBus } from '@/event';
 import { Node } from './type';
+import { InputSubmitEvent } from '@/event/impl';
 
 interface Props {
   template: Node[]
@@ -164,22 +165,24 @@ export const InputDialog = memo(() => {
 
   // 根据事件触发打开弹窗
   useEffect(() => {
-    inputEventBus.on('show', show)
+    const cancelInputShowSub = eventBus.subscribe('input-show', (event) => {
+      show(event.template)
+    })
     return () => {
-      inputEventBus.off('show', show);
+      cancelInputShowSub && cancelInputShowSub()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // 提交，带出 values
   const handleSubmit = useCallback(() => {
-    inputEventBus.emit('submit', values)
+    eventBus.publish('input-submit', new InputSubmitEvent(values))
     setIsShow(false)
   }, [values])
 
   const handleChangeShow = useCallback((status: boolean) => {
     if (!status) {
-      inputEventBus.clear('submit')
+      eventBus.clear('input-submit')
     }
     setIsShow(status)
   }, [])

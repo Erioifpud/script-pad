@@ -1,10 +1,11 @@
-import { indicatorEventBus } from '@/event';
 import {
   showText as showTextInPlayground,
   showComponent as showComponentInPlayground,
   showRawComponent as showRawComponentInPlayground,
 } from '@/components/Playground/utils';
 import { CSSProperties, ReactNode } from 'react';
+import { eventBus } from '@/event';
+import { IndicatorLoadingEvent } from '@/event/impl';
 
 export class App {
   static async showText(text: string) {
@@ -20,10 +21,10 @@ export class App {
   }
 
   static async start() {
-    indicatorEventBus.emit('loading', true)
+    eventBus.publish('indicator-loading', new IndicatorLoadingEvent(true))
   }
 
   static async done() {
-    indicatorEventBus.emit('loading', false)
+    eventBus.publish('indicator-loading', new IndicatorLoadingEvent(false))
   }
 }

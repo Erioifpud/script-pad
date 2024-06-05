@@ -1,14 +1,15 @@
-import { playgroundEventBus } from '@/event'
+import { eventBus } from '@/event'
+import { PlaygroundShowComponent, PlaygroundShowRawComponent, PlaygroundShowText,  } from '@/event/impl'
 import { CSSProperties, ReactNode } from 'react'
 
 export const showText = (text: string) => {
-  playgroundEventBus.emit('show-text', text)
+  eventBus.publish('playground-show-text', new PlaygroundShowText(text))
 }
 
 export const showComponent = (node: ReactNode, style: string = '', wrapperStyle: CSSProperties = {}) => {
-  playgroundEventBus.emit('show-component', node, style, wrapperStyle)
+  eventBus.publish('playground-show-component', new PlaygroundShowComponent(node, style, wrapperStyle))
 }
 
 export const showRawComponent = (node: ReactNode) => {
-  playgroundEventBus.emit('show-raw-component', node)
+  eventBus.publish('playground-show-raw-component', new PlaygroundShowRawComponent(node))
 }

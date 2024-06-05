@@ -1,15 +1,18 @@
 import { memo, useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { Component1Icon, UpdateIcon } from '@radix-ui/react-icons';
-import { indicatorEventBus } from '@/event';
+import { eventBus } from '@/event';
 
 const IndicatorButton = memo(() => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    indicatorEventBus.on('loading', setLoading)
+    const cancelIndicatorLoadingSub = eventBus.subscribe('indicator-loading', (event) => {
+      setLoading(event.loading);
+    })
+
     return () => {
-      indicatorEventBus.off('loading', setLoading)
+      cancelIndicatorLoadingSub && cancelIndicatorLoadingSub()
     }
   }, [])
 
