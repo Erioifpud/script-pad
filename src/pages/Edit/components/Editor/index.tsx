@@ -1,7 +1,7 @@
 'use client';
 import { Editor as MonacoEditor, Monaco } from '@monaco-editor/react';
 import { useCallback } from 'react';
-import themeConfig from './Solarized-light.json'
+import themeConfig from '@/utils/Solarized-light.json'
 import { emmetCSS, emmetHTML, emmetJSX } from "emmet-monaco-es";
 import { dts } from './d';
 
