@@ -9,7 +9,7 @@ import { dialog } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { memo, useCallback } from 'react';
 import { OptionsButton } from './OptionsButton';
-import ActionMenu from './ActionMenu';
+import ActionMenu from '@/components/ActionMenu';
 
 const ScriptList = memo(() => {
   const scripts = useAppStore(state => state.scripts);
@@ -44,9 +44,9 @@ const ScriptList = memo(() => {
   }, [copyScript])
 
   // 固定脚本
-  const handlePinned = useCallback((script: Script) => {
-    console.log('pinned', script);
-  }, [])
+  // const handlePinned = useCallback((script: Script) => {
+  //   console.log('pinned', script);
+  // }, [])
 
   return (
     <div className="relative h-full flex-shrink-0 overflow-hidden flex flex-col border-r border-solid border-gray-200 w-52 md:w-72 lg:w-96 xl:w-[420px]">
@@ -64,11 +64,11 @@ const ScriptList = memo(() => {
           return (
             <ActionMenu
               key={script.id}
-              script={script}
-              onExecute={handleExecute}
-              onCopy={handleCopy}
-              onDelete={handleDelete}
-              onPinned={handlePinned}
+              items={[
+                { id: 'run', label: '运行', onClick: () => handleExecute(script) },
+                { id: 'copy', label: '复制', onClick: () => handleCopy(script) },
+                { id: 'remove', label: '删除', onClick: () => handleDelete(script), className: 'text-red-500' }
+              ]}
             >
               <div
                 onClick={() => handleSelectScript(script.id)}
