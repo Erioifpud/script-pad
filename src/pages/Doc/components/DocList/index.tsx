@@ -53,7 +53,7 @@ const DocList = memo(() => {
               key={doc.id}
               items={[
                 { id: 'copy', label: '复制', onClick: () => handleCopy(doc) },
-                { id: 'delete', label: '删除', onClick: () => handleDelete(doc) },
+                { id: 'delete', label: '删除', onClick: () => handleDelete(doc), className: 'text-red-500' },
               ]}
             >
               <div
