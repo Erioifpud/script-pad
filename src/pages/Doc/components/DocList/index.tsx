@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import { useCommonStore } from '@/store/common';
 import { Doc, useDocStore } from '@/store/doc';
+import { formatTime } from '@/utils/date';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { dialog } from '@tauri-apps/api';
 import classNames from 'classnames';
@@ -70,6 +71,12 @@ const DocList = memo(() => {
                   <h3 className="font-semibold leading-none tracking-tight">
                     {doc.title}
                   </h3>
+                  <p className="text-xs text-muted-foreground mt-9 line-clamp-2 w-full whitespace-normal break-all text-right italic pr-1">
+                    {formatTime(doc.updatedAt, '修改于 yyyy-MM-dd HH:mm')}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2 w-full whitespace-normal break-all text-right pr-1">
+                    {formatTime(doc.createdAt, '创建于 yyyy-MM-dd HH:mm')}
+                  </p>
                 </div>
                 <div className="action">
 
