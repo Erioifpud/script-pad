@@ -41,7 +41,7 @@ const DocList = memo(() => {
     <div className="relative h-full flex-shrink-0 overflow-hidden flex flex-col border-r border-solid border-gray-200 w-52 md:w-72 lg:w-96 xl:w-[420px]">
       <header className="border-b border-solid border-gray-200 h-[53px] flex-shrink-0 flex items-center px-2 gap-1">
         <div className="flex-grow"></div>
-        <Button size="sm" className="w-full" onClick={createDoc}>
+        <Button size="sm" className="w-full" onClick={() => createDoc()}>
           <PlusIcon></PlusIcon>
           <span>创建</span>
         </Button>

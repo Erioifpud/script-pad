@@ -24,7 +24,7 @@ export interface DocState {
   setDocs: (docs: Doc[]) => void
   editDoc: (id: string, doc: Partial<Doc>, isMerge?: boolean) => void
   editDocContent: (id: string, content: string) => void
-  createDoc: () => void
+  createDoc: (content?: string, title?: string) => void
   copyDoc: (id: string) => void
 }
 
@@ -61,11 +61,11 @@ export const useDocStore = create<DocState>()(
           }
         ))
       },
-      createDoc: () => {
+      createDoc: (content = '', title = '文档') => {
         const doc = {
           id: randomUUID(),
-          title: '文档',
-          content: '',
+          title,
+          content,
           createdAt: Date.now(),
           updatedAt: Date.now(),
         }
