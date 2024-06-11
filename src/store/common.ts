@@ -5,11 +5,15 @@ import { create } from 'zustand'
 export interface CommonState {
   selectedScriptId: string
   setSelectedScriptId: (id: string) => void
+  selectedDocId: string
+  setSelectedDocId: (id: string) => void
 }
 
 export const useCommonStore = create<CommonState>()(
   (set) => ({
     selectedScriptId: '',
     setSelectedScriptId: (id) => set({ selectedScriptId: id }),
+    selectedDocId: '',
+    setSelectedDocId: (id) => set({ selectedDocId: id }),
   })
 )

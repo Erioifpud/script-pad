@@ -3,6 +3,7 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 import EditPage from '@/pages/Edit';
+import DocPage from '@/pages/Doc';
 
 export const router = createBrowserRouter([
   {
@@ -12,5 +13,9 @@ export const router = createBrowserRouter([
   {
     path: "/edit",
     element: <EditPage />,
+  },
+  {
+    path: "/doc",
+    element: <DocPage />,
   }
 ]);
