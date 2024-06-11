@@ -5,6 +5,7 @@ import { Playground } from '@/components/Playground';
 import { Button } from '@/components/ui/button';
 import { Toaster } from '@/components/ui/toaster';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { router } from '@/router';
 import { usePlaygroundStore } from '@/store/playground';
 import { ArchiveIcon, CodeIcon, DesktopIcon, ReaderIcon } from '@radix-ui/react-icons';
 import { invoke } from '@tauri-apps/api';
@@ -66,7 +67,7 @@ export default function Layout({
             <nav className="flex flex-col gap-2 p-2 h-full">
               <TooltipButton
                 className="bg-muted"
-                onClick={() => {}}
+                onClick={() => { router.navigate('/edit') }}
                 tooltip="脚本编辑"
               >
                 <CodeIcon />
