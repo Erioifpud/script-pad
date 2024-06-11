@@ -72,7 +72,7 @@ export default function EditPanel() {
   )
 
   if (!currentDoc) {
-    return <div className="w-full h-full flex justify-center items-center">请在左侧选择脚本</div>;
+    return <div className="w-full h-full flex justify-center items-center">请在左侧选择笔记本</div>;
   }
 
   return (
