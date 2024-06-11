@@ -19,3 +19,4 @@ const getStore: (store: Store) => StateStorage = (store) => ({
 })
 
 export const appStorage = getStore(new Store('.script-pad-app.dat'))
+export const docStorage = getStore(new Store('.script-pad-doc.dat'))
