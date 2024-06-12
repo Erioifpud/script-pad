@@ -16,7 +16,7 @@ export class Doc {
   static async write(id: string, content: string, options: WriteOptions = { mode: 'override' }) {
     const trimmed = content?.trim()
     const newFlag = !!(trimmed)
-    if (newFlag) {
+    if (!newFlag) {
       createDoc(content)
       return
     }
