@@ -62,6 +62,10 @@ export function readDoc(id: string) {
  * @returns
  */
 export function readDocByLines(id: string, lines: number = 1) {
+  lines = Math.floor(lines);
+  if (lines <= 1) {
+    return []
+  }
   const state = useDocStore.getState()
   const docs = state.docs
   const doc = docs.find(doc => doc.id === id)
@@ -75,5 +79,14 @@ export function readDocByLines(id: string, lines: number = 1) {
     }
     list[i].push(next)
     return list
-}, [])
+  }, [])
+}
+
+/**
+ * 获取笔记本列表
+ * @returns docs 列表
+ */
+export function getDocs() {
+  const state = useDocStore.getState()
+  return state.docs
 }

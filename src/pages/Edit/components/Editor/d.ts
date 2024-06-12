@@ -368,6 +368,18 @@ class Misc {
   static async retry<T>(task: Promise<T>, times: number, delay: number);
 }
 
+// -------- Doc --------
+
+interface WriteOptions {
+  mode: 'override' | 'append';
+}
+
+class Doc {
+  static async readByLines(id: string, lines: number): Promise<string>;
+  static async read(id: string): Promise<string>;
+  static async write(id: string, content: string, options: WriteOptions = { mode: 'override' }): Promise<void>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
@@ -383,6 +395,7 @@ declare global {
     Lib: Lib;
     Notice: Notice;
     Misc: Misc;
+    Doc: Doc;
   }
 }
 `
