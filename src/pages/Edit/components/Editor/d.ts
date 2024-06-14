@@ -318,7 +318,11 @@ interface ColorNode extends BaseNode<string> {
   type: 'color'
 }
 
-type FormNode = TextNode | AreaNode | SelectNode | SliderNode | ColorNode;
+interface ColorMapNode extends BaseNode<string> {
+  type: 'colorMap'
+}
+
+type FormNode = TextNode | AreaNode | SelectNode | SliderNode | ColorNode | ColorMapNode;
 
 class Input {
   static async create(template: FormNode[]): Promise<void>;

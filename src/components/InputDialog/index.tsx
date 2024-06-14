@@ -10,6 +10,7 @@ import { Slider } from '../ui/slider';
 import { eventBus } from '@/event';
 import { Node } from './type';
 import { InputSubmitEvent } from '@/event/impl';
+import { colorOptions } from './color';
 
 interface Props {
   template: Node[]
@@ -63,7 +64,7 @@ const TemplateForm = memo(function TemplateForm(props: Props) {
               value={`${values[node.id]}`}
               onValueChange={(value) => onChange(node.id, value)}
             >
-              <SelectTrigger className="w-[220px]" asChild>
+              <SelectTrigger className="w-[220px]">
                 <SelectValue placeholder={node.placeholder} />
               </SelectTrigger>
               <SelectContent>
@@ -110,6 +111,44 @@ const TemplateForm = memo(function TemplateForm(props: Props) {
             <span className="text-xs text-gray-400">{node.placeholder}</span>
           </div>
         )
+      case 'colorMap':
+        return (
+          <div className="grid grid-cols-4 items-center gap-4" key={node.id}>
+            <Label htmlFor={node.id} className="text-right">
+              {node.id}
+            </Label>
+            <Select
+              value={`${values[node.id]}`}
+              onValueChange={(value) => onChange(node.id, value)}
+            >
+              <SelectTrigger className="w-[220px]">
+                <SelectValue placeholder={node.placeholder} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {colorOptions.map(item => {
+                    if (item.category) {
+                      return (
+                        <SelectLabel key={item.value}>{item.label}</SelectLabel>
+                      )
+                    }
+                    return (
+                      <SelectItem key={item.value} value={item.value}>
+                        <div className="flex items-center">
+                          <div className="w-4 h-4 mr-2 rounded-md" style={{
+                            backgroundColor: item.value,
+                            boxShadow: 'rgba(0, 0, 0, 0.1) 0px 0px 0px 0.0625rem inset, rgba(0, 0, 0, 0.15) 0px 0px 0.25rem inset'
+                          }} />
+                          <div className="text-sm">{item.label}</div>
+                        </div>
+                      </SelectItem>
+                    )
+                  })}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        )
       default:
         return null
     }
@@ -135,6 +174,9 @@ function initValues(template: Node[]) {
         break;
       case 'color':
         values[node.id] = '#ffffff';
+        break;
+      case 'colorMap':
+        values[node.id] = '#FF6B6B';
         break;
       default:
         break;

@@ -33,4 +33,8 @@ interface ColorNode extends BaseNode<string> {
   type: 'color'
 }
 
-export type Node = TextNode | AreaNode | SelectNode | SliderNode | ColorNode;
+interface ColorMapNode extends BaseNode<string> {
+  type: 'colorMap'
+}
+
+export type Node = TextNode | AreaNode | SelectNode | SliderNode | ColorNode | ColorMapNode;
