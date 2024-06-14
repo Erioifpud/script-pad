@@ -39,6 +39,7 @@ export interface AppState {
   editScriptCode: (id: string, code: string) => void
   createScript: () => void
   copyScript: (id: string) => void
+  toggleScriptPin: (id: string) => void
 }
 
 export const useAppStore = create<AppState>()(
@@ -111,7 +112,20 @@ export const useAppStore = create<AppState>()(
             }
           }
         ))
-      }
+      },
+      toggleScriptPin: (id) => {
+        set((state) => produce(
+          state,
+          (draft) => {
+            const script = draft.scripts.find((script) => script.id === id)
+            if (script) {
+              script.pinned = !script.pinned
+              // 这个操作无需修改 updatedAt
+              // script.updatedAt = Date.now()
+            }
+          }
+        ))
+      },
     }),
     {
       name: 'script-pad-app',

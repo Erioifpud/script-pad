@@ -16,6 +16,7 @@ const ScriptList = memo(() => {
   const createScript = useAppStore(state => state.createScript);
   const copyScript = useAppStore(state => state.copyScript);
   const setScripts = useAppStore(state => state.setScripts);
+  const toggleScriptPin = useAppStore(state => state.toggleScriptPin);
   const selectedScriptId = useCommonStore(state => state.selectedScriptId);
   const setSelectedScriptId = useCommonStore(state => state.setSelectedScriptId);
 
@@ -44,9 +45,10 @@ const ScriptList = memo(() => {
   }, [copyScript])
 
   // 固定脚本
-  // const handlePinned = useCallback((script: Script) => {
-  //   console.log('pinned', script);
-  // }, [])
+  const handlePinned = useCallback((script: Script) => {
+    toggleScriptPin(script.id);
+    toast({ title: '操作成功' })
+  }, [toggleScriptPin])
 
   return (
     <div className="relative h-full flex-shrink-0 overflow-hidden flex flex-col border-r border-solid border-gray-200 w-52 md:w-72 lg:w-96 xl:w-[420px]">
@@ -67,6 +69,7 @@ const ScriptList = memo(() => {
               items={[
                 { id: 'run', label: '运行', onClick: () => handleExecute(script) },
                 { id: 'copy', label: '复制', onClick: () => handleCopy(script) },
+                { id: 'pin', label: script.pinned ? '解除固定' : '固定到首页', onClick: () => handlePinned(script) },
                 { id: 'remove', label: '删除', onClick: () => handleDelete(script), className: 'text-red-500' }
               ]}
             >
