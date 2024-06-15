@@ -395,6 +395,13 @@ class Random {
   static async seed(seed: string): Promise<() => number>;
 }
 
+// -------- Time --------
+
+class Time {
+  static async format(date: Date | number, formatStr: string): Promise<string>;
+  static async parse(dateStr: string, formatStr: string, referenceDate: string | number | Date): Promise<Date>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
@@ -412,6 +419,7 @@ declare global {
     Misc: Misc;
     Doc: Doc;
     Random: Random;
+    Time: Time;
   }
 }
 `
