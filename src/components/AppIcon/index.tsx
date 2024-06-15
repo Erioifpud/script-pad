@@ -1,4 +1,5 @@
-import { memo, useMemo } from 'react';
+import classNames from 'classnames';
+import { HTMLProps, memo, useMemo } from 'react';
 
 const sizeMap = {
   1: {
@@ -24,6 +25,8 @@ const gradientPatterns = [
 interface Props {
   name: string;
   size?: keyof typeof sizeMap;
+  className?: HTMLProps<HTMLElement>['className'];
+  onClick?: () => void;
 }
 
 const AppIcon = memo((props: Props) => {
@@ -38,7 +41,11 @@ const AppIcon = memo((props: Props) => {
 
   return (
     <div
-      className="inline-flex justify-center items-center overflow-hidden rounded-3xl text-white select-none cursor-pointer shadow-lg"
+      onClick={props.onClick}
+      className={classNames(
+        "inline-flex justify-center items-center overflow-hidden rounded-3xl text-white select-none cursor-pointer shadow-lg",
+        props.className
+      )}
       style={{
         width: sizeMap[size].width,
         height: sizeMap[size].height,
