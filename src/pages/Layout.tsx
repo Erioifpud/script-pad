@@ -8,7 +8,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { router } from '@/router';
 import { usePlaygroundStore } from '@/store/playground';
 import { ArchiveIcon, BackpackIcon, CodeIcon, DesktopIcon, ReaderIcon } from '@radix-ui/react-icons';
-import { invoke } from '@tauri-apps/api';
+import { invoke, path } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { useCallback } from 'react';
 
@@ -56,6 +56,13 @@ export default function Layout({
     invoke('open_devtools')
   }, [])
 
+  const handleOpenDataDir = useCallback(async () => {
+    const dir = await path.appDataDir();
+    invoke('open_directory', {
+      path: dir
+    });
+  }, [])
+
   return (
     <div className="relative w-full h-full overflow-hidden">
       <TooltipProvider>
@@ -97,6 +104,14 @@ export default function Layout({
                 tooltip="试验场"
               >
                 <ArchiveIcon />
+              </TooltipButton>
+
+              <TooltipButton
+                className="bg-yellow-400 row-span-2 text-white hover:bg-yellow-200"
+                onClick={handleOpenDataDir}
+                tooltip="数据目录"
+              >
+                <DesktopIcon />
               </TooltipButton>
 
               <TooltipButton
