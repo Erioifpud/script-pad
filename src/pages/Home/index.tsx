@@ -20,7 +20,7 @@ const HomePage = memo(() => {
         {!pinnedScripts.length && <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-gray-800 select-none">暂无脚本</div>}
         {pinnedScripts.map(script => {
           return (
-            <div className="aspect-square rounded-2xl flex flex-col justify-center items-center overflow-hidden select-none">
+            <div className="aspect-square rounded-2xl flex flex-col justify-center items-center overflow-hidden select-none" key={script.id}>
               <AppIcon
                 name={script.title}
                 className="transition-transform hover:scale-105"
