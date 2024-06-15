@@ -4,7 +4,7 @@ import { toast } from '@/components/ui/use-toast';
 import { Script, useAppStore } from '@/store/app';
 import { useCommonStore } from '@/store/common';
 import { executeScript } from '@/vm';
-import { DrawingPinFilledIcon, PlusIcon } from '@radix-ui/react-icons';
+import { DrawingPinFilledIcon, EyeOpenIcon, PlusIcon } from '@radix-ui/react-icons';
 import { dialog } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { memo, useCallback } from 'react';
@@ -17,6 +17,7 @@ const ScriptList = memo(() => {
   const copyScript = useAppStore(state => state.copyScript);
   const setScripts = useAppStore(state => state.setScripts);
   const toggleScriptPin = useAppStore(state => state.toggleScriptPin);
+  const toggleScriptReadOnly = useAppStore(state => state.toggleScriptReadOnly);
   const selectedScriptId = useCommonStore(state => state.selectedScriptId);
   const setSelectedScriptId = useCommonStore(state => state.setSelectedScriptId);
 
@@ -50,6 +51,12 @@ const ScriptList = memo(() => {
     toast({ title: '操作成功' })
   }, [toggleScriptPin])
 
+  // 脚本只读
+  const handleReadOnly = useCallback((script: Script) => {
+    toggleScriptReadOnly(script.id);
+    toast({ title: '操作成功' })
+  }, [toggleScriptReadOnly])
+
   return (
     <div className="relative h-full flex-shrink-0 overflow-hidden flex flex-col border-r border-solid border-gray-200 w-52 md:w-72 lg:w-96 xl:w-[420px]">
       <header className="border-b border-solid border-gray-200 h-[53px] flex-shrink-0 flex items-center px-2 gap-1">
@@ -70,6 +77,7 @@ const ScriptList = memo(() => {
                 { id: 'run', label: '运行', onClick: () => handleExecute(script) },
                 { id: 'copy', label: '复制', onClick: () => handleCopy(script) },
                 { id: 'pin', label: script.pinned ? '解除固定' : '固定到首页', onClick: () => handlePinned(script) },
+                { id: 'readonly', label: script.readOnly ? '取消只读' : '设置只读', onClick: () => handleReadOnly(script) },
                 { id: 'remove', label: '删除', onClick: () => handleDelete(script), className: 'text-red-500' }
               ]}
             >
@@ -92,7 +100,8 @@ const ScriptList = memo(() => {
                   </p>
                 </div>
                 <div className="action flex-shrink-0 text-xs flex justify-end">
-                  {script.pinned && <DrawingPinFilledIcon className="w-4 h-4" />}
+                  {script.readOnly && <EyeOpenIcon className="w-4 h-4 ml-2" />}
+                  {script.pinned && <DrawingPinFilledIcon className="w-4 h-4 ml-2" />}
                 </div>
               </div>
             </ActionMenu>

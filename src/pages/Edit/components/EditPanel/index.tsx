@@ -90,6 +90,7 @@ export default function EditPanel() {
           key={currentScript?.id}
           value={tempCode}
           onChange={setTempCode}
+          readOnly={currentScript.readOnly}
         ></Editor>
       </div>
     </div>

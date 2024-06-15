@@ -27,10 +27,14 @@ export interface ScriptV1 {
   updatedAt: number
 }
 
-export type Script = ScriptV1
-export type FullVersionScript = ScriptV1
+export interface ScriptV2 extends ScriptV1 {
+  readOnly: boolean
+}
 
-export const VERSION = 0;
+export type Script = ScriptV2
+export type FullVersionScript = ScriptV1 & ScriptV2
+
+export const VERSION = 1;
 
 export interface AppState {
   scripts: Script[]
@@ -40,6 +44,7 @@ export interface AppState {
   createScript: () => void
   copyScript: (id: string) => void
   toggleScriptPin: (id: string) => void
+  toggleScriptReadOnly: (id: string) => void
 }
 
 export const useAppStore = create<AppState>()(
@@ -85,6 +90,7 @@ export const useAppStore = create<AppState>()(
           pinned: false,
           createdAt: Date.now(),
           updatedAt: Date.now(),
+          readOnly: false,
         }
         set((state) => produce(
           state,
@@ -126,6 +132,19 @@ export const useAppStore = create<AppState>()(
           }
         ))
       },
+      toggleScriptReadOnly: (id) => {
+        set((state) => produce(
+          state,
+          (draft) => {
+            const script = draft.scripts.find((script) => script.id === id)
+            if (script) {
+              script.readOnly = !script.readOnly
+              // 这个操作无需修改 updatedAt
+              // script.updatedAt = Date.now()
+            }
+          }
+        ))
+      },
     }),
     {
       name: 'script-pad-app',
@@ -137,11 +156,11 @@ export const useAppStore = create<AppState>()(
       partialize: (state) => ({ scripts: state.scripts }),
       // 当前版本
       version: VERSION,
-      migrate: (persistedState, version) => {
+      // eslint-disable-next-line
+      migrate: (persistedState: any, version) => {
         // 读取到的版本如果低于当前版本，则需要做的迁移处理
         if (version === 0) {
-          // persistedState.newState = persistedState.oldState
-          // delete persistedState.oldState
+          persistedState.readOnly = false
           return persistedState
         }
         return persistedState
