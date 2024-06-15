@@ -384,6 +384,17 @@ class Doc {
   static async write(id: string, content: string, options: WriteOptions = { mode: 'override' }): Promise<void>;
 }
 
+// -------- Random --------
+
+class Random {
+  static async integer(min: number, max: number): Promise<number>;
+  static async float(min: number, max: number): Promise<number>;
+  static async boolean(): Promise<boolean>;
+  static async string(length: number): Promise<string>;
+  static async shuffle<T>(array: T[]): Promise<T[]>;
+  static async seed(seed: string): Promise<() => number>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
@@ -400,6 +411,7 @@ declare global {
     Notice: Notice;
     Misc: Misc;
     Doc: Doc;
+    Random: Random;
   }
 }
 `
