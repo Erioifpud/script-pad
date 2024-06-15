@@ -370,6 +370,7 @@ class Notice {
 
 class Misc {
   static async retry<T>(task: Promise<T>, times: number, delay: number);
+  static async sleep(ms: number): Promise<void>;
 }
 
 // -------- Doc --------

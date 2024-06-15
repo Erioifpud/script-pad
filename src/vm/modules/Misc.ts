@@ -17,4 +17,8 @@ export class Misc {
       retry(times)
     })
   }
+
+  static async sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+  }
 }
