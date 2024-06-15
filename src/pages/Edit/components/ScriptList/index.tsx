@@ -4,7 +4,7 @@ import { toast } from '@/components/ui/use-toast';
 import { Script, useAppStore } from '@/store/app';
 import { useCommonStore } from '@/store/common';
 import { executeScript } from '@/vm';
-import { PlusIcon } from '@radix-ui/react-icons';
+import { DrawingPinFilledIcon, PlusIcon } from '@radix-ui/react-icons';
 import { dialog } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { memo, useCallback } from 'react';
@@ -78,21 +78,21 @@ const ScriptList = memo(() => {
                 className={
                   classNames(
                     "h-28 border-b border-solid border-gray-100",
-                    "p-4 items-start gap-4 space-y-0 w-full overflow-hidden",
+                    "p-4 pb-2 w-full overflow-hidden flex flex-col h-28",
                     selectedScriptId === script.id ? "bg-gray-100" : ""
                   )
                 }
               >
-                <div className="w-full overflow-hidden">
+                <div className="w-full overflow-hidden flex-grow h-full flex flex-col">
                   <h3 className="font-semibold leading-none tracking-tight">
                     {script.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground mt-1 line-clamp-2 w-full whitespace-normal break-all">
+                  <p className="text-sm text-muted-foreground mt-1 line-clamp-2 w-full whitespace-normal break-all text-wrap">
                     {script.description}
                   </p>
                 </div>
-                <div className="action">
-
+                <div className="action flex-shrink-0 text-xs flex justify-end">
+                  {script.pinned && <DrawingPinFilledIcon className="w-4 h-4" />}
                 </div>
               </div>
             </ActionMenu>
