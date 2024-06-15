@@ -31,6 +31,9 @@
       },
       "notification": {
         "all": true
+      },
+      "path": {
+        "all": true
       }
     },
     "bundle": {
