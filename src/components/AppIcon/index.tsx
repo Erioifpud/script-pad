@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { HTMLProps, memo, useMemo } from 'react';
+import * as seedrandom from 'seedrandom'
 
 const sizeMap = {
   1: {
@@ -29,6 +30,11 @@ interface Props {
   onClick?: () => void;
 }
 
+function getGradient(title: string) {
+  const rng = seedrandom.alea(title);
+  return gradientPatterns[Math.floor(rng() * gradientPatterns.length)];
+}
+
 const AppIcon = memo((props: Props) => {
   const { size = 1, name } = props;
 
@@ -49,7 +55,7 @@ const AppIcon = memo((props: Props) => {
       style={{
         width: sizeMap[size].width,
         height: sizeMap[size].height,
-        background: gradientPatterns[Math.floor(Math.random() * gradientPatterns.length)],
+        background: getGradient(name),
         fontSize: sizeMap[size].fontSize,
       }}
     >
