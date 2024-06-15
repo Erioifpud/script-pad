@@ -8,7 +8,6 @@ import { DrawingPinFilledIcon, EyeOpenIcon, PlusIcon } from '@radix-ui/react-ico
 import { dialog } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { memo, useCallback } from 'react';
-import { OptionsButton } from './OptionsButton';
 import ActionMenu from '@/components/ActionMenu';
 
 const ScriptList = memo(() => {
@@ -65,7 +64,6 @@ const ScriptList = memo(() => {
           <PlusIcon></PlusIcon>
           <span>创建</span>
         </Button>
-        <OptionsButton />
 
       </header>
       <div className="flex-grow h-full overflow-auto">
