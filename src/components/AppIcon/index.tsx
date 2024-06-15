@@ -5,7 +5,7 @@ const sizeMap = {
   1: {
     width: 72,
     height: 72,
-    fontSize: 32
+    fontSize: 26
   },
 }
 
