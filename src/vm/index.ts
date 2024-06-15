@@ -27,6 +27,7 @@ const template = (code: string) => {
       ${code}
     } catch(err) {
       console.error(err);
+      Notice.send('运行错误', err.message);
     } finally {
       App.done();
     }
