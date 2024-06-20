@@ -7,8 +7,7 @@ fn main() {
   tauri::Builder::default()
     .plugin(tauri_plugin_store::Builder::default().build())
     .plugin(tauri_plugin_clipboard::init())
-    .invoke_handler(tauri::generate_handler![open_devtools])
-    .invoke_handler(tauri::generate_handler![open_directory])
+    .invoke_handler(tauri::generate_handler![open_devtools, open_directory])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }
