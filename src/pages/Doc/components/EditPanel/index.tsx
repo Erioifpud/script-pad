@@ -65,6 +65,9 @@ export default function EditPanel() {
       if (!currentDoc) {
         return
       }
+      if (tempContent === currentDoc.content) {
+        return
+      }
       editDocContent(currentDoc.id, tempContent);
     },
     [tempContent],

@@ -66,6 +66,9 @@ export default function EditPanel() {
       if (!currentScript) {
         return
       }
+      if (tempCode === currentScript.code) {
+        return
+      }
       editScriptCode(currentScript.id, tempCode);
     },
     [tempCode],
