@@ -20,7 +20,7 @@ const Title = memo((props: PropsTitle) => {
     clipboard.writeText(doc.id).then(() => {
       toast({
         title: '复制成功',
-        description: '脚本 ID 已复制到剪贴板',
+        description: '笔记本 ID 已复制到剪贴板',
       })
     })
   }, [doc.id, toast])
