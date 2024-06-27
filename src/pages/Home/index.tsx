@@ -16,7 +16,12 @@ const HomePage = memo(() => {
 
   return (
     <div className="relative w-full h-full overflow-hidden">
-      <div className="p-4 grid relative w-full h-full overflow-y-auto gap-4 grid-cols-5 grid-flow-dense grid-rows-[auto_1fr] bg-white">
+      <div
+        className="p-4 grid relative w-full h-full overflow-y-auto gap-4 grid-cols-5 grid-flow-dense grid-rows-[auto_1fr]"
+        style={{
+          backgroundImage: 'repeating-linear-gradient(0deg, rgba(219, 219, 219,0.2) 0px, rgba(219, 219, 219,0.2) 1px,transparent 1px, transparent 21px),repeating-linear-gradient(90deg, rgba(219, 219, 219,0.2) 0px, rgba(219, 219, 219,0.2) 1px,transparent 1px, transparent 21px),linear-gradient(90deg, rgb(255,255,255),rgb(255,255,255))'
+        }}
+      >
         {!pinnedScripts.length && <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-gray-800 select-none">暂无脚本</div>}
         {pinnedScripts.map(script => {
           return (
