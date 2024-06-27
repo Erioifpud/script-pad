@@ -403,6 +403,12 @@ class Time {
   static async parse(dateStr: string, formatStr: string, referenceDate: string | number | Date): Promise<Date>;
 }
 
+// -------- Capture --------
+
+class Capture {
+  static async screenshotElement(element: HTMLElement): Promise<string>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
@@ -421,6 +427,7 @@ declare global {
     Doc: Doc;
     Random: Random;
     Time: Time;
+    Capture: Capture;
   }
 }
 `

@@ -16,6 +16,7 @@ import { Misc as ModuleMisc } from './modules/Misc';
 import { Doc as ModuleDoc } from './modules/Doc';
 import { Random as ModuleRandom } from './modules/Random';
 import { Time as ModuleTime } from './modules/Time';
+import { Capture as ModuleCapture } from './modules/Capture';
 import ReactLib from 'react';
 // @ts-expect-error 这个库没有类型定义
 import vm from 'vm-browserify'
@@ -98,6 +99,7 @@ export function executeScript(code: string, vars: Record<string, string>) {
   const Doc = ModuleDoc;
   const Random = ModuleRandom;
   const Time = ModuleTime;
+  const Capture = ModuleCapture;
   ModuleConfig.vars = vars;
 
   const fullCode = template(code)
@@ -124,6 +126,7 @@ export function executeScript(code: string, vars: Record<string, string>) {
     Doc,
     Random,
     Time,
+    Capture,
     console: window.console,
     // 用于修复 iframe 中的 setTimeout 失效的问题（在 iframe 被清理前还没有执行的那些）
     // eslint-disable-next-line @typescript-eslint/ban-types
