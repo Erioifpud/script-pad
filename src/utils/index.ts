@@ -50,19 +50,29 @@ export function takeScreenshot(element: HTMLElement) {
  * @returns
  */
 export function downloadImage(data: string, title: string) {
+  return downloadFile(imageDataToBinary(data), title, [
+    {
+      name: 'Image',
+      extensions: ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp']
+    }
+  ])
+}
+
+/**
+ * 弹窗选择路径保存并下载文件
+ * @param binaryData 文件二进制数据，Uint8Array
+ * @param title 保存弹窗的标题
+ * @returns
+ */
+export function downloadFile(binaryData: Uint8Array, title: string, filters: dialog.DialogFilter[] = []) {
   return dialog.save({
     title: title,
-    filters: [
-      {
-        name: 'Image',
-        extensions: ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp']
-      }
-    ]
+    filters
   }).then(path => {
     if (!path) {
       return false
     }
-    fs.writeBinaryFile(path, imageDataToBinary(data))
+    fs.writeBinaryFile(path, binaryData)
     return true
   })
 }
