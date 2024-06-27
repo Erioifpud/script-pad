@@ -27,4 +27,10 @@ export class Misc {
   static async saveAs(binaryData: Uint8Array, title = 'download') {
     return downloadFile(binaryData, title)
   }
+
+  static async saveAsZip(binaryData: Uint8Array, title = 'download') {
+    return downloadFile(binaryData, title, [
+      { name: 'Zip', extensions: ['zip'] },
+    ])
+  }
 }
