@@ -410,6 +410,18 @@ class Capture {
   static async screenshotElement(element: HTMLElement): Promise<string>;
 }
 
+// -------- Archive --------
+
+interface FlatItem {
+  name: string
+  data: string
+  type: 'base64' | 'text'
+}
+
+class Archive {
+  static async zipFlat(items: FlatItem[]): Promise<Uint8Array>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
@@ -429,6 +441,7 @@ declare global {
     Random: Random;
     Time: Time;
     Capture: Capture;
+    Archive: Archive;
   }
 }
 `
