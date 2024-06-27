@@ -64,10 +64,18 @@ export function downloadImage(data: string, title: string) {
  * @param title 保存弹窗的标题
  * @returns
  */
-export function downloadFile(binaryData: Uint8Array, title: string, filters: dialog.DialogFilter[] = []) {
+export function downloadFile(binaryData: Uint8Array, title: string, filters?: dialog.DialogFilter[]) {
+  if (!filters) {
+    filters = [
+      {
+        name: 'All Files',
+        extensions: ['*']
+      }
+    ]
+  }
   return dialog.save({
-    title: title,
-    filters
+    title,
+    filters,
   }).then(path => {
     if (!path) {
       return false
