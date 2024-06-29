@@ -7,7 +7,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { router } from '@/router';
 import { usePlaygroundStore } from '@/store/playground';
-import { ArchiveIcon, BackpackIcon, CodeIcon, DesktopIcon, ReaderIcon } from '@radix-ui/react-icons';
+import { ArchiveIcon, BackpackIcon, CodeIcon, CodeSandboxLogoIcon, DesktopIcon, ReaderIcon } from '@radix-ui/react-icons';
 import { invoke, path } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { useCallback } from 'react';
@@ -86,6 +86,14 @@ export default function Layout({
                 tooltip="笔记本"
               >
                 <BackpackIcon />
+              </TooltipButton>
+
+              <TooltipButton
+                className="bg-muted"
+                onClick={() => { router.navigate('/lowcode') }}
+                tooltip="低代码组件"
+              >
+                <CodeSandboxLogoIcon />
               </TooltipButton>
 
               <div className="flex-grow"></div>

@@ -4,6 +4,7 @@ import {
 } from "react-router-dom";
 import EditPage from '@/pages/Edit';
 import DocPage from '@/pages/Doc';
+import LowCodePage from '@/pages/LowCode';
 
 export const router = createBrowserRouter([
   {
@@ -17,5 +18,9 @@ export const router = createBrowserRouter([
   {
     path: "/doc",
     element: <DocPage />,
-  }
+  },
+  {
+    path: "/lowcode",
+    element: <LowCodePage />,
+  },
 ]);
