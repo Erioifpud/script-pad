@@ -2,6 +2,7 @@ import { memo } from 'react';
 import DynamicComp from './DynamicComp';
 import { useCurrentGroup } from '../../hooks/useCurrentGroup';
 import useConvertToNestedNodes from '../../hooks/useFullNode';
+import Minimap from './Minimap';
 
 const PreviewContainer = memo(() => {
   const currentGroup = useCurrentGroup();
@@ -15,6 +16,7 @@ const PreviewContainer = memo(() => {
       }}
     >
       <DynamicComp nestedNode={nestedNode} mockData={currentGroup?.mockData || {}} />
+      <Minimap nestedNode={nestedNode} />
     </div>
   );
 });
