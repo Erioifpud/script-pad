@@ -27,7 +27,7 @@ export const useLowCodeStore = create<LowCodeState>()(
           id: emptyUUID(),
           parentId: '',
           type: 'div',
-          value: '',
+          value: 'Hello world!',
           css: '{}',
           attrs: {},
           styleOption: getInitialSettingOptions()
