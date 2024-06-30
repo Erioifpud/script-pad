@@ -1,14 +1,10 @@
 import { memo } from 'react';
+import BasicInfo from './BasicInfo';
 
 const NodeTools = memo(() => {
   return (
-    <div className="node-tools">
-      <div className="node-tools-item">
-        <i className="iconfont icon-copy"></i>
-      </div>
-      <div className="node-tools-item">
-        <i className="iconfont icon-delete"></i>
-      </div>
+    <div className="node-tools relative w-full h-full overflow-auto p-2 pt-4">
+      <BasicInfo />
     </div>
   );
 });
