@@ -38,6 +38,13 @@ export function renderTreeNodeFn<T extends keyof HTMLElementTagNameMap>(
       };
     }
 
+    // 单独处理一些没有 children 的元素
+    if (node.type === 'img') {
+      return (
+        <img key={node.id} {...attributes} />
+      )
+    }
+
     return (
       // @ts-expect-error 这里不用那么严格，反正都能渲染出来
       <TagName key={node.id} {...attributes}>
