@@ -17,7 +17,7 @@ export interface LowCodeState {
 
 export const VERSION = 0;
 
-export const useDocStore = create<LowCodeState>()(
+export const useLowCodeStore = create<LowCodeState>()(
   persist(
     (set) => ({
       groups: [],
