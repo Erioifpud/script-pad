@@ -52,3 +52,8 @@ export interface SettingItem {
 export interface SettingMap {
   [key: string]: SettingItem;
 }
+
+// 树形节点，由平铺节点转换得到的
+export interface TreeNode<T extends keyof HTMLElementTagNameMap> extends Node<T> {
+  children: TreeNode<T>[];
+}
