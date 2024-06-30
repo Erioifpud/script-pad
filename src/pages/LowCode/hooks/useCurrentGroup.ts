@@ -6,6 +6,6 @@ export const useCurrentGroup = () => {
   const selectedGroupId = useCommonStore((state) => state.selectedGroupId)
   const groups = useLowCodeStore((state) => state.groups)
   return useMemo(() => {
-    return groups.find((group) => group.id === selectedGroupId)
+    return groups.find((group) => group.id === selectedGroupId) || null
   }, [selectedGroupId, groups])
 }

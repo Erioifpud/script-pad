@@ -1,12 +1,10 @@
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 import DynamicComp from './DynamicComp';
-import { useCurrentGroup } from '../../hooks/useCurrentGroup';
-import useConvertToNestedNodes from '../../hooks/useFullNode';
 import Minimap from './Minimap';
+import { LowCodeContext } from '../../context/LowCodeContext/context';
 
 const PreviewContainer = memo(() => {
-  const currentGroup = useCurrentGroup();
-  const nestedNode = useConvertToNestedNodes(currentGroup?.nodes || []);
+  const { currentGroup, nestedNode } = useContext(LowCodeContext);
 
   return (
     <div
