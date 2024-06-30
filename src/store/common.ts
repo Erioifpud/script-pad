@@ -7,6 +7,8 @@ export interface CommonState {
   setSelectedScriptId: (id: string) => void
   selectedDocId: string
   setSelectedDocId: (id: string) => void
+  selectedGroupId: string
+  setSelectedGroupId: (id: string) => void
 }
 
 export const useCommonStore = create<CommonState>()(
@@ -15,5 +17,7 @@ export const useCommonStore = create<CommonState>()(
     setSelectedScriptId: (id) => set({ selectedScriptId: id }),
     selectedDocId: '',
     setSelectedDocId: (id) => set({ selectedDocId: id }),
+    selectedGroupId: '',
+    setSelectedGroupId: (id) => set({ selectedGroupId: id }),
   })
 )
