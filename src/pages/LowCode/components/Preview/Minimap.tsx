@@ -14,7 +14,7 @@ function renderTreeNodes(nodes: TreeNode<keyof HTMLElementTagNameMap> | null, op
 
   return (
     <>
-      <div key={nodes.id} className="flex flex-col flex-nowrap px-1 py-2 w-fit" onClick={() => handleClick(nodes.id)}>
+      <div key={nodes.id} className="flex flex-col flex-nowrap px-1 pb-0 w-fit" onClick={() => handleClick(nodes.id)}>
         <div className="info relative items-center flex flex-nowrap hover:bg-gray-200 rounded-md p-1 transition-all cursor-pointer">
           <div className="whitespace-nowrap flex-shrink-0 mr-2 text-gray-700 text-sm">{nodes.type}</div>
           <div className="whitespace-nowrap text-xs text-gray-400">[{nodes.id}]</div>
@@ -42,7 +42,12 @@ const Minimap = memo(() => {
   if (!nestedNode) return null;
 
   return (
-    <div className="absolute left-2 top-2 w-44 h-max-80 bg-[#f3f4f6] bg-opacity-80 rounded-xl shadow-[0_0_8px_0px_rgba(0,0,0,0.25)] backdrop-blur overflow-auto">
+    <div className="absolute left-2 top-2 max-w-44 w-fit h-max-80 bg-[#f3f4f6] bg-opacity-80 rounded-xl shadow-[0_0_8px_0px_rgba(0,0,0,0.25)] backdrop-blur overflow-auto">
+      <div className="flex flex-nowrap px-1 py-1 pb-0 w-fit text-sm" onClick={() => setSelectedNodeId('')}>
+        <div className="info relative items-center flex flex-nowrap hover:bg-gray-200 rounded-md p-1 transition-all cursor-pointer">
+          选择分组
+        </div>
+      </div>
       {renderTreeNodes(nestedNode, {
         handleClick,
         selectedNodeId
