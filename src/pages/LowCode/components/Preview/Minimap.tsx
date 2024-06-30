@@ -2,23 +2,29 @@ import { TreeNode } from '@/store/lowcode/type';
 import { memo, useCallback, useContext } from 'react';
 import { LowCodeContext } from '../../context/LowCodeContext/context';
 
-interface Props {
-  nestedNode: TreeNode<keyof HTMLElementTagNameMap> | null;
+interface RenderOptions {
+  handleClick: (id: string) => void;
+  selectedNodeId: string;
 }
 
-function renderTreeNodes(nodes: TreeNode<keyof HTMLElementTagNameMap> | null, handleClick: (id: string) => void) {
+function renderTreeNodes(nodes: TreeNode<keyof HTMLElementTagNameMap> | null, options: RenderOptions) {
+  const { handleClick, selectedNodeId } = options;
+
   if (!nodes) return null;
 
   return (
     <>
       <div key={nodes.id} className="flex flex-col flex-nowrap px-1 py-2 w-fit" onClick={() => handleClick(nodes.id)}>
-        <div className="info items-center flex flex-nowrap hover:bg-gray-200 rounded-md p-1 transition-all cursor-pointer">
+        <div className="info relative items-center flex flex-nowrap hover:bg-gray-200 rounded-md p-1 transition-all cursor-pointer">
           <div className="whitespace-nowrap flex-shrink-0 mr-2 text-gray-700 text-sm">{nodes.type}</div>
           <div className="whitespace-nowrap text-xs text-gray-400">[{nodes.id}]</div>
+          {selectedNodeId === nodes.id && (
+            <div className="highlight absolute left-0 bottom-0 w-full h-[2px] bg-green-500"></div>
+          )}
         </div>
         <div className="children pl-2">
           {nodes.children.map((node) => {
-            return renderTreeNodes(node, handleClick);
+            return renderTreeNodes(node, options);
           })}
         </div>
       </div>
@@ -26,9 +32,8 @@ function renderTreeNodes(nodes: TreeNode<keyof HTMLElementTagNameMap> | null, ha
   )
 }
 
-const Minimap = memo((props: Props) => {
-  const { nestedNode } = props;
-  const { setSelectedNodeId } = useContext(LowCodeContext);
+const Minimap = memo(() => {
+  const { setSelectedNodeId, selectedNodeId, nestedNode } = useContext(LowCodeContext);
 
   const handleClick = useCallback((id: string) => {
     setSelectedNodeId(id);
@@ -38,7 +43,10 @@ const Minimap = memo((props: Props) => {
 
   return (
     <div className="absolute left-2 top-2 w-44 h-max-80 bg-[#f3f4f6] bg-opacity-80 rounded-xl shadow-[0_0_8px_0px_rgba(0,0,0,0.25)] backdrop-blur overflow-auto">
-      {renderTreeNodes(nestedNode, handleClick)}
+      {renderTreeNodes(nestedNode, {
+        handleClick,
+        selectedNodeId
+      })}
     </div>
   );
 });

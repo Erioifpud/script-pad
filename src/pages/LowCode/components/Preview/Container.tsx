@@ -14,7 +14,7 @@ const PreviewContainer = memo(() => {
       }}
     >
       <DynamicComp nestedNode={nestedNode} mockData={currentGroup?.mockData || {}} />
-      <Minimap nestedNode={nestedNode} />
+      <Minimap />
     </div>
   );
 });
