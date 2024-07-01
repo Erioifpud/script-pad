@@ -125,18 +125,27 @@ const Minimap = memo(() => {
       toast({ title: '无法删除根节点' })
       return;
     }
+
     dialog.confirm('确定删除该节点？').then(flag => {
       if (!flag) {
         return
       }
       const newGroup = produce(currentGroup, (draft) => {
-        const nodes = draft.nodes.filter((node) => node.id !== id) || [];
-        const index = nodes.findIndex((node) => node.id === id);
+        const nodes = draft.nodes
+        const index = nodes.findIndex((child) => child.id === id);
         const node = nodes[index];
-        const parentNode = draft.nodes.find((node) => node.id === node.parentId)!;
+        const parentNode = draft.nodes.find((child) => child.id === node.parentId);
+        if (!parentNode) {
+          return draft;
+        }
+
         // 除了删除平铺列表中的，还要处理父节点的 childrenIds
+        // 节点 id 在 childrenIds 中的位置
+        const childIndex = parentNode.childrenIds.findIndex((childId) => id === childId);
+        if (childIndex !== -1) {
+          parentNode.childrenIds.splice(childIndex, 1);
+        }
         if (index !== -1) {
-          parentNode.childrenIds.splice(index, 0, node.id);
           nodes.splice(index, 1);
         }
       });
@@ -144,6 +153,7 @@ const Minimap = memo(() => {
     })
   }, [currentGroup, setGroup, toast])
 
+  // 节点移动
   const handleMove = useCallback((id: string, direction: 'up' | 'down') => {
     if (!currentGroup) return;
     const checkResult = moveCheck(currentGroup, id);
