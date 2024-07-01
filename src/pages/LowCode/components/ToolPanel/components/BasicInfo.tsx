@@ -64,7 +64,7 @@ const BasicInfo = memo(() => {
         </div>
 
         <div className="item mb-4">
-          <div className="label mb-2 text-sm">节点类型</div>
+          <div className="label mb-2 text-sm">节点内容</div>
           <div className="value bg-white">
             <Input
               type="text"
