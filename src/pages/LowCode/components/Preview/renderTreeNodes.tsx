@@ -1,9 +1,6 @@
 import { TreeNode } from '@/store/lowcode/type';
 import { HTMLAttributes, ReactElement } from 'react';
 
-// 假设你已经有了Node接口和TreeNode类型
-// 和useConvertToNestedNodes Hook
-
 function renderAttributes<T extends keyof HTMLElementTagNameMap>(attrs: Partial<HTMLAttributes<HTMLElementTagNameMap[T]>>) {
   const keys = Object.keys(attrs) as (keyof HTMLAttributes<HTMLElementTagNameMap[T]>)[]
   const acc: HTMLAttributes<HTMLElement> = {}
