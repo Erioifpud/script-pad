@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import BasicInfo from './BasicInfo';
-import AttributeEdit from './AttributeEdit';
-import StyleEdit from './StyleEdit';
-import CSSEdit from './CSSEdit';
+import BasicInfo from '../components/BasicInfo';
+import AttributeEdit from '../components/AttributeEdit';
+import StyleEdit from '../components/StyleEdit';
+import CSSEdit from '../components/CSSEdit';
 
 const NodeTools = memo(() => {
   return (
