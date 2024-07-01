@@ -23,7 +23,7 @@ const LowCodeProvider = memo((props: Props) => {
   // 切换分组时，清空选中节点
   useEffect(() => {
     setSelectedNodeId('');
-  }, [currentGroup]);
+  }, [currentGroup?.id]);
 
   return (
     <LowCodeContext.Provider value={{
