@@ -7,7 +7,7 @@ export function createNode(uuid: string, parentId: string): AnyNode {
     parentId,
     type: 'div',
     value: 'Hello world!',
-    css: '{}',
+    css: ':root {}',
     attrs: {},
     styleOption: getInitialSettingOptions(),
     childrenIds: [],
