@@ -14,6 +14,7 @@ export interface LowCodeState {
   createGroup: () => void
   copyGroup: (id: string) => void
   setGroup: (id: string, group: Partial<Group>) => void
+  setGroupNodes: (id: string, nodes: AnyNode[]) => void
 }
 
 export const VERSION = 0;
@@ -63,6 +64,21 @@ export const useLowCodeStore = create<LowCodeState>()(
                 return {
                   ...item,
                   ...group
+                }
+              }
+              return item
+            })
+          }
+        })
+      },
+      setGroupNodes: (id, nodes) => {
+        set(state => {
+          return {
+            groups: state.groups.map(item => {
+              if (item.id === id) {
+                return {
+                  ...item,
+                  nodes
                 }
               }
               return item
