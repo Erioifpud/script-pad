@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { Group, Node } from './type';
+import { AnyNode, Group } from './type';
 import { lowCodeStorage } from '../utils/storage';
 import { emptyUUID, randomUUID } from '@/store/utils';
-import { getInitialSettingOptions } from './rule';
 import { produce } from 'immer';
 import { cloneDeep, merge as deepMerge } from 'lodash-es';
+import { createNode } from './utils';
 
 
 export interface LowCodeState {
@@ -24,17 +24,7 @@ export const useLowCodeStore = create<LowCodeState>()(
       groups: [],
       setGroups: (groups) => set({ groups }),
       createGroup: () => {
-        const rootNode: Node<'div'> = {
-          id: emptyUUID(),
-          parentId: '',
-          type: 'div',
-          value: 'Hello world!',
-          css: '{}',
-          attrs: {},
-          styleOption: getInitialSettingOptions(),
-          childrenIds: [],
-          hidden: false,
-        }
+        const rootNode: AnyNode = createNode(emptyUUID(), '');
         const group: Group = {
           id: randomUUID(),
           name: '新分组',
