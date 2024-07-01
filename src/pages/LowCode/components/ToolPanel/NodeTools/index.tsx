@@ -2,6 +2,7 @@ import { memo } from 'react';
 import BasicInfo from './BasicInfo';
 import AttributeEdit from './AttributeEdit';
 import StyleEdit from './StyleEdit';
+import CSSEdit from './CSSEdit';
 
 const NodeTools = memo(() => {
   return (
@@ -11,6 +12,8 @@ const NodeTools = memo(() => {
       <StyleEdit />
       <div className="border-b border-solid border-gray-300"></div>
       <AttributeEdit />
+      <div className="border-b border-solid border-gray-300"></div>
+      <CSSEdit />
     </div>
   );
 });

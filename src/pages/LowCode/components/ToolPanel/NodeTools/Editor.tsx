@@ -2,6 +2,7 @@
 import { Editor as MonacoEditor, Monaco } from '@monaco-editor/react';
 import { useCallback } from 'react';
 import themeConfig from '@/utils/Solarized-light.json'
+import { emmetCSS } from 'emmet-monaco-es';
 
 interface Props {
   value: string;
@@ -22,6 +23,14 @@ export default function Editor(props: Props) {
     onChange(value || '');
   }, [onChange]);
 
+  // 这里的 editor 类型 lib 没有导出，实际上是 IStandaloneCodeEditor
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleMount = useCallback((_: any, monaco: Monaco) => {
+    if (['css'].includes(language)) {
+      emmetCSS(monaco)
+    }
+  }, [language])
+
   return (
     <MonacoEditor
       className="relative"
@@ -37,6 +46,7 @@ export default function Editor(props: Props) {
       defaultLanguage={language}
       theme="Solarized-light"
       beforeMount={handleBeforeMount}
+      onMount={handleMount}
       value={value}
       onChange={handleChange}
     ></MonacoEditor>
