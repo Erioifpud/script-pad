@@ -19,6 +19,10 @@ export interface Node<T extends keyof HTMLElementTagNameMap> {
   // 选项式的部分样式
   // 先使用选项的，然后用 css 覆盖
   styleOption: Record<string, string>
+  // 子节点的 ids
+  childrenIds: string[]
+  // 是否隐藏
+  hidden: boolean
 }
 
 export interface Group {

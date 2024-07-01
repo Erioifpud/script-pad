@@ -31,7 +31,9 @@ export const useLowCodeStore = create<LowCodeState>()(
           value: 'Hello world!',
           css: '{}',
           attrs: {},
-          styleOption: getInitialSettingOptions()
+          styleOption: getInitialSettingOptions(),
+          childrenIds: [],
+          hidden: false,
         }
         const group: Group = {
           id: randomUUID(),
