@@ -1,5 +1,7 @@
 import { TreeNode } from '@/store/lowcode/type';
 import { HTMLAttributes, ReactElement } from 'react';
+import { cleanCSS, css2obj } from '../../utils';
+import { getDefaultStyle } from '@/store/lowcode/rule';
 
 function renderAttributes<T extends keyof HTMLElementTagNameMap>(attrs: Partial<HTMLAttributes<HTMLElementTagNameMap[T]>>) {
   const keys = Object.keys(attrs) as (keyof HTMLAttributes<HTMLElementTagNameMap[T]>)[]
@@ -27,11 +29,19 @@ export function renderTreeNodeFn<T extends keyof HTMLElementTagNameMap>(
     const TagName = node.type as keyof JSX.IntrinsicElements;
     const attributes = renderAttributes(node.attrs);
 
+    // CSS 字符串转换为对象
+    const cssMap = css2obj(
+      cleanCSS(node.css || '')
+    )
+
     // 将styleOption合并到attrs的style中，如果有冲突，styleOption优先
+    // 优先级：默认样式 < attrs.style < node.styleOption < node.css
     if (node.styleOption) {
       attributes.style = {
+        ...getDefaultStyle(),
         ...(attributes.style || {}),
         ...node.styleOption,
+        ...cssMap
       };
     }
 

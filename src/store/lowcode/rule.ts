@@ -1,5 +1,12 @@
 import { SettingMap } from './type';
 
+export function getDefaultStyle(): Record<string, string> {
+  return {
+    position: 'relative',
+    boxSizing: 'border-box',
+  }
+}
+
 export function getSettingMap(): SettingMap {
   return {
     'width': {
