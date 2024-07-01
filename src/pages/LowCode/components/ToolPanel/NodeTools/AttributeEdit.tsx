@@ -1,8 +1,8 @@
-import RecordEdit from '@/pages/Edit/components/RecordEdit';
 import { LowCodeContext } from '@/pages/LowCode/context/LowCodeContext/context';
 import { useLowCodeStore } from '@/store/lowcode';
 import { produce } from 'immer';
 import { memo, useCallback, useContext, useMemo } from 'react';
+import MonacoJSONWrapper from './MonacoJSONWrapper';
 
 const AttributeEdit = memo(() => {
   const { currentNode, currentGroup } = useContext(LowCodeContext);
@@ -44,7 +44,7 @@ const AttributeEdit = memo(() => {
         <div className="item mb-4">
           <div className="label mb-2 text-sm">属性编辑</div>
           <div className="value bg-white">
-            <RecordEdit data={attrObj} onChange={handleChange} />
+            <MonacoJSONWrapper data={attrObj} onChange={handleChange} />
           </div>
         </div>
       </div>
