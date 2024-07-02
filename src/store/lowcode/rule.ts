@@ -39,6 +39,13 @@ export function getSettingMap(): SettingMap {
       label: '字号',
       value: '16px'
     },
+    'color': {
+      key: 'color',
+      type: 'color',
+      isEnabled: false,
+      label: '字色',
+      value: '#000'
+    },
   }
 }
 
