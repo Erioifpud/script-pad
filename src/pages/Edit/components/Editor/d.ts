@@ -423,6 +423,13 @@ class Archive {
   static async zipFlat(items: FlatItem[]): Promise<Uint8Array>;
 }
 
+// -------- Template --------
+
+class Template {
+  static async show(id: string, propsData: Record<string, any>): Promise<void>;
+  static async use(id: string, propsData: Record<string, any>): Promise<any, string | React.JSXElementConstructor<any>> | null>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
@@ -443,6 +450,7 @@ declare global {
     Time: Time;
     Capture: Capture;
     Archive: Archive;
+    Template: Template;
   }
 }
 `
