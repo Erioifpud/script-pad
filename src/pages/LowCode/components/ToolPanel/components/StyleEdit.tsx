@@ -15,6 +15,7 @@ function mergeSettingMap(settingMap: SettingMap, currentNode: AnyNode) {
     if (map[key]) {
       const setting = map[key]
       setting.value = value
+      setting.isEnabled = true
     }
   })
   return map;

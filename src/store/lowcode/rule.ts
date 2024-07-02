@@ -28,7 +28,7 @@ export function getSettingMap(): SettingMap {
     'backgroundColor': {
       key: 'backgroundColor',
       type: 'color',
-      isEnabled: true,
+      isEnabled: false,
       label: '背景颜色',
       value: '#fff'
     },
