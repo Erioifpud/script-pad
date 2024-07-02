@@ -32,6 +32,13 @@ export function getSettingMap(): SettingMap {
       label: '背景颜色',
       value: '#fff'
     },
+    'fontSize': {
+      key: 'fontSize',
+      type: 'text',
+      isEnabled: false,
+      label: '字号',
+      value: '16px'
+    },
   }
 }
 
