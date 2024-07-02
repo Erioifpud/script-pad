@@ -1,8 +1,10 @@
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { LowCodeContext } from '@/pages/LowCode/context/LowCodeContext/context';
 import { useLowCodeStore } from '@/store/lowcode';
+import { clipboard } from '@tauri-apps/api';
 import { produce } from 'immer';
 import { ChangeEvent, memo, useCallback, useContext } from 'react';
 
@@ -37,6 +39,17 @@ const GroupInfo = memo(() => {
     setGroup(newGroup.id, newGroup)
   }, [currentGroup, setGroup])
 
+  // 复制分组 id
+  const handleCopyId = useCallback(() => {
+    if (!currentGroup) return;
+    clipboard.writeText(currentGroup.id).then(() => {
+      toast({
+        title: '复制成功',
+        description: '分组 ID 已复制到剪贴板',
+      })
+    })
+  }, [currentGroup, toast])
+
   return (
     <div className="relative">
       <div className="px-1">
@@ -62,6 +75,10 @@ const GroupInfo = memo(() => {
               className="resize-none"
             />
           </div>
+        </div>
+
+        <div className="item mb-4">
+        <Button size="sm" onClick={handleCopyId} className="my-1 w-full">复制 ID</Button>
         </div>
       </div>
     </div>
