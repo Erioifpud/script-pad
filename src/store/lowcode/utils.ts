@@ -11,6 +11,7 @@ export function createNode(uuid: string, parentId: string): AnyNode {
     attrs: {},
     styleOption: getInitialSettingOptions(),
     childrenIds: [],
-    hidden: false,
+    listBy: '',
+    removeBy: '',
   }
 }

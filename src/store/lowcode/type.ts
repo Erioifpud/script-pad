@@ -21,8 +21,10 @@ export interface Node<T extends keyof HTMLElementTagNameMap> {
   styleOption: Record<string, string>
   // 子节点的 ids
   childrenIds: string[]
-  // 是否隐藏
-  hidden: boolean
+  // 作为列表模板节点时，参考的数据字段
+  listBy: string
+  // 作为条件节点时，是否隐藏参考的数据字段
+  removeBy: string
 }
 
 export interface Group {
