@@ -12,7 +12,7 @@ export function getSettingMap(): SettingMap {
     'width': {
       key: 'width',
       type: 'text',
-      isEnabled: true,
+      isEnabled: false,
       label: '宽度',
       // value 用于初始化，不作为表单默认值
       // 使用时应该用节点实际的数据和这个默认数据合并
@@ -21,10 +21,17 @@ export function getSettingMap(): SettingMap {
     'height': {
       key: 'height',
       type: 'text',
-      isEnabled: true,
+      isEnabled: false,
       label: '高度',
       value: '100px'
-    }
+    },
+    'backgroundColor': {
+      key: 'backgroundColor',
+      type: 'color',
+      isEnabled: true,
+      label: '背景颜色',
+      value: '#fff'
+    },
   }
 }
 
