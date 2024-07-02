@@ -50,26 +50,33 @@ export function renderTreeNodeFn<T extends keyof HTMLElementTagNameMap>(
       return null;
     }
 
-    // 单独处理一些没有 children 的元素
-    if (node.type === 'img') {
-      return (
-        <img key={node.id} {...attributes} />
-      )
-    }
-
     // 列表渲染
     const isListRender = node.listBy && Array.isArray(mockData[node.listBy])
     const list = isListRender ? mockData[node.listBy] : [mockData];
 
+    // 单独处理一些没有 children 的元素
+    if (node.type === 'img') {
+      return (
+        // <img key={node.id} {...attributes} />
+        <>
+          {list.map(() => {
+            return (
+              <img key={node.id} {...attributes} />
+            )
+          })}
+        </>
+      )
+    }
+
     return (
       <>
-        {list.map((item: Record<string, string>, idx: number) => {
+        {list.map((item: Record<string, string>) => {
           // 把 item 和 mockData 合并
           // TODO: 这样有可能污染 mockData，但暂时想不到方法改进，或许能改成 dot prop
           const fullData = { ...mockData, ...item }
           return (
             // @ts-expect-error 这里不用那么严格，反正都能渲染出来
-            <TagName key={node.id} {...attributes} key={idx}>
+            <TagName key={node.id} {...attributes}>
               {/* 如果value非空且不是大括号包围的表达式，则直接显示 */}
               {node.value && !node.value.startsWith('{') && !node.value.endsWith('}') && node.value}
 
