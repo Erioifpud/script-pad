@@ -10,7 +10,11 @@ export const cleanCSS = (css: string) => css
 export const css2obj = (css: string) => {
   const r = /(?<=^|;)\s*([^:]+)\s*:\s*([^;]+)\s*/g;
   const o: Record<string, string> = {};
-  css.replace(r, (_, p: string, v: string) => o[p] = v);
+  css.replace(r, (_, p: string, v: string) => {
+    // hyphen style to camelCase
+    p = p.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+    return o[p] = v;
+  });
   return o;
 };
 
