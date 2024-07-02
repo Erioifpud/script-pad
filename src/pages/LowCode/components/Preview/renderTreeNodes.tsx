@@ -59,12 +59,13 @@ export function renderTreeNodeFn<T extends keyof HTMLElementTagNameMap>(
 
     // 列表渲染
     const isListRender = node.listBy && Array.isArray(mockData[node.listBy])
+    const list = isListRender ? mockData[node.listBy] : [mockData];
 
-    return isListRender ? (
+    return (
       <>
-        {(mockData[node.listBy] || []).map((item: Record<string, string>, idx: number) => {
+        {list.map((item: Record<string, string>, idx: number) => {
           // 把 item 和 mockData 合并
-          // TODO: 这样有可能污染 mockData，但暂时想不到方法改进
+          // TODO: 这样有可能污染 mockData，但暂时想不到方法改进，或许能改成 dot prop
           const fullData = { ...mockData, ...item }
           return (
             // @ts-expect-error 这里不用那么严格，反正都能渲染出来
@@ -82,22 +83,6 @@ export function renderTreeNodeFn<T extends keyof HTMLElementTagNameMap>(
             </TagName>
           )
         })}
-      </>
-    ) : (
-      <>
-        {/* @ts-expect-error 这里不用那么严格，反正都能渲染出来 */}
-        <TagName key={node.id} {...attributes}>
-          {/* 如果value非空且不是大括号包围的表达式，则直接显示 */}
-          {node.value && !node.value.startsWith('{') && !node.value.endsWith('}') && node.value}
-
-          {/* 如果value是大括号包围的表达式，则替换占位符 */}
-          {node.value && node.value.startsWith('{') && node.value.endsWith('}') && (
-            <>{mockData[node.value.slice(1, -1)] || ''}</>
-          )}
-
-          {/* 递归渲染子节点 */}
-          {node.children?.map((child, idx) => renderTreeNodeFn(child, idx)(mockData))}
-        </TagName>
       </>
     )
   }
