@@ -7,6 +7,8 @@ export interface Node<T extends keyof HTMLElementTagNameMap> {
   parentId: string
   // 自身 id
   id: string
+  // 节点名（用作辨识）
+  name: string
   // html 元素的类型
   type: T
   // html 元素的属性，给个 monaco 自己填

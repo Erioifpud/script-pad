@@ -17,7 +17,7 @@ export interface LowCodeState {
   setGroupNodes: (id: string, nodes: AnyNode[]) => void
 }
 
-export const VERSION = 0;
+export const VERSION = 1;
 
 export const useLowCodeStore = create<LowCodeState>()(
   persist(
@@ -101,8 +101,12 @@ export const useLowCodeStore = create<LowCodeState>()(
       migrate: (persistedState: any, version: number) => {
         // 读取到的版本如果低于当前版本，则需要做的迁移处理
         if (version === 0) {
-          // persistedState.readOnly = false
-          return persistedState
+          return produce((persistedState as Group), (draft) => {
+            const nodes = (draft as Group).nodes
+            nodes.forEach(node => {
+              node.name = ''
+            })
+          })
         }
         return persistedState
       },

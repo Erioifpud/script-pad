@@ -4,6 +4,7 @@ import { AnyNode } from './type';
 export function createNode(uuid: string, parentId: string): AnyNode {
   return {
     id: uuid,
+    name: '',
     parentId,
     type: 'div',
     value: 'Hello world!',
