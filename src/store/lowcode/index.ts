@@ -99,14 +99,17 @@ export const useLowCodeStore = create<LowCodeState>()(
       version: VERSION,
       // eslint-disable-next-line
       migrate: (persistedState: any, version: number) => {
+        const groups = (persistedState?.groups as Group[]) || []
         // 读取到的版本如果低于当前版本，则需要做的迁移处理
         if (version === 0) {
-          return produce((persistedState as Group), (draft) => {
-            const nodes = (draft as Group).nodes
-            nodes.forEach(node => {
-              node.name = ''
+          const newGroups = produce(groups, (draft) => {
+            draft.forEach(group => {
+              group.nodes.forEach(node => {
+                node.name = ''
+              })
             })
           })
+          return { ...persistedState, groups: newGroups }
         }
         return persistedState
       },
