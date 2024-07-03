@@ -39,7 +39,7 @@ function renderTreeNodes(nodes: TreeNode<keyof HTMLElementTagNameMap> | null, op
       >
         <div key={nodes.id} data-key={nodes.id} className="flex flex-col flex-nowrap px-1 pb-0 w-fit" onClick={(ev) => handleClick(nodes.id, ev)}>
           <div className="info relative items-center flex flex-nowrap hover:bg-gray-200 rounded-md p-1 transition-all cursor-pointer">
-            <div className="whitespace-nowrap flex-shrink-0 mr-2 text-gray-700 text-sm">{nodes.type}</div>
+            <div className="whitespace-nowrap flex-shrink-0 mr-2 text-gray-700 text-sm">{nodes.name || nodes.type}</div>
             <div className="whitespace-nowrap text-xs text-gray-400">[{nodes.id}]</div>
             {selectedNodeId === nodes.id && (
               <div className="highlight absolute left-0 bottom-0 w-full h-[2px] bg-green-500"></div>
