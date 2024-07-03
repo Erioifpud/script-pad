@@ -158,10 +158,15 @@ export const useAppStore = create<AppState>()(
       version: VERSION,
       // eslint-disable-next-line
       migrate: (persistedState: any, version) => {
+        const scripts = persistedState.scripts as Script[]
         // 读取到的版本如果低于当前版本，则需要做的迁移处理
         if (version === 0) {
-          persistedState.readOnly = false
-          return persistedState
+          const newScripts = produce(scripts, (draft) => {
+            draft.forEach((script) => {
+              script.readOnly = false
+            })
+          })
+          return { ...persistedState, scripts: newScripts }
         }
         return persistedState
       },
