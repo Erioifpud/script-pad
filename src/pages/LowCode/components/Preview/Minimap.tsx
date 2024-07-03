@@ -101,10 +101,11 @@ const Minimap = memo(() => {
       return;
     }
     const newGroup = produce(currentGroup, (draft) => {
-      const nodes = draft.nodes.filter((node) => node.id !== id) || [];
+      const nodes = draft.nodes || [];
       const index = nodes.findIndex((node) => node.id === id);
       const node = nodes[index];
-      const parentNode = draft.nodes.find((node) => node.id === node.parentId)!;
+      const parentNode = draft.nodes.find((item) => item.id === node.parentId)!;
+
       // 平铺节点加入新节点，父节点也要添加 childrenIds
       if (index !== -1) {
         const newNode = cloneDeep(node);
