@@ -50,9 +50,9 @@ const BasicInfo = memo(() => {
         <div className="item mb-4">
           <div className="label mb-2 text-sm">节点类型</div>
           <div className="value bg-white">
-            <Select onValueChange={handleTypeChange}>
+            <Select onValueChange={handleTypeChange} value={currentNode?.type}>
               <SelectTrigger className="w-full">
-                <SelectValue placeholder={currentNode?.type} />
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {tagNameOptions.map(option => {
