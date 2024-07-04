@@ -2,6 +2,7 @@ import { TreeNode } from '@/store/lowcode/type';
 import { HTMLAttributes, ReactElement } from 'react';
 import { cleanCSS, css2obj } from '../../utils';
 import { getDefaultStyle } from '@/store/lowcode/rule';
+import { get } from 'lodash-es';
 
 function renderAttributesFn<T extends keyof HTMLElementTagNameMap>(attrs: Partial<HTMLAttributes<HTMLElementTagNameMap[T]>>) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,7 +19,8 @@ function renderAttributesFn<T extends keyof HTMLElementTagNameMap>(attrs: Partia
       // 加入模板变量
       if (valStr.startsWith('{') && valStr.endsWith('}')) {
         const varName = valStr.slice(1, -1);
-        acc[key] = mockData[varName] || '';
+        acc[key] = get(mockData, varName, '')
+        // acc[key] = mockData[varName] || '';
       } else {
         acc[key] = attrs[key];
       }
@@ -30,9 +32,8 @@ function renderAttributesFn<T extends keyof HTMLElementTagNameMap>(attrs: Partia
 // 生成渲染节点的函数，传入数据就能渲染出节点
 export function renderTreeNodeFn<T extends keyof HTMLElementTagNameMap>(
   node: TreeNode<T>,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _index?: number
-): (mockData: Record<string, string>) => (ReactElement | null) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): (mockData: Record<string, any>) => (ReactElement | null) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (mockData: Record<string, any>) => {
     if (!node) return null;
@@ -60,11 +61,9 @@ export function renderTreeNodeFn<T extends keyof HTMLElementTagNameMap>(
       <>
         {list.map((item: Record<string, string>, idx: number) => {
           // 把 item 和 mockData 合并
-          // TODO: 这样有可能污染 mockData，但暂时想不到方法改进，或许能改成 dot prop
-          const fullData = { ...mockData, ...item }
-          // TODO: 估计后续会将 fullData 作为 $data 字段的值存入 fullAttributes，拿 attr 用 xxx，拿 data 中的用 data.xxx
+          const fullData = { ...mockData, $for: item }
           // 这里 attributes 要使用 fullData 计算，因为此时的 fullData 是结合了遍历后的 item 数据的
-          // 通过 getAttributes 将 fullData 的数据注入 attr 模板中得到最终的 attributes
+          // 通过 getAttributes 将 fullData 的数据注入 attr 模板中得到最终的 attributes: {xxx} + {xxx: 123} = 123
           const attributes = getAttributes(fullData);
 
           // 将styleOption合并到attrs的style中，如果有冲突，styleOption优先
@@ -91,11 +90,12 @@ export function renderTreeNodeFn<T extends keyof HTMLElementTagNameMap>(
 
               {/* 如果value是大括号包围的表达式，则替换占位符 */}
               {node.value && node.value.startsWith('{') && node.value.endsWith('}') && (
-                <>{fullData[node.value.slice(1, -1)] || ''}</>
+                <>{get(fullData, node.value.slice(1, -1), '')}</>
+                // <>{fullData[node.value.slice(1, -1)] || ''}</>
               )}
 
               {/* 递归渲染子节点 */}
-              {node.children?.map((child, idx) => renderTreeNodeFn(child, idx)(fullData))}
+              {node.children?.map((child) => renderTreeNodeFn(child)(fullData))}
             </TagName>
           )
         })}
