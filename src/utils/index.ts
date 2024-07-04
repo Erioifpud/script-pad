@@ -84,3 +84,14 @@ export function downloadFile(binaryData: Uint8Array, title: string, filters?: di
     return true
   })
 }
+
+/**
+ * 删除对象中的指定键名
+ * @param obj 源对象
+ * @param keys 要删除的键名
+ * @returns
+ */
+export function omit<T extends object, K extends keyof T>(obj: T, ...keys: K[]): Omit<T, K> {
+  keys.forEach((key) => delete obj[key])
+  return obj
+}
