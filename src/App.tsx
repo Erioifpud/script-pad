@@ -3,13 +3,16 @@ import {
 } from "react-router-dom";
 import Layout from './pages/Layout';
 import { router } from './router';
+import { AnimatePresence } from 'framer-motion';
 
 function App() {
 
   return (
-    <Layout>
-      <RouterProvider router={router} />
-    </Layout>
+    <AnimatePresence mode="wait">
+      <Layout>
+        <RouterProvider router={router} />
+      </Layout>
+    </AnimatePresence>
   )
 }
 

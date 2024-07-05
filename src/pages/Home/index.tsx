@@ -1,5 +1,6 @@
 import AppIcon from '@/components/AppIcon';
 import { Script, useAppStore } from '@/store/app';
+import { TransitionDiv } from '@/components/transition';
 import { executeScript } from '@/vm';
 import { memo, useCallback, useMemo } from 'react';
 
@@ -15,7 +16,9 @@ const HomePage = memo(() => {
   }, [])
 
   return (
-    <div className="relative w-full h-full overflow-hidden">
+    <TransitionDiv
+      className="relative w-full h-full overflow-hidden"
+    >
       <div
         className="p-4 grid relative w-full h-full overflow-y-auto gap-4 grid-cols-5 grid-flow-dense grid-rows-[auto_1fr]"
         style={{
@@ -36,7 +39,7 @@ const HomePage = memo(() => {
           )
         })}
       </div>
-    </div>
+    </TransitionDiv>
   );
 })
 
