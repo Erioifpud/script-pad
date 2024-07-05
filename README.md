@@ -1,7 +1,7 @@
+# Script Pad
+
 ![screenshot1](./assets/20240705154421.png)
 ![screenshot2](./assets/20240705154529.png)
-
-<h1 align="center">Script Pad</h1>
 
 ## 这是什么？
 这个工具就是拿来运行脚本的，里面有一些我用的比较熟悉的 API，在 `src\vm\modules` 中，API 的文档在[这里](https://erioifpud.github.io/script-pad-docs/)，更新应该**不及时**。
