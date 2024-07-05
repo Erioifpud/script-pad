@@ -1,6 +1,5 @@
 import IndicatorButton from '@/components/IndicatorButton';
 import { InputDialog } from '@/components/InputDialog';
-import Log from '@/components/Log';
 import { Playground } from '@/components/Playground';
 import { Button } from '@/components/ui/button';
 import { Toaster } from '@/components/ui/toaster';
@@ -136,7 +135,6 @@ export default function Layout({
           </div>
         </div>
       </TooltipProvider>
-      <Log />
       <Playground />
       <InputDialog />
       <Toaster />
