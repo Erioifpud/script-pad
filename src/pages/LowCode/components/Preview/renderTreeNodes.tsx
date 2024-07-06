@@ -15,6 +15,11 @@ function renderAttributesFn<T extends keyof HTMLElementTagNameMap>(attrs: Partia
         continue;
       }
       const val = attrs[key];
+      // 处理样式变量
+      if (key === 'style' && Object.prototype.toString.call(val) === '[object Object]') {
+        acc.style = renderAttributesFn<T>(val)(mockData)
+        return acc;
+      }
       const valStr = `${val}`;
       // 加入模板变量
       if (valStr.startsWith('{') && valStr.endsWith('}')) {
@@ -67,7 +72,7 @@ export function renderTreeNodeFn<T extends keyof HTMLElementTagNameMap>(
           const attributes = getAttributes(fullData);
 
           // 将styleOption合并到attrs的style中，如果有冲突，styleOption优先
-          // 优先级：默认样式 < node.styleOption < node.css
+          // 优先级：默认样式 < attributes.style < node.styleOption < node.css
           if (node.styleOption) {
             attributes.style = {
               ...getDefaultStyle(),
