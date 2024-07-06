@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react';
 import { Button } from '../ui/button';
-import { Component1Icon, UpdateIcon } from '@radix-ui/react-icons';
+import { ComponentIcon, RefreshCwIcon } from 'lucide-react'
 import { eventBus } from '@/event';
 
 const IndicatorButton = memo(() => {
@@ -20,10 +20,10 @@ const IndicatorButton = memo(() => {
     <Button variant="outline" size="icon" aria-label="Home">
       <a href="/">
         {loading && (
-          <UpdateIcon className="animate-spin" />
+          <RefreshCwIcon className="animate-spin" />
         )}
         {!loading && (
-          <Component1Icon />
+          <ComponentIcon />
         )}
       </a>
     </Button>

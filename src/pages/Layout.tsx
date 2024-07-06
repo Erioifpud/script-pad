@@ -6,7 +6,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { router } from '@/router';
 import { usePlaygroundStore } from '@/store/playground';
-import { ArchiveIcon, BackpackIcon, CodeIcon, CodeSandboxLogoIcon, DesktopIcon, ReaderIcon } from '@radix-ui/react-icons';
+import { ArchiveIcon, NotebookIcon, BracesIcon, BrushIcon, SquareTerminalIcon, BookOpenTextIcon, HardDriveIcon } from 'lucide-react';
 import { invoke, path } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { useCallback } from 'react';
@@ -76,7 +76,7 @@ export default function Layout({
                 onClick={() => { router.navigate('/edit') }}
                 tooltip="脚本编辑"
               >
-                <CodeIcon />
+                <BracesIcon />
               </TooltipButton>
 
               <TooltipButton
@@ -84,7 +84,7 @@ export default function Layout({
                 onClick={() => { router.navigate('/doc') }}
                 tooltip="笔记本"
               >
-                <BackpackIcon />
+                <NotebookIcon />
               </TooltipButton>
 
               <TooltipButton
@@ -92,7 +92,7 @@ export default function Layout({
                 onClick={() => { router.navigate('/lowcode') }}
                 tooltip="低代码组件"
               >
-                <CodeSandboxLogoIcon />
+                <BrushIcon />
               </TooltipButton>
 
               <div className="flex-grow"></div>
@@ -102,7 +102,7 @@ export default function Layout({
                 onClick={handleOpenDevtool}
                 tooltip="日志"
               >
-                <DesktopIcon />
+                <SquareTerminalIcon />
               </TooltipButton>
 
               <TooltipButton
@@ -118,7 +118,7 @@ export default function Layout({
                 onClick={handleOpenDataDir}
                 tooltip="数据目录"
               >
-                <DesktopIcon />
+                <HardDriveIcon />
               </TooltipButton>
 
               <TooltipButton
@@ -126,7 +126,7 @@ export default function Layout({
                 onClick={() => window.open('https://erioifpud.github.io/script-pad-docs/', '_blank')}
                 tooltip="文档"
               >
-                <ReaderIcon />
+                <BookOpenTextIcon />
               </TooltipButton>
             </nav>
           </aside>

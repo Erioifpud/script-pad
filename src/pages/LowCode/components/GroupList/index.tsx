@@ -5,7 +5,7 @@ import { toast } from '@/components/ui/use-toast';
 import { useCommonStore } from '@/store/common';
 import { useLowCodeStore } from '@/store/lowcode';
 import { Group } from '@/store/lowcode/type';
-import { PlusIcon } from '@radix-ui/react-icons';
+import { PlusIcon } from 'lucide-react';
 import { dialog } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { memo, useCallback } from 'react';

@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Doc, useDocStore } from '@/store/doc';
-import { GearIcon } from '@radix-ui/react-icons';
+import { Settings2Icon } from 'lucide-react';
 import { memo } from 'react';
 
 interface Props {
@@ -22,7 +22,7 @@ const SettingButton = memo((props: Props) => {
           size="sm"
           className="ml-auto gap-1.5 text-sm flex-shrink-0"
         >
-          <GearIcon className="size-3.5" />
+          <Settings2Icon className="size-3.5" />
           设置
         </Button>
       </DialogTrigger>

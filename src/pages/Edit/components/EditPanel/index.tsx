@@ -1,4 +1,4 @@
-import { UpdateIcon } from '@radix-ui/react-icons';
+import { RefreshCwIcon } from 'lucide-react';
 import Editor from '../Editor';
 import { useCurrentScript } from '../../hooks/useCurrentScript';
 import { memo, useCallback, useEffect, useState } from 'react';
@@ -84,7 +84,7 @@ export default function EditPanel() {
       <header className="sticky top-0 z-10 flex h-[53px] items-center gap-1 border-b bg-background px-4 flex-shrink-0">
         <Title script={currentScript}></Title>
         {isSaved ? null : (
-          <UpdateIcon className="text-amber-500 text-lg w-6 h-6 mx-2 animate-spin"></UpdateIcon>
+          <RefreshCwIcon className="text-amber-500 text-lg w-6 h-6 mx-2 animate-spin"></RefreshCwIcon>
         )}
         <SettingButton script={currentScript} />
       </header>

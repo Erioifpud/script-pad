@@ -4,7 +4,7 @@ import { toast } from '@/components/ui/use-toast';
 import { Script, useAppStore } from '@/store/app';
 import { useCommonStore } from '@/store/common';
 import { executeScript } from '@/vm';
-import { DrawingPinFilledIcon, EyeOpenIcon, PlusIcon } from '@radix-ui/react-icons';
+import { PinIcon, PencilOffIcon, PlusIcon } from 'lucide-react';
 import { dialog } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { memo, useCallback } from 'react';
@@ -98,8 +98,8 @@ const ScriptList = memo(() => {
                   </p>
                 </div>
                 <div className="action flex-shrink-0 text-xs flex justify-end">
-                  {script.readOnly && <EyeOpenIcon className="w-4 h-4 ml-2" />}
-                  {script.pinned && <DrawingPinFilledIcon className="w-4 h-4 ml-2" />}
+                  {script.readOnly && <PencilOffIcon className="w-4 h-4 ml-2" />}
+                  {script.pinned && <PinIcon className="w-4 h-4 ml-2" />}
                 </div>
               </div>
             </ActionMenu>

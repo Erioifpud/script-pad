@@ -3,7 +3,7 @@ import { CSSProperties, ReactNode, memo, useCallback, useEffect, useMemo, useRef
 import { Textarea } from '../ui/textarea';
 import { createPortal } from 'react-dom';
 import { Sheet, SheetClose, SheetContent, SheetFooter } from '../ui/sheet';
-import { ArrowUpIcon } from '@radix-ui/react-icons';
+import { ArrowUpIcon } from 'lucide-react';
 import { downloadImage, takeScreenshot } from '@/utils';
 import { useToast } from '../ui/use-toast';
 import { usePlaygroundStore } from '@/store/playground';
