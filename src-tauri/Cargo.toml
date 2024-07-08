@@ -21,6 +21,7 @@ tauri = { version = "1.6.5", features = [ "path-all", "http-all", "notification-
 tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 tauri-plugin-clipboard = "0.6.10"
 showfile = "0.1.1"
+actix-web = "4"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.
