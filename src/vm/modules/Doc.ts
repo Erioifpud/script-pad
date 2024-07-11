@@ -16,8 +16,9 @@ export class Doc {
   static async write(id: string, content: string, options: WriteOptions = { mode: 'override' }) {
     const trimmed = id?.trim()
     const newFlag = !!(trimmed)
+    let docId = trimmed
     if (!newFlag) {
-      createDoc(content)
+      docId = createDoc(content)
       return
     }
     if (options.mode === 'append') {
@@ -25,6 +26,7 @@ export class Doc {
       return
     }
     writeDoc(id, content)
+    return docId
   }
 
   static async updateTitle(id: string, title: string) {

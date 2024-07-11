@@ -4,10 +4,11 @@ import { useDocStore } from '@/store/doc';
  * 创建笔记本
  * @param content 笔记本内容
  * @param title 笔记本标题
+ * @returns id 文章 id
  */
 export function createDoc(content: string, title: string = "文档") {
   const state = useDocStore.getState()
-  state.createDoc(content, title)
+  return state.createDoc(content, title)
 }
 
 /**

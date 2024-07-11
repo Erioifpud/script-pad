@@ -24,7 +24,7 @@ export interface DocState {
   setDocs: (docs: Doc[]) => void
   editDoc: (id: string, doc: Partial<Doc>, isMerge?: boolean) => void
   editDocContent: (id: string, content: string) => void
-  createDoc: (content?: string, title?: string) => void
+  createDoc: (content?: string, title?: string) => string
   copyDoc: (id: string) => void
 }
 
@@ -62,8 +62,9 @@ export const useDocStore = create<DocState>()(
         ))
       },
       createDoc: (content = '', title = '文档') => {
+        const id = randomUUID()
         const doc = {
-          id: randomUUID(),
+          id,
           title,
           content,
           createdAt: Date.now(),
@@ -75,6 +76,7 @@ export const useDocStore = create<DocState>()(
             draft.docs.unshift(doc)
           }
         ))
+        return id
       },
       copyDoc: (id) => {
         set((state) => produce(

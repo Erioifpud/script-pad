@@ -386,7 +386,7 @@ interface WriteOptions {
 class Doc {
   static async readByLines(id: string, lines: number): Promise<string>;
   static async read(id: string): Promise<string>;
-  static async write(id: string, content: string, options: WriteOptions = { mode: 'override' }): Promise<void>;
+  static async write(id: string, content: string, options: WriteOptions = { mode: 'override' }): Promise<string>;
   static async updateTitle(id: string, title: string): Promise<void>;
 }
 
