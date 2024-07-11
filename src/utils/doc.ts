@@ -90,3 +90,21 @@ export function getDocs() {
   const state = useDocStore.getState()
   return state.docs
 }
+
+/**
+ * 修改指定笔记本的标题
+ * @param id 笔记本 id
+ * @param title 修改后的标题
+ * @returns
+ */
+export function updateDocTitle(id: string, title: string) {
+  const state = useDocStore.getState()
+  const docs = state.docs
+  const doc = docs.find(doc => doc.id === id)
+  if (!doc) {
+    return
+  }
+  state.editDoc(id, {
+    title
+  })
+}

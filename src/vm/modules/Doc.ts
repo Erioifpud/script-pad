@@ -1,4 +1,4 @@
-import { appendDoc, createDoc, readDoc, readDocByLines, writeDoc } from '@/utils/doc';
+import { appendDoc, createDoc, readDoc, readDocByLines, updateDocTitle, writeDoc } from '@/utils/doc';
 
 interface WriteOptions {
   mode: 'override' | 'append';
@@ -25,5 +25,9 @@ export class Doc {
       return
     }
     writeDoc(id, content)
+  }
+
+  static async updateTitle(id: string, title: string) {
+    return updateDocTitle(id, title);
   }
 }
