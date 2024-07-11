@@ -431,6 +431,20 @@ class Template {
   static async use(id: string, propsData: Record<string, any>): Promise<any, string | React.JSXElementConstructor<any>> | null>;
 }
 
+// -------- RemoteCall --------
+
+enum Mode {
+  LOCAL = 0,
+  HTTP = 1
+}
+
+class RemoteCall {
+  static async getMode(): Promise<number>;
+  static async getBody(): Promise<any>;
+  static async toResponse(data: any): Promise<void>;
+  // static async _stopTask(): Promise<void>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
@@ -452,6 +466,7 @@ declare global {
     Capture: Capture;
     Archive: Archive;
     Template: Template;
+    RemoteCall: RemoteCall;
   }
 }
 `

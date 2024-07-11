@@ -19,6 +19,7 @@ import { Time as ModuleTime } from './modules/Time';
 import { Capture as ModuleCapture } from './modules/Capture';
 import { Archive as ModuleArchive } from './modules/Archive';
 import { Template as ModuleTemplate } from './modules/Template';
+import { RemoteCall as ModuleRemoteCall } from './modules/RemoteCall';
 import ReactLib from 'react';
 // @ts-expect-error 这个库没有类型定义
 import vm from 'vm-browserify'
@@ -27,63 +28,23 @@ const template = (code: string) => {
   return `(async () => {
     try {
       Lib.win = window;
+      RemoteCall.win = window;
       ${code}
     } catch(err) {
       console.error(err);
       Notice.send('运行错误', err.message);
     } finally {
+      await RemoteCall._stopTask();
       App.done();
     }
   })()`
 }
 
-// export function executeScriptEval(code: string, vars: Record<string, any>) {
-//   function executeWithScope(code: string) {
-//     // 无需在意，这里只是为了给 eval 提供上下文
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const FileManager = ModuleFile;
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const HTTP = ModuleRequest;
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const AI = ModuleAI;
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const Config = ModuleConfig;
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const HTML = ModuleHTML;
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const App = ModuleApp;
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const Input = ModuleInput;
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const React = ReactLib;
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const TTS = ModuleTTS;
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const Clipboard = ModuleClipboard;
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const UUID = ModuleUUID;
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const Lib = ModuleLib;
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const Notice = ModuleNotice;
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const Misc = ModuleMisc;
-//     ModuleConfig.vars = vars;
-
-//     const fullCode = template(code)
-
-//     const transformed = Babel.transform(fullCode, {
-//       presets: ['react']
-//     })
-
-//     eval(
-//       transformed.code
-//     );
-//   }
-//   return executeWithScope(code);
-// }
-
 export function executeScript(code: string, vars: Record<string, string>) {
+  return executeScriptRaw(code, vars)
+}
+
+export function executeScriptRaw(code: string, vars: Record<string, string>, injectVars?: Record<string, string>) {
   const FileManager = ModuleFile;
   const HTTP = ModuleRequest;
   const AI = ModuleAI;
@@ -104,6 +65,7 @@ export function executeScript(code: string, vars: Record<string, string>) {
   const Capture = ModuleCapture;
   const Archive = ModuleArchive;
   const Template = ModuleTemplate;
+  const RemoteCall = ModuleRemoteCall;
   ModuleConfig.vars = vars;
 
   const fullCode = template(code)
@@ -133,6 +95,8 @@ export function executeScript(code: string, vars: Record<string, string>) {
     Capture,
     Archive,
     Template,
+    RemoteCall,
+    ...injectVars,
     console: window.console,
     // 用于修复 iframe 中的 setTimeout 失效的问题（在 iframe 被清理前还没有执行的那些）
     // eslint-disable-next-line @typescript-eslint/ban-types
