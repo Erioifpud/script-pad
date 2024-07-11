@@ -373,6 +373,8 @@ class Misc {
   static async sleep(ms: number): Promise<void>;
   static async saveAs(binaryData: Uint8Array, title: string);
   static async saveAsZip(binaryData: Uint8Array, title: string);
+  static async toBase64(str: string): Promise<string>;
+  static async fromBase64(b64: string): Promise<string>;
 }
 
 // -------- Doc --------

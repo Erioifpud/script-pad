@@ -33,4 +33,21 @@ export class Misc {
       { name: 'Zip', extensions: ['zip'] },
     ])
   }
+
+  static async toBase64(str: string) {
+    return btoa(
+      String.fromCharCode(
+        ...new TextEncoder().encode(str)
+      )
+    )
+  }
+
+  static async fromBase64(b64: string) {
+    return new TextDecoder().decode(
+      Uint8Array.from(
+        atob(b64),
+        (c) => c.charCodeAt(0)
+      )
+    )
+  }
 }
