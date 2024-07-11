@@ -7,17 +7,29 @@ use showfile;
 use std::thread;
 use server::init;
 
+fn run_http_server(boxed_handle: Box<tauri::AppHandle>) {
+    thread::spawn(move || {
+        init(*boxed_handle).unwrap();
+    });
+}
+
 fn main() {
     tauri::Builder::default()
         .setup(|app| {
             let handle = app.handle();
             let boxed_handle = Box::new(handle);
+            run_http_server(boxed_handle);
 
-            thread::spawn(move || {
-                init(*boxed_handle).unwrap()
-            });
             Ok(())
         })
+        // .on_window_event(|event| {
+        //     match event.event() {
+        //         tauri::WindowEvent::Destroyed => {
+        //             println!("Window destroyed")
+        //         }
+        //         _ => {}
+        //     }
+        // })
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_clipboard::init())
         .invoke_handler(tauri::generate_handler![open_devtools, open_directory])
