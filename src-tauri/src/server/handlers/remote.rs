@@ -7,23 +7,14 @@ use uuid::Uuid;
 use crate::server::TauriAppState;
 
 // 请求体数据
-#[derive(Deserialize, Serialize)]
+#[derive(Deserialize, Serialize, Clone)]
 struct RunInfo {
     id: String,
     data: serde_json::Value,
 }
 
-impl Clone for RunInfo {
-    fn clone(&self) -> Self {
-        RunInfo {
-            id: self.id.clone(),
-            data: self.data.clone(),
-        }
-    }
-}
-
 // 任务数据，用户请求体 + 每次执行都会重新创建的任务 id
-#[derive(Deserialize, Serialize)]
+#[derive(Deserialize, Serialize, Clone)]
 #[serde(rename_all(serialize = "camelCase"))]
 struct Task {
     task_id: String,
@@ -36,15 +27,6 @@ impl Task {
         Task {
             task_id: Uuid::new_v4().to_string(),
             run_info: run_info.clone()
-        }
-    }
-}
-
-impl Clone for Task {
-    fn clone(&self) -> Self {
-        Task {
-            task_id: self.task_id.clone(),
-            run_info: self.run_info.clone()
         }
     }
 }
