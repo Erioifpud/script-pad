@@ -8,8 +8,13 @@ struct TauriAppState {
     app: Mutex<AppHandle>,
 }
 
+pub struct ServerOptions {
+    pub http_addr: String,
+    pub http_port: u16,
+}
+
 #[actix_web::main]
-pub async fn init(app: AppHandle) -> std::io::Result<()> {
+pub async fn init(app: AppHandle, options: ServerOptions) -> std::io::Result<()> {
     let tauri_app = web::Data::new(TauriAppState {
         app: Mutex::new(app)
     });
@@ -20,7 +25,7 @@ pub async fn init(app: AppHandle) -> std::io::Result<()> {
             .wrap(middleware::Logger::default())
             .service(handlers::remote::handle)
     })
-        .bind(("127.0.0.1", 56789))?
+        .bind((options.http_addr, options.http_port))?
         .run()
         .await
 }
