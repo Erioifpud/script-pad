@@ -21,8 +21,7 @@ import { Archive } from './modules/Archive';
 import { Template } from './modules/Template';
 import { RemoteCall } from './modules/RemoteCall';
 import ReactLib from 'react';
-// @ts-expect-error 这个库没有类型定义
-import vm from 'vm-browserify'
+import { Script } from './vm-browserify'
 
 const template = (code: string) => {
   return `(async () => {
@@ -53,7 +52,8 @@ export function executeScriptRaw(code: string, vars: Record<string, string>, inj
     presets: ['react']
   })
 
-  return vm.runInNewContext(transformed.code, {
+  // @ts-expect-error 肯定有，是 vm-browserify 定义时的问题
+  return Script.runInNewContext(transformed.code, {
     FileManager,
     HTTP,
     AI,
@@ -75,6 +75,8 @@ export function executeScriptRaw(code: string, vars: Record<string, string>, inj
     Archive,
     Template,
     RemoteCall,
+    // iframe 版加载图片后读取不出尺寸
+    Image: window.Image,
     ...injectVars,
     console: window.console,
     // 用于修复 iframe 中的 setTimeout 失效的问题（在 iframe 被清理前还没有执行的那些）
