@@ -116,9 +116,6 @@ dependencies:
   tauri-plugin-store-api:
     specifier: ^0.0.0
     version: 0.0.0
-  vm-browserify:
-    specifier: ^1.1.2
-    version: 1.1.2
   zustand:
     specifier: ^4.5.2
     version: 4.5.2(@types/react@18.3.3)(immer@10.1.1)(react@18.3.1)
@@ -3843,10 +3840,6 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
-
-  /vm-browserify@1.1.2:
-    resolution: {integrity: sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==}
-    dev: false
 
   /which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
