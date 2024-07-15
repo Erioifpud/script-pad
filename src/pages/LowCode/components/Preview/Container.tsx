@@ -1,11 +1,14 @@
-import { memo, useCallback, useContext, useState } from 'react';
+import { memo, useCallback, useContext, useRef, useState } from 'react';
 import DynamicComp from './DynamicComp';
 import Minimap from './Minimap';
 import { LowCodeContext } from '../../context/LowCodeContext/context';
 import { Button } from '@/components/ui/button';
+import Outline from './Outline';
 
 const PreviewContainer = memo(() => {
   const { currentGroup, nestedNode } = useContext(LowCodeContext);
+  // 传入 outline 进行 querySelector 获取节点
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const [scale, setScale] = useState(1);
 
@@ -29,12 +32,15 @@ const PreviewContainer = memo(() => {
       onWheel={handleScaleChange}
     >
       <div
+        ref={containerRef}
+        className="relative"
         style={{
           transform: `scale(${scale})`,
         }}
       >
         <DynamicComp nestedNode={nestedNode} mockData={currentGroup?.mockData || {}} />
       </div>
+      <Outline containerRef={containerRef} />
       <Minimap />
       {/* 还原缩放 */}
       {scale !== 1 && (
