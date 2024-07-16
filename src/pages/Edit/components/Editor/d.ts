@@ -41,6 +41,7 @@ class FileManager {
   static readDirs(options: Omit<OpenDialogOptions, 'directory' | 'defaultPath' | 'multiple'>): Promise<string[]>;
   static readAsString(path: string): Promise<string>;
   static readAsBuffer(path: string): Promise<Uint8Array>;
+  static readAsBase64(path: string): Promise<string>;
   static writeAsString(path: string, content: string, append?: boolean): Promise<void>;
   static writeAsBuffer(path: string, content: Uint8Array, append?: boolean): Promise<void>;
   static deleteFile(path: string): Promise<void>;

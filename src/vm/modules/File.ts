@@ -29,6 +29,22 @@ export class FileManager {
     return fs.readBinaryFile(path, {});
   }
 
+  static async readAsBase64(path: string) {
+    const buffer = await FileManager.readAsBuffer(path);
+    const fr = new FileReader();
+    fr.readAsDataURL(new Blob([buffer]));
+    return new Promise((resolve, reject) => {
+      fr.onload = () => {
+        const base64 = fr.result?.toString() || ''
+        const [, base64Data] = base64.split(';base64,');
+        resolve(base64Data);
+      }
+      fr.onerror = (err) => {
+        reject(err);
+      }
+    })
+  }
+
   static async writeAsString(path: string, content: string, append = false) {
     return fs.writeTextFile(path, content, {
       append
