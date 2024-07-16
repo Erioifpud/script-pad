@@ -1,4 +1,4 @@
-import { memo, useContext, useEffect, useMemo } from 'react';
+import { memo, useContext, useMemo } from 'react';
 import { LowCodeContext } from '../../context/LowCodeContext/context';
 
 interface Props {
@@ -19,11 +19,6 @@ const getPos = (el: Element) => {
 const Outline = memo((props: Props) => {
   const { containerRef } = props;
   const { currentNode } = useContext(LowCodeContext);
-
-  useEffect(() => {
-    if (!currentNode) return
-    console.log(currentNode.id)
-  }, [currentNode])
 
   const rects = useMemo(() => {
     const containerEl = containerRef?.current
