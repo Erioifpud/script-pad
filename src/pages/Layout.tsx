@@ -6,7 +6,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { router } from '@/router';
 import { usePlaygroundStore } from '@/store/playground';
-import { ArchiveIcon, NotebookIcon, BracesIcon, BrushIcon, SquareTerminalIcon, BookOpenTextIcon, HardDriveIcon } from 'lucide-react';
+import { ArchiveIcon, NotebookIcon, BracesIcon, BrushIcon, SquareTerminalIcon, BookOpenTextIcon, HardDriveIcon, SettingsIcon } from 'lucide-react';
 import { invoke, path } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { useCallback } from 'react';
@@ -93,6 +93,14 @@ export default function Layout({
                 tooltip="低代码组件"
               >
                 <BrushIcon />
+              </TooltipButton>
+
+              <TooltipButton
+                className="bg-muted"
+                onClick={() => { router.navigate('/setting') }}
+                tooltip="设置"
+              >
+                <SettingsIcon />
               </TooltipButton>
 
               <div className="flex-grow"></div>

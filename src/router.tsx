@@ -5,6 +5,7 @@ import {
 import EditPage from '@/pages/Edit';
 import DocPage from '@/pages/Doc';
 import LowCodePage from '@/pages/LowCode';
+import SettingPage from '@/pages/Setting';
 
 export const router = createBrowserRouter([
   {
@@ -22,5 +23,9 @@ export const router = createBrowserRouter([
   {
     path: "/lowcode",
     element: <LowCodePage />,
+  },
+  {
+    path: "/setting",
+    element: <SettingPage />,
   },
 ]);
