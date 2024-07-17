@@ -10,6 +10,7 @@ import { ArchiveIcon, NotebookIcon, BracesIcon, BrushIcon, SquareTerminalIcon, B
 import { invoke, path } from '@tauri-apps/api';
 import classNames from 'classnames';
 import { useCallback } from 'react';
+import MenuButton from '@/components/MenuButton';
 
 interface TooltipButtonProps {
   className?: string;
@@ -136,6 +137,8 @@ export default function Layout({
               >
                 <BookOpenTextIcon />
               </TooltipButton>
+
+              <MenuButton />
             </nav>
           </aside>
           <div className="flex flex-col h-full overflow-hidden">
