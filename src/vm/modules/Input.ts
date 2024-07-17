@@ -3,7 +3,7 @@ import { showInputDialog } from '@/components/InputDialog/utils';
 import { eventBus } from '@/event';
 
 export class Input {
-  static async create(template: Node[]) {
+  async create(template: Node[]) {
     showInputDialog(template || [])
     return eventBus.once('input-submit')
       .then(ev => {

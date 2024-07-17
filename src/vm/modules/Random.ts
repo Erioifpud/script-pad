@@ -2,23 +2,23 @@ import { shuffle } from 'lodash-es';
 import * as seedrandom from 'seedrandom';
 
 export class Random {
-  static async integer(min: number, max: number) {
+  async integer(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  static async float(min: number, max: number) {
+  async float(min: number, max: number) {
     return Math.random() * (max - min) + min;
   }
 
-  static async boolean() {
+  async boolean() {
     return Math.random() >= 0.5;
   }
 
-  static async shuffle<T>(array: T[]) {
+  async shuffle<T>(array: T[]) {
     return shuffle(array);
   }
 
-  static async string(length: number, chars?: string) {
+  async string(length: number, chars?: string) {
     let result = '';
     const characters = chars || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
@@ -28,7 +28,7 @@ export class Random {
     return result;
   }
 
-  static async seed(seed: string) {
+  async seed(seed: string) {
     const rng = seedrandom.alea(seed);
     return rng;
   }

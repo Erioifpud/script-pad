@@ -7,7 +7,7 @@ interface FlatItem {
 }
 
 export class Archive {
-  static async zipFlat(items: FlatItem[]) {
+  async zipFlat(items: FlatItem[]) {
     const zip = new JSZip()
     items.forEach((item) => {
       let data = item.data

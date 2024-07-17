@@ -7,30 +7,35 @@ interface CDNJSResults {
 }
 
 export class Lib {
-  static win = window;
-  static keys: string[] = []
-  static async load(originName: string) {
+  private win: Window & typeof globalThis = window;
+  private keys: string[] = []
+
+  setWin(win: Window & typeof globalThis) {
+    this.win = win
+  }
+
+  async load(originName: string) {
     if (typeof originName !== "string") {
       throw new Error("Argument should be a string, please check it.");
     }
     // 先记录当前 win 的键
-    Lib.keys = Object.keys(Lib.win)
+    this.keys = Object.keys(this.win)
     // Trim string
     const name = originName.trim();
     // If it is a valid URL, inject it directly
     if (/^https?:\/\//.test(name)) {
-      return Lib.inject(name);
+      return this.inject(name);
     }
     // If version specified, try unpkg
     if (name.indexOf("@") !== -1) {
-      return Lib.unpkg(name);
+      return this.unpkg(name);
     }
-    return Lib.cdnjs(name);
+    return this.cdnjs(name);
   }
 
-  private static cdnjs(name: string) {
+  private cdnjs(name: string) {
     console.log('正在搜索', name);
-    return Request.get(`https://api.cdnjs.com/libraries?search=${name}`, {})
+    return new Request().get(`https://api.cdnjs.com/libraries?search=${name}`, {})
       .then(resp => resp as { results: CDNJSResults[] })
       .then(({ results }) => {
         if (results.length === 0) {
@@ -43,44 +48,44 @@ export class Lib {
           console.log(`找不到 ${name}, 已替换成 ${exactName}`);
         }
 
-        return Lib.inject(
+        return this.inject(
           url,
         );
       })
   }
 
-  private static unpkg(name: string) {
+  private unpkg(name: string) {
     const url = `https://unpkg.com/${name}`;
-    return Lib.inject(url);
+    return this.inject(url);
   }
 
-  // static async esm(name: string) {
+  // async esm(name: string) {
   //   console.log(name, "(esm) is loading, please be patient...");
-  //   const res = Lib.win.eval(`(await import("https://esm.run/${name}"))`);
+  //   const res = this.win.eval(`(await import("https://esm.run/${name}"))`);
   //   return res;
   // }
 
-  private static inject(
+  private inject(
     url: string,
   ) {
-    return Lib.downloadScriptCode(url).then(code => {
-      return Lib.injectScriptCode(code)
+    return this.downloadScriptCode(url).then((code: string) => {
+      return this.injectScriptCode(code)
     })
   }
 
-  private static injectScriptCode(
+  private injectScriptCode(
     code: string,
   ): Promise<string[]> {
     return new Promise((resolve) => {
-      Lib.win.eval(code)
-      const newKeys = Object.keys(Lib.win)
-      const libNames = difference(newKeys, Lib.keys)
+      this.win.eval(code)
+      const newKeys = Object.keys(this.win)
+      const libNames = difference(newKeys, this.keys)
       resolve(libNames)
     })
   }
 
-  private static downloadScriptCode(url: string) {
-    return Request.raw(url, {
+  private downloadScriptCode(url: string) {
+    return new Request().raw(url, {
       method: 'GET',
       responseType: 2
     }).then(resp => {

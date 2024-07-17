@@ -5,15 +5,15 @@ interface WriteOptions {
 }
 
 export class Doc {
-  static async read(id: string) {
+  async read(id: string) {
     return readDoc(id);
   }
 
-  static async readByLines(id: string, lines: number) {
+  async readByLines(id: string, lines: number) {
     return readDocByLines(id, lines);
   }
 
-  static async write(id: string, content: string, options: WriteOptions = { mode: 'override' }) {
+  async write(id: string, content: string, options: WriteOptions = { mode: 'override' }) {
     const trimmed = id?.trim()
     const newFlag = !!(trimmed)
     let docId = trimmed
@@ -29,7 +29,7 @@ export class Doc {
     return docId
   }
 
-  static async updateTitle(id: string, title: string) {
+  async updateTitle(id: string, title: string) {
     return updateDocTitle(id, title);
   }
 }

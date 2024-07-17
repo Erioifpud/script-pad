@@ -26,8 +26,8 @@ import { Script } from './vm-browserify'
 const template = (code: string) => {
   return `(async () => {
     try {
-      Lib.win = window;
-      RemoteCall.win = window;
+      Lib.setWin(window);
+      RemoteCall.setWin(window);
       ${code}
     } catch(err) {
       console.error(err);
@@ -44,8 +44,6 @@ export function executeScript(code: string, vars: Record<string, string>) {
 }
 
 export function executeScriptRaw(code: string, vars: Record<string, string>, injectVars?: Record<string, string>) {
-  Config.vars = vars;
-
   const fullCode = template(code)
 
   const transformed = Babel.transform(fullCode, {
@@ -54,27 +52,27 @@ export function executeScriptRaw(code: string, vars: Record<string, string>, inj
 
   // @ts-expect-error 肯定有，是 vm-browserify 定义时的问题
   return Script.runInNewContext(transformed.code, {
-    FileManager,
-    HTTP,
-    AI,
-    Config,
-    HTML,
-    App,
-    Input,
+    FileManager: new FileManager(),
+    HTTP: new HTTP(),
+    AI: new AI(),
+    Config: new Config(vars),
+    HTML: new HTML(),
+    App: new App(),
+    Input: new Input(),
     React: ReactLib,
-    TTS,
-    Clipboard,
-    UUID,
-    Lib,
-    Notice,
-    Misc,
-    Doc,
-    Random,
-    Time,
-    Capture,
-    Archive,
-    Template,
-    RemoteCall,
+    TTS: new TTS(),
+    Clipboard: new Clipboard(),
+    UUID: new UUID(),
+    Lib: new Lib(),
+    Notice: new Notice(),
+    Misc: new Misc(),
+    Doc: new Doc(),
+    Random: new Random(),
+    Time: new Time(),
+    Capture: new Capture(),
+    Archive: new Archive(),
+    Template: new Template(),
+    RemoteCall: new RemoteCall(),
     // iframe 版加载图片后读取不出尺寸
     Image: window.Image,
     ...injectVars,

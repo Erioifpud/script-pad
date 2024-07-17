@@ -28,9 +28,9 @@ export class Template {
    * @param propsData 传入显示的数据
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static async showRaw(id: string, propsData: Record<string, any>) {
+  async showRaw(id: string, propsData: Record<string, any>) {
     const Component = getComponent(id, propsData)
-    App.showRawComponent(Component)
+    new App().showRawComponent(Component)
   }
 
   /**
@@ -39,9 +39,9 @@ export class Template {
    * @param propsData 传入显示的数据
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static async show(id: string, propsData: Record<string, any>, wrapperStyle?: CSSProperties) {
+  async show(id: string, propsData: Record<string, any>, wrapperStyle?: CSSProperties) {
     const Component = getComponent(id, propsData)
-    App.showComponent(Component, '', wrapperStyle)
+    new App().showComponent(Component, '', wrapperStyle)
   }
 
   /**
@@ -50,7 +50,7 @@ export class Template {
    * @param propsData 传入显示的数据
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static async use(id: string, propsData: Record<string, any>) {
+  async use(id: string, propsData: Record<string, any>) {
     const Component = getComponent(id, propsData)
     return Component
   }

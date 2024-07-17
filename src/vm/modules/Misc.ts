@@ -1,7 +1,7 @@
 import { downloadFile } from '@/utils'
 
 export class Misc {
-  static async retry<T>(task: Promise<T>, times: number, delay: number): Promise<T> {
+  async retry<T>(task: Promise<T>, times: number, delay: number): Promise<T> {
     return new Promise((resolve, reject) => {
       const retry = (n: number) => {
         return task
@@ -20,21 +20,21 @@ export class Misc {
     })
   }
 
-  static async sleep(ms: number) {
+  async sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms))
   }
 
-  static async saveAs(binaryData: Uint8Array, title = 'download') {
+  async saveAs(binaryData: Uint8Array, title = 'download') {
     return downloadFile(binaryData, title)
   }
 
-  static async saveAsZip(binaryData: Uint8Array, title = 'download') {
+  async saveAsZip(binaryData: Uint8Array, title = 'download') {
     return downloadFile(binaryData, title, [
       { name: 'Zip', extensions: ['zip'] },
     ])
   }
 
-  static async toBase64(str: string) {
+  async toBase64(str: string) {
     return btoa(
       String.fromCharCode(
         ...new TextEncoder().encode(str)
@@ -42,7 +42,7 @@ export class Misc {
     )
   }
 
-  static async fromBase64(b64: string) {
+  async fromBase64(b64: string) {
     return new TextDecoder().decode(
       Uint8Array.from(
         atob(b64),

@@ -61,7 +61,7 @@ interface QwenChatOptions {
 }
 
 export class AI {
-  static async qwenChatRaw(options: QwenChatRawOptions) {
+  async qwenChatRaw(options: QwenChatRawOptions) {
     const resp = await Request.post('https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation', {
       headers: {
         'Content-Type': 'application/json',
@@ -83,8 +83,8 @@ export class AI {
     return resp
   }
 
-  static async qwenChatSimple(options: QwenChatOptions) {
-    const resp = await AI.qwenChatRaw({
+  async qwenChatSimple(options: QwenChatOptions) {
+    const resp = await this.qwenChatRaw({
       model: options.model,
       messages: [
         {
@@ -103,8 +103,8 @@ export class AI {
     return answers.join('\n')
   }
 
-  static async qwenChat(options: QwenChatRawOptions) {
-    const resp = await AI.qwenChatRaw(options)
+  async qwenChat(options: QwenChatRawOptions) {
+    const resp = await this.qwenChatRaw(options)
     if (resp.output.finish_reason === 'error') {
       throw new Error(resp.output.text)
     }

@@ -1,15 +1,19 @@
 export class Config {
-  static vars: Record<string, string> = {}
+  private vars: Record<string, string> = {}
 
-  static async get(key: string) {
-    return Config.vars[key]
+  constructor(vars: Record<string, string>) {
+    this.vars = vars
   }
 
-  static async keys() {
-    return Object.keys(Config.vars)
+  async get(key: string) {
+    return this.vars[key]
   }
 
-  static async values() {
-    return Object.values(Config.vars)
+  async keys() {
+    return Object.keys(this.vars)
+  }
+
+  async values() {
+    return Object.values(this.vars)
   }
 }
