@@ -19,11 +19,11 @@ export class Doc {
     let docId = trimmed
     if (!newFlag) {
       docId = createDoc(content)
-      return
+      return docId
     }
     if (options.mode === 'append') {
       appendDoc(id, content)
-      return
+      return docId
     }
     writeDoc(id, content)
     return docId
