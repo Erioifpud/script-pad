@@ -317,6 +317,7 @@ name = "app"
 version = "0.1.0"
 dependencies = [
  "actix-web",
+ "base64 0.22.1",
  "bytes",
  "clap",
  "futures",
@@ -328,6 +329,7 @@ dependencies = [
  "tauri-build",
  "tauri-plugin-clipboard",
  "tauri-plugin-store",
+ "ttl_cache",
  "uuid",
 ]
 
@@ -2565,6 +2567,12 @@ name = "line-wrap"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dd1bc4d24ad230d21fb898d1116b1801d7adfc449d42026475862ab48b11e70e"
+
+[[package]]
+name = "linked-hash-map"
+version = "0.5.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0717cef1bc8b636c6e1c1bbdefc09e6322da8a9321966e8928ef80d20f7f770f"
 
 [[package]]
 name = "linux-raw-sys"
@@ -5077,6 +5085,15 @@ name = "try-lock"
 version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e421abadd41a4225275504ea4d6566923418b7f05506fbc9c0fe86ba7396114b"
+
+[[package]]
+name = "ttl_cache"
+version = "0.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4189890526f0168710b6ee65ceaedf1460c48a14318ceec933cb26baa492096a"
+dependencies = [
+ "linked-hash-map",
+]
 
 [[package]]
 name = "typenum"
