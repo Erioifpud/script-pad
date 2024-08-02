@@ -455,6 +455,19 @@ class RemoteCall {
   // static async _stopTask(): Promise<void>;
 }
 
+// -------- Path --------
+
+class Path {
+  static async getAppDir(): Promise<string>;
+  static async join(...paths: string[]): Promise<string>;
+  static async resolve(...paths: string[]): Promise<string>;
+  static async extname(pathStr: string): Promise<string>;
+  static async dirname(pathStr: string): Promise<string>;
+  static async delimiter(): Promise<string>;
+  static async sep(): Promise<string>;
+  static async isAbsolute(pathStr: string): Promise<boolean>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
