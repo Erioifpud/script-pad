@@ -1,11 +1,11 @@
 use actix_web::web::{Data, Json, Path};
 use serde::{Deserialize, Serialize};
 use base64::{Engine as _, engine::{general_purpose}};
-use crate::server::handlers::ResponseWrapper;
+use crate::http_server::handlers::ResponseWrapper;
 use std::time::Duration;
 use actix_web::{get, HttpResponse, post};
 use actix_web::http::StatusCode;
-use crate::server::{ImageCacheState, ImageCacheValue};
+use crate::http_server::{ImageCacheState, ImageCacheValue};
 use uuid::Uuid;
 
 #[derive(Deserialize, Serialize, Clone, Debug)]

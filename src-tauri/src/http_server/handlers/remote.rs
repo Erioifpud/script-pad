@@ -4,7 +4,7 @@ use actix_web::web::{Data, Json};
 use tauri::Manager;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
-use crate::server::TauriAppState;
+use crate::http_server::TauriAppState;
 
 // 请求体数据
 #[derive(Deserialize, Serialize, Clone)]
