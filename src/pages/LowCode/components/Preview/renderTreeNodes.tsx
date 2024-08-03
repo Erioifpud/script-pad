@@ -52,7 +52,7 @@ export function renderTreeNodeFn<T extends keyof HTMLElementTagNameMap>(
     )
 
     // 条件隐藏
-    if (node.removeBy && (mockData[node.removeBy] !== undefined || mockData[node.removeBy] !== null)) {
+    if (node.removeBy && !!mockData[node.removeBy]) {
       return null;
     }
 
