@@ -2,7 +2,7 @@ import { TreeNode } from '@/store/lowcode/type';
 import { HTMLAttributes, ReactElement } from 'react';
 import { cleanCSS, css2obj } from '../../utils';
 import { getDefaultStyle } from '@/store/lowcode/rule';
-import { get } from 'lodash-es';
+import { get, template, templateSettings } from 'lodash-es';
 
 function renderAttributesFn<T extends keyof HTMLElementTagNameMap>(attrs: Partial<HTMLAttributes<HTMLElementTagNameMap[T]>>) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -21,7 +21,7 @@ function renderAttributesFn<T extends keyof HTMLElementTagNameMap>(attrs: Partia
         return acc;
       }
       const valStr = `${val}`;
-      // 加入模板变量
+      // 加入模板变量（attribute 不需要使用 template）
       if (valStr.startsWith('{') && valStr.endsWith('}')) {
         const varName = valStr.slice(1, -1);
         acc[key] = get(mockData, varName, '')
@@ -87,17 +87,23 @@ export function renderTreeNodeFn<T extends keyof HTMLElementTagNameMap>(
             return <img key={`${node.id}|${idx}`} {...attributes} data-lowcode-node={node.id} />
           }
 
+          // lodash 的模版函数
+          templateSettings.interpolate = /{([\s\S]+?)}/g
+          const compiled = template(node.value)
+          let content
+          // 避免 mockData 缺少字段时报错
+          try {
+            content = compiled(fullData)
+          } catch (e) {
+            console.warn(e)
+            content = node.value
+          }
+
           return (
             // @ts-expect-error 这里不用那么严格，反正都能渲染出来
             <TagName key={`${node.id}|${idx}`} {...attributes} data-lowcode-node={node.id}>
-              {/* 如果value非空且不是大括号包围的表达式，则直接显示 */}
-              {node.value && !node.value.startsWith('{') && !node.value.endsWith('}') && node.value}
 
-              {/* 如果value是大括号包围的表达式，则替换占位符 */}
-              {node.value && node.value.startsWith('{') && node.value.endsWith('}') && (
-                <>{get(fullData, node.value.slice(1, -1), '')}</>
-                // <>{fullData[node.value.slice(1, -1)] || ''}</>
-              )}
+              {node.value && content}
 
               {/* 递归渲染子节点 */}
               {node.children?.map((child) => renderTreeNodeFn(child)(fullData))}
