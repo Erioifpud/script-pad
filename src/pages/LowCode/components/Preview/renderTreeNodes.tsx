@@ -62,8 +62,9 @@ export function renderTreeNodeFn<T extends keyof HTMLElementTagNameMap>(
     }
 
     // 列表渲染
-    const isListRender = node.listBy && Array.isArray(mockData[node.listBy])
-    const list = isListRender ? mockData[node.listBy] : [mockData];
+    const listData = get(mockData, node.listBy)
+    const isListRender = node.listBy && Array.isArray(listData)
+    const list = isListRender ? listData : [mockData];
 
     // 这里合并有很大的数据污染隐患，所以用的时候尽量避免覆写 style，列表项目的字段不要和 data 的一样
 
