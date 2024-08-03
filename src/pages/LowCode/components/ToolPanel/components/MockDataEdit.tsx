@@ -26,7 +26,11 @@ const MockDataEdit = memo(() => {
         <div className="item mb-4">
           <div className="label mb-2 text-sm">Mock Data</div>
           <div className="value bg-white">
-            <MonacoJSONWrapper data={currentGroup?.mockData || {}} onChange={handleChange} />
+            <MonacoJSONWrapper
+              className="h-96"
+              data={currentGroup?.mockData || {}}
+              onChange={handleChange}
+            />
           </div>
         </div>
       </div>
