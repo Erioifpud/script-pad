@@ -52,8 +52,13 @@ export function renderTreeNodeFn<T extends keyof HTMLElementTagNameMap>(
     )
 
     // 条件隐藏
-    if (node.removeBy && !!mockData[node.removeBy]) {
-      return null;
+    if (node.removeBy) {
+      const hide = node.removeBy.startsWith('!')
+        ? !get(mockData, node.removeBy.slice(1))
+        : get(mockData, node.removeBy)
+      if (hide) {
+        return null
+      }
     }
 
     // 列表渲染
