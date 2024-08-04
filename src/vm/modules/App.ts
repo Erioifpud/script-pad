@@ -4,8 +4,6 @@ import {
   showRawComponent as showRawComponentInPlayground,
 } from '@/components/Playground/utils';
 import { CSSProperties, ReactNode } from 'react';
-import { eventBus } from '@/event';
-import { IndicatorLoadingEvent } from '@/event/impl';
 
 export class App {
   async showText(text: string) {
@@ -21,10 +19,10 @@ export class App {
   }
 
   async start() {
-    eventBus.publish('indicator-loading', new IndicatorLoadingEvent(true))
+    console.warn('App.start 功能已被移除')
   }
 
   async done() {
-    eventBus.publish('indicator-loading', new IndicatorLoadingEvent(false))
+    console.warn('App.done 功能已被移除')
   }
 }

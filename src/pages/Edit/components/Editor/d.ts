@@ -278,8 +278,6 @@ class App {
   static async showText(text: string): Promise<void>;
   static async showComponent(node: any, style: string, wrapperStyle: Record<string, any>): Promise<void>;
   static async showRawComponent(node: any): Promise<void>;
-  static async start(): Promise<void>;
-  static async done(): Promise<void>;
 }
 
 // -------- Input --------

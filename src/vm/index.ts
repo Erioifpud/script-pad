@@ -35,7 +35,6 @@ const template = (code: string) => {
       Notice.send('运行错误', err.message);
     } finally {
       await RemoteCall._stopTask();
-      App.done();
     }
   })()`
 }
