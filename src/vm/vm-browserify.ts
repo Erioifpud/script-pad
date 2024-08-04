@@ -45,7 +45,7 @@ const globals = ['Array', 'Boolean', 'Date', 'Error', 'EvalError', 'Function',
 'Infinity', 'JSON', 'Math', 'NaN', 'Number', 'Object', 'RangeError',
 'ReferenceError', 'RegExp', 'String', 'SyntaxError', 'TypeError', 'URIError',
 'decodeURI', 'decodeURIComponent', 'encodeURI', 'encodeURIComponent', 'escape',
-'eval', 'isFinite', 'isNaN', 'parseFloat', 'parseInt', 'undefined', 'unescape', 'Blob'];
+'eval', 'isFinite', 'isNaN', 'parseFloat', 'parseInt', 'undefined', 'unescape', 'Blob', 'TextEncoder', 'URL'];
 
 function Context() {}
 Context.prototype = {};
