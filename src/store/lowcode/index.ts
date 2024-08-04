@@ -25,7 +25,7 @@ export const useLowCodeStore = create<LowCodeState>()(
       groups: [],
       setGroups: (groups) => set({ groups }),
       createGroup: () => {
-        const rootNode: AnyNode = createNode(emptyUUID(), '');
+        const rootNode: AnyNode = createNode(emptyUUID(), '', 'Hello world!');
         const group: Group = {
           id: randomUUID(),
           name: '新分组',

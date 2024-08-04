@@ -1,13 +1,13 @@
 import { getInitialSettingOptions } from './rule';
 import { AnyNode } from './type';
 
-export function createNode(uuid: string, parentId: string): AnyNode {
+export function createNode(uuid: string, parentId: string, value: string = ''): AnyNode {
   return {
     id: uuid,
     name: '',
     parentId,
     type: 'div',
-    value: 'Hello world!',
+    value,
     css: ':root {}',
     attrs: {},
     styleOption: getInitialSettingOptions(),
