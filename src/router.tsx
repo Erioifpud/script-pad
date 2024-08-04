@@ -6,26 +6,52 @@ import EditPage from '@/pages/Edit';
 import DocPage from '@/pages/Doc';
 import LowCodePage from '@/pages/LowCode';
 import SettingPage from '@/pages/Setting';
+import RenderPage from './pages/Render';
+import Layout from './pages/Layout';
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: (
+      <Layout>
+        <HomePage />
+      </Layout>
+    ),
   },
   {
     path: "/edit",
-    element: <EditPage />,
+    element: (
+      <Layout>
+        <EditPage />
+      </Layout>
+    ),
   },
   {
     path: "/doc",
-    element: <DocPage />,
+    element: (
+      <Layout>
+        <DocPage />
+      </Layout>
+    ),
   },
   {
     path: "/lowcode",
-    element: <LowCodePage />,
+    element: (
+      <Layout>
+        <LowCodePage />
+      </Layout>
+    ),
   },
   {
     path: "/setting",
-    element: <SettingPage />,
+    element: (
+      <Layout>
+        <SettingPage />
+      </Layout>
+    ),
   },
+  {
+    path: "/render",
+    element: <RenderPage />,
+  }
 ]);
