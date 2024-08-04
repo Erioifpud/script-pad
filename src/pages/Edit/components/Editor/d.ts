@@ -437,6 +437,7 @@ class Template {
   static async showRaw(id: string, propsData: Record<string, any>): Promise<void>;
   static async show(id: string, propsData: Record<string, any>, wrapperStyle?: Record<string, any>): Promise<void>;
   static async use(id: string, propsData: Record<string, any>): Promise<any, string | React.JSXElementConstructor<any>> | null>;
+  static async renderToString(id: string, propsData: Record<string, any>): Promise<string>;
 }
 
 // -------- RemoteCall --------

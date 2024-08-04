@@ -3,6 +3,7 @@ import { App } from './App';
 import { renderTreeNodeFn } from '@/pages/LowCode/components/Preview/renderTreeNodes';
 import { convertNestedNode } from '@/pages/LowCode/utils';
 import { CSSProperties } from 'react';
+import ReactDOMServer from "react-dom/server";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getComponent(id: string, propsData: Record<string, any>) {
@@ -53,5 +54,19 @@ export class Template {
   async use(id: string, propsData: Record<string, any>) {
     const Component = getComponent(id, propsData)
     return Component
+  }
+
+  /**
+   * 渲染组件，返回 HTML 字符串
+   * @param id 分组/模板 id
+   * @param propsData 传入显示的数据
+   * @returns 渲染后的 HTML 字符串
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async renderToString(id: string, propsData: Record<string, any>) {
+    const Component = await this.use(id, propsData)
+    return ReactDOMServer.renderToStaticMarkup(
+      Component
+    )
   }
 }
