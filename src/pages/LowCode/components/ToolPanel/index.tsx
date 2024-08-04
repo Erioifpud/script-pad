@@ -24,7 +24,7 @@ const ToolPanel = memo(() => {
   }, [currentNode, currentGroup]);
 
   return (
-    <div className="relative bg-gray-100 border-l border-solid border-gray-200 w-72 2xl:w-[428px] overflow-hidden select-none">
+    <div className="relative bg-gray-100 border-l border-solid border-gray-200 w-72 2xl:w-[428px] overflow-hidden select-none flex-shrink-0">
       {currentMode === Mode.Node && <NodeTools />}
       {currentMode === Mode.Group && <GroupTools />}
       {currentMode === Mode.None && (
