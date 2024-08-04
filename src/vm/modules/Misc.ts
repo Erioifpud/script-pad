@@ -1,3 +1,4 @@
+import { SERVER_PLUGIN } from '@/constants'
 import { downloadFile } from '@/utils'
 import { invoke } from '@tauri-apps/api'
 
@@ -63,7 +64,7 @@ export class Misc {
   }
 
   async getServerInfo(): Promise<ServerInfo> {
-    return invoke<Args>('plugin:http_server|get_server_info').then((args) => {
+    return invoke<Args>(SERVER_PLUGIN.GET_SERVER_INFO).then((args) => {
       return {
         host: args.http_addr,
         port: args.http_port,
