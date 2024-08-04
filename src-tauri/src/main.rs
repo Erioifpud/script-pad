@@ -8,7 +8,7 @@ use std::{env};
 use std::sync::Mutex;
 use clap::Parser;
 use serde::{Deserialize, Serialize};
-use plugins::{ server };
+use plugins::{ server, window };
 
 #[derive(clap::Parser, Debug, Deserialize, Serialize, Clone)]
 #[command(version, about, long_about = None)]
@@ -30,6 +30,7 @@ fn main() {
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_clipboard::init())
         .plugin(server::init())
+        .plugin(window::init())
         .invoke_handler(tauri::generate_handler![open_devtools, open_directory])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
