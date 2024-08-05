@@ -7,7 +7,7 @@ pub struct Params {
     url: String
 }
 
-#[get("/api/img_cors/")]
+#[get("/api/img_cors")]
 pub async fn img_cors(req: HttpRequest) -> HttpResponse {
     let params = Query::<Params>::from_query(req.query_string()).unwrap();
     let url = &params.url;
