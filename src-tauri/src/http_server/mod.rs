@@ -1,6 +1,7 @@
 mod handlers;
 
 use std::sync::Mutex;
+use actix_cors::Cors;
 use actix_web::{HttpServer, App, web, middleware};
 use tauri::AppHandle;
 use ttl_cache::TtlCache;
@@ -32,9 +33,17 @@ pub async fn init(app: AppHandle, options: ServerOptions) -> std::io::Result<()>
     let image_cache = web::Data::new(ImageCacheState {
         cache: Mutex::new(TtlCache::new(10)),
     });
-    
+
+
+
     HttpServer::new(move || {
+        let cors = Cors::default()
+            .allow_any_method()
+            .allow_any_origin()
+            .allow_any_header();
+
         App::new()
+            .wrap(cors)
             .app_data(tauri_app.clone())
             .app_data(image_cache.clone())
             .wrap(middleware::Logger::default())
