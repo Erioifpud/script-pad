@@ -32,7 +32,7 @@ pub async fn init(app: AppHandle, options: ServerOptions) -> std::io::Result<()>
     let image_cache = web::Data::new(ImageCacheState {
         cache: Mutex::new(TtlCache::new(10)),
     });
-
+    
     HttpServer::new(move || {
         App::new()
             .app_data(tauri_app.clone())
@@ -41,6 +41,7 @@ pub async fn init(app: AppHandle, options: ServerOptions) -> std::io::Result<()>
             .service(handlers::remote::handle)
             .service(handlers::upload_image::save)
             .service(handlers::upload_image::get)
+            .service(handlers::proxy::img_cors)
     })
         .bind((options.http_addr, options.http_port))?
         .run()
