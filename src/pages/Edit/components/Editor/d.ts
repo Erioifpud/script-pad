@@ -367,11 +367,6 @@ class Notice {
 
 // -------- Misc --------
 
-interface ServerInfo {
-  host: string
-  port: number
-}
-
 class Misc {
   static async retry<T>(task: Promise<T>, times: number, delay: number);
   static async sleep(ms: number): Promise<void>;
@@ -379,7 +374,6 @@ class Misc {
   static async saveAsZip(binaryData: Uint8Array, title: string);
   static async toBase64(str: string): Promise<string>;
   static async fromBase64(b64: string): Promise<string>;
-  static async getServerInfo(): Promise<ServerInfo>;
 }
 
 // -------- Doc --------
@@ -467,6 +461,17 @@ class Path {
   static async isAbsolute(pathStr: string): Promise<boolean>;
 }
 
+// -------- FileManager --------
+
+interface ServerInfo {
+  host: string
+  port: number
+}
+
+class Api {
+  static async getServerInfo(): Promise<ServerInfo>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
@@ -489,6 +494,7 @@ declare global {
     Archive: Archive;
     Template: Template;
     RemoteCall: RemoteCall;
+    Api: Api;
   }
 }
 `
