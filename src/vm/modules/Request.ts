@@ -1,12 +1,12 @@
 import { FetchOptions, ResponseType, fetch } from '@tauri-apps/api/http'
 
 export class Request {
-  async raw(url: string, options: FetchOptions) {
-    const res = await fetch(url, options)
+  async raw<T>(url: string, options: FetchOptions) {
+    const res = await fetch<T>(url, options)
     return res
   }
-  async get(url: string, options: Omit<FetchOptions, 'method' | 'responseType'>) {
-    const resp = await this.raw(url, {
+  async get<T>(url: string, options: Omit<FetchOptions, 'method' | 'responseType'>) {
+    const resp = await this.raw<T>(url, {
       ...options,
       method: 'GET',
       responseType: ResponseType.JSON
@@ -14,8 +14,8 @@ export class Request {
     return resp.data
   }
 
-  async post(url: string, options: Omit<FetchOptions, 'method' | 'responseType'>) {
-    const resp = await this.raw(url, {
+  async post<T>(url: string, options: Omit<FetchOptions, 'method' | 'responseType'>) {
+    const resp = await this.raw<T>(url, {
       ...options,
       method: 'POST',
       responseType: ResponseType.JSON

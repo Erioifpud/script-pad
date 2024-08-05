@@ -468,8 +468,17 @@ interface ServerInfo {
   port: number
 }
 
+interface ResponseWrapper<T> {
+  success: boolean
+  message: string
+  data: T
+}
+
 class Api {
   static async getServerInfo(): Promise<ServerInfo>;
+  static async getImage(id: string): Promise<string>;
+  static async imageCors(imgUrl: string): Promise<string>;
+  static async uploadImage(base64: string, mimeType = 'image/png'): Promise<ResponseWrapper<string> | Response>;
 }
 
 declare global {
