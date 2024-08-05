@@ -4,6 +4,8 @@ import { renderTreeNodeFn } from '@/pages/LowCode/components/Preview/renderTreeN
 import { convertNestedNode } from '@/pages/LowCode/utils';
 import { CSSProperties } from 'react';
 import ReactDOMServer from "react-dom/server";
+// @ts-expect-error 这个库没有类型定义
+import domtoimage from 'dom-to-image-more'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getComponent(id: string, propsData: Record<string, any>) {
@@ -68,5 +70,27 @@ export class Template {
     return ReactDOMServer.renderToStaticMarkup(
       Component
     )
+  }
+
+  /**
+   * 渲染组件，返回 base64 图片
+   * @param id 分组/模板 id
+   * @param propsData 传入显示的数据
+   * @returns base64 图片
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async renderToImage(id: string, propsData: Record<string, any>, { width = 800, height = 600, scale = 1.5 } = {}) {
+    const code = await this.renderToString(id, propsData)
+    const div = document.createElement('div')
+    div.innerHTML = code
+
+    const base64 = await domtoimage.toPng(div.firstChild, {
+      quality: 1,
+      width,
+      height,
+      scale,
+    })
+
+    return base64
   }
 }
