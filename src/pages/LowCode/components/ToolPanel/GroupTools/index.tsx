@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import GroupInfo from '../components/GroupInfo';
 import MockDataEdit from '../components/MockDataEdit';
+import HtmlCodeCopy from '../components/GroupCapture';
 
 const GroupTools = memo(() => {
   return (
@@ -8,6 +9,8 @@ const GroupTools = memo(() => {
       <GroupInfo />
       <div className="border-b border-solid border-gray-300"></div>
       <MockDataEdit />
+      <div className="border-b border-solid border-gray-300"></div>
+      <HtmlCodeCopy />
     </div>
   );
 });
