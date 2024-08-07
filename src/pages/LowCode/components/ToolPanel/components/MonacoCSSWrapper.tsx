@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
 import Editor from './Editor';
 import { memo, useCallback, useEffect, useState } from 'react';
+import { useDebounceEffect } from 'ahooks';
 
 interface Props {
   data: string;
@@ -18,6 +18,10 @@ const MonacoCSSWrapper = memo((props: Props) => {
     );
   }, [data]);
 
+  useDebounceEffect(() => {
+    handleApply();
+  }, [tempCode], { wait: 500 });
+
   const handleApply = useCallback(() => {
     onChange(tempCode);
   }, [onChange, tempCode]);
@@ -25,7 +29,7 @@ const MonacoCSSWrapper = memo((props: Props) => {
   return (
     <div className="flex flex-col col-span-3 w-full h-48">
       <Editor value={tempCode} onChange={setTempCode} language="css" />
-      <Button size="sm" onClick={handleApply} className="my-1 w-full">应用</Button>
+      {/* <Button size="sm" onClick={handleApply} className="my-1 w-full">应用</Button> */}
     </div>
   );
 });

@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import Editor from './Editor';
 import { memo, useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
+import { useDebounceEffect } from 'ahooks';
 
 interface Props {
   data: Record<string, string>;
@@ -22,6 +22,10 @@ const MonacoJSONWrapper = memo((props: Props) => {
     );
   }, [data]);
 
+  useDebounceEffect(() => {
+    handleApply();
+  }, [tempCode], { wait: 500 });
+
   const handleApply = useCallback(() => {
     try {
       const tempData = JSON.parse(tempCode);
@@ -38,7 +42,7 @@ const MonacoJSONWrapper = memo((props: Props) => {
   return (
     <div className={clsx('flex flex-col col-span-3 w-full h-48', className)}>
       <Editor value={tempCode} onChange={setTempCode} language="json" />
-      <Button size="sm" onClick={handleApply} className="my-1 w-full">应用</Button>
+      {/* <Button size="sm" onClick={handleApply} className="my-1 w-full">应用</Button> */}
     </div>
   );
 });
