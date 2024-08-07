@@ -8,9 +8,9 @@ import { router } from '@/router';
 import { usePlaygroundStore } from '@/store/playground';
 import { ArchiveIcon, NotebookIcon, BracesIcon, BrushIcon, SquareTerminalIcon, BookOpenTextIcon, HardDriveIcon, SettingsIcon } from 'lucide-react';
 import { invoke, path } from '@tauri-apps/api';
-import classNames from 'classnames';
 import { useCallback } from 'react';
 import MenuButton from '@/components/MenuButton';
+import { cn } from '@/lib/utils';
 
 interface TooltipButtonProps {
   className?: string;
@@ -28,7 +28,7 @@ function TooltipButton(props: TooltipButtonProps) {
         <Button
           variant="ghost"
           size="icon"
-          className={classNames(
+          className={cn(
             "rounded-lg",
             className
           )}

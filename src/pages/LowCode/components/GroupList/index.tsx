@@ -7,8 +7,8 @@ import { useLowCodeStore } from '@/store/lowcode';
 import { Group } from '@/store/lowcode/type';
 import { PlusIcon } from 'lucide-react';
 import { dialog } from '@tauri-apps/api';
-import classNames from 'classnames';
 import { memo, useCallback } from 'react';
+import { cn } from '@/lib/utils';
 
 const GroupList = memo(() => {
   const groups = useLowCodeStore(state => state.groups);
@@ -60,7 +60,7 @@ const GroupList = memo(() => {
               <div
                 onClick={() => handleSelectGroup(group.id)}
                 className={
-                  classNames(
+                  cn(
                     "h-28 border-b border-solid border-gray-100",
                     "p-4 items-start gap-4 space-y-0 w-full overflow-hidden",
                     selectedGroupId === group.id ? "bg-gray-100" : ""

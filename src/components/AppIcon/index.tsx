@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { cn } from '@/lib/utils';
 import { HTMLProps, memo, useMemo } from 'react';
 import * as seedrandom from 'seedrandom'
 
@@ -48,7 +48,7 @@ const AppIcon = memo((props: Props) => {
   return (
     <div
       onClick={props.onClick}
-      className={classNames(
+      className={cn(
         "inline-flex justify-center items-center overflow-hidden rounded-3xl text-white select-none cursor-pointer shadow-lg",
         props.className
       )}

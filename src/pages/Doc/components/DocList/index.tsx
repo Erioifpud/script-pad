@@ -7,8 +7,8 @@ import { Doc, useDocStore } from '@/store/doc';
 import { formatTime } from '@/utils/date';
 import { PlusIcon } from 'lucide-react';
 import { dialog } from '@tauri-apps/api';
-import classNames from 'classnames';
 import { memo, useCallback } from 'react';
+import { cn } from '@/lib/utils';
 
 const DocList = memo(() => {
   const docs = useDocStore(state => state.docs);
@@ -60,7 +60,7 @@ const DocList = memo(() => {
               <div
                 onClick={() => handleSelectDoc(doc.id)}
                 className={
-                  classNames(
+                  cn(
                     "h-28 border-b border-solid border-gray-100",
                     "p-4 items-start gap-4 space-y-0 w-full overflow-hidden",
                     selectedDocId === doc.id ? "bg-gray-100" : ""

@@ -6,9 +6,9 @@ import { useCommonStore } from '@/store/common';
 import { executeScript } from '@/vm';
 import { PinIcon, PencilOffIcon, PlusIcon } from 'lucide-react';
 import { dialog } from '@tauri-apps/api';
-import classNames from 'classnames';
 import { memo, useCallback } from 'react';
 import ActionMenu from '@/components/ActionMenu';
+import { cn } from '@/lib/utils';
 
 const ScriptList = memo(() => {
   const scripts = useAppStore(state => state.scripts);
@@ -82,7 +82,7 @@ const ScriptList = memo(() => {
               <div
                 onClick={() => handleSelectScript(script.id)}
                 className={
-                  classNames(
+                  cn(
                     "h-28 border-b border-solid border-gray-100",
                     "p-4 pb-2 w-full overflow-hidden flex flex-col h-28",
                     selectedScriptId === script.id ? "bg-gray-100" : ""
