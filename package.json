@@ -28,7 +28,6 @@
     "@types/seedrandom": "^3.0.8",
     "ahooks": "^3.8.0",
     "class-variance-authority": "^0.7.0",
-    "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "dom-to-image-more": "^3.3.0",
