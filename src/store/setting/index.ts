@@ -34,7 +34,7 @@ export const useSettingStore = create<SettingState>()(
       }),
       // storage: createJSONStorage(() => settingStorage),
       // 只持久化数据字段
-      partialize: (state) => ({ docs: state.settings }),
+      partialize: (state) => ({ settings: state.settings }),
       // 当前版本
       version: VERSION,
       migrate: (persistedState, version) => {
