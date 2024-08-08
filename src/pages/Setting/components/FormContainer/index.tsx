@@ -5,7 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useSettingStore } from '@/store/setting';
 import { FormDefaultValueMap, FormItem, SettingItem, SettingKey, settingRules, SettingValueType } from '@/store/setting/rule';
 import { dialog } from '@tauri-apps/api';
-import { memo } from 'react';
+import { Fragment, memo } from 'react';
 
 type SetSettingType = (key: SettingKey, value: SettingValueType) => void
 
@@ -159,16 +159,16 @@ const renderItem = (settingItem: SettingItem, settings: FormDefaultValueMap, set
 }
 
 const renderItems = (rules: SettingItem[], settings: FormDefaultValueMap, setSetting: SetSettingType) => {
-  return rules.map((settingItem) => {
+  return rules.map((settingItem, index) => {
     const Component = renderItem(settingItem, settings, setSetting)
     if (!Component) {
       return null
     }
     return (
-      <>
+      <Fragment key={index}>
         {Component}
         <div className="border-b border-solid border-gray-200 my-3"></div>
-      </>
+      </Fragment>
     )
   })
 }
