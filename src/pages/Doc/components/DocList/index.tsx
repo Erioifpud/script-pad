@@ -9,6 +9,7 @@ import { PlusIcon } from 'lucide-react';
 import { dialog } from '@tauri-apps/api';
 import { memo, useCallback } from 'react';
 import { cn } from '@/lib/utils';
+import { MacScrollbar } from 'mac-scrollbar';
 
 const DocList = memo(() => {
   const docs = useDocStore(state => state.docs);
@@ -47,7 +48,7 @@ const DocList = memo(() => {
         </Button>
 
       </header>
-      <div className="flex-grow h-full overflow-auto">
+      <MacScrollbar className="flex-grow h-full overflow-auto">
         {docs.map(doc => {
           return (
             <ActionMenu
@@ -85,7 +86,7 @@ const DocList = memo(() => {
             </ActionMenu>
           )
         })}
-      </div>
+      </MacScrollbar>
     </div>
   )
 })

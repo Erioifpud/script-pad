@@ -9,6 +9,7 @@ import { dialog } from '@tauri-apps/api';
 import { memo, useCallback } from 'react';
 import ActionMenu from '@/components/ActionMenu';
 import { cn } from '@/lib/utils';
+import { MacScrollbar } from 'mac-scrollbar';
 
 const ScriptList = memo(() => {
   const scripts = useAppStore(state => state.scripts);
@@ -66,7 +67,7 @@ const ScriptList = memo(() => {
         </Button>
 
       </header>
-      <div className="flex-grow h-full overflow-auto">
+      <MacScrollbar className="flex-grow h-full overflow-auto">
         {scripts.map(script => {
           return (
             <ActionMenu
@@ -105,7 +106,7 @@ const ScriptList = memo(() => {
             </ActionMenu>
           )
         })}
-      </div>
+      </MacScrollbar>
     </div>
   )
 })

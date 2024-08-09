@@ -11,6 +11,7 @@ import { eventBus } from '@/event';
 import { Node } from './type';
 import { InputSubmitEvent } from '@/event/impl';
 import { colorOptions } from './color';
+import { MacScrollbar } from 'mac-scrollbar';
 
 interface Props {
   template: Node[]
@@ -241,13 +242,13 @@ export const InputDialog = memo(() => {
             没有 required 所以需要自己做验证
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4 max-h-72 overflow-auto">
+        <MacScrollbar className="grid gap-4 py-4 max-h-72 overflow-auto">
           <TemplateForm
             template={template}
             values={values}
             onChange={handleChangeValue}
           />
-        </div>
+        </MacScrollbar>
         <DialogFooter>
           <Button type="submit" onClick={handleSubmit}>提交</Button>
         </DialogFooter>

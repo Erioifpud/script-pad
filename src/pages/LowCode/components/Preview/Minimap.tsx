@@ -9,6 +9,7 @@ import { useLowCodeStore } from '@/store/lowcode';
 import { cloneDeep } from 'lodash-es';
 import { randomUUID } from '@/store/utils';
 import { createNode } from '@/store/lowcode/utils';
+import { MacScrollbar } from 'mac-scrollbar';
 
 interface RenderOptions {
   handleAdd: (id: string) => void;
@@ -209,7 +210,7 @@ const Minimap = memo(() => {
   if (!nestedNode) return null;
 
   return (
-    <div className="absolute left-2 top-2 max-w-44 w-fit h-max-80 bg-[#f3f4f6] bg-opacity-80 rounded-xl shadow-[0_0_8px_0px_rgba(0,0,0,0.25)] backdrop-blur overflow-auto">
+    <MacScrollbar className="absolute left-2 top-2 max-w-44 w-fit h-max-80 bg-[#f3f4f6] bg-opacity-80 rounded-xl shadow-[0_0_8px_0px_rgba(0,0,0,0.25)] backdrop-blur overflow-auto">
       <div className="flex flex-nowrap px-1 py-1 pb-0 w-fit text-sm" onClick={() => setSelectedNodeId('')}>
         <div className="info relative items-center flex flex-nowrap hover:bg-gray-200 rounded-md p-1 transition-all cursor-pointer">
           选择分组
@@ -223,7 +224,7 @@ const Minimap = memo(() => {
         handleMove,
         handleAdd,
       })}
-    </div>
+    </MacScrollbar>
   );
 });
 

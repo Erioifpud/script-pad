@@ -9,6 +9,7 @@ import { PlusIcon } from 'lucide-react';
 import { dialog } from '@tauri-apps/api';
 import { memo, useCallback } from 'react';
 import { cn } from '@/lib/utils';
+import { MacScrollbar } from 'mac-scrollbar';
 
 const GroupList = memo(() => {
   const groups = useLowCodeStore(state => state.groups);
@@ -47,7 +48,7 @@ const GroupList = memo(() => {
         </Button>
 
       </header>
-      <div className="flex-grow h-full overflow-auto">
+      <MacScrollbar className="flex-grow h-full overflow-auto">
         {groups.map(group => {
           return (
             <ActionMenu
@@ -82,7 +83,7 @@ const GroupList = memo(() => {
             </ActionMenu>
           )
         })}
-      </div>
+      </MacScrollbar>
     </div>
   )
 })
