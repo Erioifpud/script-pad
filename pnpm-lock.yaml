@@ -89,6 +89,9 @@ dependencies:
   lucide-react:
     specifier: ^0.400.0
     version: 0.400.0(react@18.3.1)
+  mac-scrollbar:
+    specifier: ^0.13.6
+    version: 0.13.6
   react:
     specifier: ^18.2.0
     version: 18.3.1
@@ -3083,6 +3086,10 @@ packages:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
     dependencies:
       react: 18.3.1
+    dev: false
+
+  /mac-scrollbar@0.13.6:
+    resolution: {integrity: sha512-P0eNiCTExlmWBQ0FXalfXVh42eo9b0obnZIo1khZzyZX99frTsCmZwcbH0RWZZtNYtBZVd5f/7k4iLPou+skzg==}
     dev: false
 
   /merge2@1.4.1:

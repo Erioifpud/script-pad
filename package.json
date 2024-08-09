@@ -38,6 +38,7 @@
     "jszip": "^3.10.1",
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.400.0",
+    "mac-scrollbar": "^0.13.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-inspector": "^6.0.2",
