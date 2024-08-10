@@ -5,7 +5,7 @@ import { toast } from '@/components/ui/use-toast';
 import { useCommonStore } from '@/store/common';
 import { useLowCodeStore } from '@/store/lowcode';
 import { Group } from '@/store/lowcode/type';
-import { ImportIcon, PlusIcon } from 'lucide-react';
+import { FolderDown, PlusIcon } from 'lucide-react';
 import { dialog } from '@tauri-apps/api';
 import { memo, useCallback, useContext } from 'react';
 import { cn } from '@/lib/utils';
@@ -60,7 +60,7 @@ const GroupList = memo(() => {
         </Button>
 
         <Button size="sm" variant="ghost" className="w-14" onClick={handleImport}>
-          <ImportIcon></ImportIcon>
+          <FolderDown></FolderDown>
         </Button>
 
       </header>

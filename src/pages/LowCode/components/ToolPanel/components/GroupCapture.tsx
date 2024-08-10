@@ -4,7 +4,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { LowCodeContext } from '@/pages/LowCode/context/LowCodeContext/context';
 import { Template } from '@/vm/modules/Template';
 import { clipboard } from '@tauri-apps/api';
-import { CircleHelpIcon } from 'lucide-react';
+import { CircleHelpIcon, CopyIcon, FolderUp } from 'lucide-react';
 import { memo, useCallback, useContext } from 'react';
 
 const GroupCapture = memo(() => {
@@ -33,9 +33,15 @@ const GroupCapture = memo(() => {
 
   return (
     <div className="my-4">
-      <Button size="sm" onClick={handleCopyCode} className="my-1 w-full bg-[#20C997] hover:bg-[#12B886]">复制代码</Button>
-      <div className="my-1 w-full flex gap-2 items-center">
-        <Button size="sm" onClick={handleExport} className="bg-[#228BE6] hover:bg-[#1C7ED6] w-full">导出分组</Button>
+      <Button size="sm" onClick={handleCopyCode} className="flex gap-2 my-1 w-full bg-[#20C997] hover:bg-[#12B886]">
+        <CopyIcon></CopyIcon>
+        <span>复制代码</span>
+      </Button>
+      <div className="my-1 mt-3 w-full flex gap-2 items-center">
+        <Button size="sm" onClick={handleExport} className="flex gap-2 bg-[#228BE6] hover:bg-[#1C7ED6] w-full">
+          <FolderUp></FolderUp>
+          <span>导出分组</span>
+        </Button>
 
         <TooltipProvider>
           <Tooltip>
