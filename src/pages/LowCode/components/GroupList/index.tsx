@@ -5,11 +5,12 @@ import { toast } from '@/components/ui/use-toast';
 import { useCommonStore } from '@/store/common';
 import { useLowCodeStore } from '@/store/lowcode';
 import { Group } from '@/store/lowcode/type';
-import { PlusIcon } from 'lucide-react';
+import { ImportIcon, PlusIcon } from 'lucide-react';
 import { dialog } from '@tauri-apps/api';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useContext } from 'react';
 import { cn } from '@/lib/utils';
 import { MacScrollbar } from 'mac-scrollbar';
+import { LowCodeContext } from '../../context/LowCodeContext/context';
 
 const GroupList = memo(() => {
   const groups = useLowCodeStore(state => state.groups);
@@ -18,6 +19,8 @@ const GroupList = memo(() => {
   const setGroups = useLowCodeStore(state => state.setGroups);
   const selectedGroupId = useCommonStore(state => state.selectedGroupId);
   const setSelectedGroupId = useCommonStore(state => state.setSelectedGroupId);
+
+  const { importGroup } = useContext(LowCodeContext);
 
   const handleSelectGroup = useCallback((groupId: string) => {
     setSelectedGroupId(groupId);
@@ -38,13 +41,26 @@ const GroupList = memo(() => {
     toast({ title: '复制成功' })
   }, [copyGroup])
 
+  const handleImport = useCallback(async () => {
+    const error = await importGroup()
+    const hasError = !!error;
+    toast({
+      title: hasError ? error : '导入成功',
+      variant: hasError ? 'destructive' : 'default',
+    })
+  }, [importGroup])
+
   return (
     <div className="relative h-full flex-shrink-0 overflow-hidden flex flex-col border-r border-solid border-gray-200 w-52 md:w-72">
       <header className="border-b border-solid border-gray-200 h-[53px] flex-shrink-0 flex items-center px-2 gap-1">
-        <div className="flex-grow"></div>
-        <Button size="sm" className="w-full" onClick={() => createGroup()}>
+        {/* <div className="flex-grow"></div> */}
+        <Button size="sm" className="w-full flex-grow" onClick={() => createGroup()}>
           <PlusIcon></PlusIcon>
           <span>创建</span>
+        </Button>
+
+        <Button size="sm" variant="ghost" className="w-14" onClick={handleImport}>
+          <ImportIcon></ImportIcon>
         </Button>
 
       </header>

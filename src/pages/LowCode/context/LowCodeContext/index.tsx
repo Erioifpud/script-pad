@@ -41,15 +41,21 @@ const LowCodeProvider = memo((props: Props) => {
   }, [currentGroup]);
 
   // 导入分组
-  const importGroup = useCallback(async (text: string) => {
-    const data = JSON.parse(text);
-    const template = JSON.parse(data.template);
-    const sign = await invoke<string>(SIGN_PLUGIN.SIGN_TEMPLATE, { template });
-    if (sign !== data.sign) {
-      return false
+  const importGroup = useCallback(async () => {
+    const text = await navigator.clipboard.readText();
+    try {
+      const data = JSON.parse(text);
+      const template = JSON.parse(data.template);
+      const sign = await invoke<string>(SIGN_PLUGIN.SIGN_TEMPLATE, { template: data.template });
+      if (sign !== data.sign) {
+        return '签名错误'
+      }
+      insertGroup(template);
+      return '';
+    } catch (error) {
+      console.error(error);
+      return '数据格式错误'
     }
-    insertGroup(template);
-    return true;
   }, [insertGroup])
 
   return (

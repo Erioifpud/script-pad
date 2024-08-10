@@ -8,7 +8,7 @@ export type LowCodeContextType = {
   nestedNode: TreeNode<keyof HTMLElementTagNameMap> | null,
   currentNode: AnyNode | null,
   exportGroup: () => Promise<void>,
-  importGroup: (text: string) => Promise<boolean>
+  importGroup: () => Promise<string>
 }
 
 export const LowCodeContext = createContext<LowCodeContextType>({
@@ -18,5 +18,5 @@ export const LowCodeContext = createContext<LowCodeContextType>({
   nestedNode: null,
   currentNode: null,
   exportGroup: () => Promise.resolve(),
-  importGroup: () => Promise.resolve(false)
+  importGroup: () => Promise.resolve('')
 })
