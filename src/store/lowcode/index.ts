@@ -15,6 +15,7 @@ export interface LowCodeState {
   copyGroup: (id: string) => void
   setGroup: (id: string, group: Partial<Group>) => void
   setGroupNodes: (id: string, nodes: AnyNode[]) => void
+  insertGroup: (group: Group) => void
 }
 
 export const VERSION = 1;
@@ -36,6 +37,17 @@ export const useLowCodeStore = create<LowCodeState>()(
         set(state => {
           return {
             groups: [group, ...state.groups]
+          }
+        })
+      },
+      // 导入分组时使用
+      insertGroup: (group: Group) => {
+        set(state => {
+          return {
+            groups: [{
+              ...group,
+              id: randomUUID(),
+            }, ...state.groups]
           }
         })
       },

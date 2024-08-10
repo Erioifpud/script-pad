@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import GroupInfo from '../components/GroupInfo';
 import MockDataEdit from '../components/MockDataEdit';
-import HtmlCodeCopy from '../components/GroupCapture';
+import GroupManage from '../components/GroupCapture';
 import { MacScrollbar } from 'mac-scrollbar';
 
 const GroupTools = memo(() => {
@@ -11,7 +11,7 @@ const GroupTools = memo(() => {
       <div className="border-b border-solid border-gray-300"></div>
       <MockDataEdit />
       <div className="border-b border-solid border-gray-300"></div>
-      <HtmlCodeCopy />
+      <GroupManage />
     </MacScrollbar>
   );
 });
