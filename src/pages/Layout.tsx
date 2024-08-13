@@ -11,6 +11,7 @@ import { invoke, path } from '@tauri-apps/api';
 import { useCallback } from 'react';
 import MenuButton from '@/components/MenuButton';
 import { cn } from '@/lib/utils';
+import { WINDOW_PLUGIN } from '@/constants';
 
 interface TooltipButtonProps {
   className?: string;
@@ -61,6 +62,16 @@ export default function Layout({
     invoke('open_directory', {
       path: dir
     });
+  }, [])
+
+  const handleOpenDocs = useCallback(() => {
+    invoke(WINDOW_PLUGIN.CREATE_WINDOW, {
+      options: {
+        label: 'docs',
+        url: 'https://erioifpud.github.io/script-pad-docs/',
+      },
+      reused: true,
+    })
   }, [])
 
   return (
@@ -132,7 +143,7 @@ export default function Layout({
 
               <TooltipButton
                 className="bg-blue-500 row-span-2 text-white hover:bg-blue-200"
-                onClick={() => window.open('https://erioifpud.github.io/script-pad-docs/', '_blank')}
+                onClick={handleOpenDocs}
                 tooltip="文档"
               >
                 <BookOpenTextIcon />
