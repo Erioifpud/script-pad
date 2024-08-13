@@ -10,8 +10,17 @@ pub fn close_window(app_handle: AppHandle, label: String) {
 }
 
 #[command]
-pub async fn create_window(app_handle: AppHandle, label: String, mut options: WindowConfig) {
-    options.label = label.to_string();
+pub async fn create_window(app_handle: AppHandle, options: WindowConfig, reused: bool) {
+    let window = app_handle.get_window(&options.label);
+    if let Some(win) = window {
+        if reused {
+            win.show().unwrap();
+            win.set_focus().unwrap();
+            return;
+        } else {
+            win.close().unwrap();
+        }
+    }
     WindowBuilder::from_config(&app_handle, options.clone())
         .build()
         .unwrap();
