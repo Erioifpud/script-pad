@@ -462,7 +462,7 @@ class Path {
   static async isAbsolute(pathStr: string): Promise<boolean>;
 }
 
-// -------- FileManager --------
+// -------- Api --------
 
 interface ServerInfo {
   host: string
@@ -480,6 +480,47 @@ class Api {
   static async getImage(id: string): Promise<string>;
   static async imageCors(imgUrl: string): Promise<string>;
   static async uploadImage(base64: string, mimeType = 'image/png'): Promise<ResponseWrapper<string> | Response>;
+}
+
+// -------- Frame --------
+
+interface WindowOptions {
+  label: string;
+  url: string;
+  userAgent?: string;
+  fileDropEnabled?: boolean;
+  center?: boolean;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  minWidth?: number;
+  minHeight?: number;
+  resizable?: boolean;
+  maximizable?: boolean;
+  minimizable?: boolean;
+  closable?: boolean;
+  title?: string;
+  fullscreen?: boolean;
+  focused?: boolean;
+  transparent?: boolean;
+  maximized?: boolean;
+  visible?: boolean;
+  decorations?: boolean;
+  alwaysOnTop?: boolean;
+  contentProtected?: boolean;
+  skipTaskbar?: boolean;
+  theme?: 'Light' | 'Dark';
+  titleBarStyle?: 'Visible' | 'Transparent' | 'Overlay';
+  hiddenTitle?: boolean;
+  acceptFirstMouse?: boolean;
+  tabbingIdentifier?: string;
+  additionalBroswerArgs?: string;
+}
+
+class Frame {
+  static async createWindow(options: WindowOptions, reusable = false): Promise<string>;
+  static async closeWindow(label: string): Promise<void>;
 }
 
 declare global {
@@ -505,6 +546,7 @@ declare global {
     Template: Template;
     RemoteCall: RemoteCall;
     Api: Api;
+    Frame: Frame;
   }
 }
 `

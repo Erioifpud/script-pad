@@ -22,6 +22,7 @@ import { Template } from './modules/Template';
 import { RemoteCall } from './modules/RemoteCall';
 import { Path } from './modules/Path';
 import { Api } from './modules/Api';
+import { Frame } from './modules/Frame';
 import ReactLib from 'react';
 import { Script } from './vm-browserify'
 
@@ -76,6 +77,7 @@ export function executeScriptRaw(code: string, vars: Record<string, string>, inj
     RemoteCall: new RemoteCall(),
     Path: new Path(),
     Api: new Api(),
+    Frame: new Frame(),
     // iframe 版加载图片后读取不出尺寸
     Image: window.Image,
     ...injectVars,

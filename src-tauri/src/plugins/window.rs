@@ -10,10 +10,10 @@ pub fn close_window(app_handle: AppHandle, label: String) {
 }
 
 #[command]
-pub async fn create_window(app_handle: AppHandle, options: WindowConfig, reused: bool) {
+pub async fn create_window(app_handle: AppHandle, options: WindowConfig, reusable: bool) {
     let window = app_handle.get_window(&options.label);
     if let Some(win) = window {
-        if reused {
+        if reusable {
             win.show().unwrap();
             win.set_focus().unwrap();
             return;
