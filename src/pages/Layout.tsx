@@ -70,7 +70,7 @@ export default function Layout({
         label: 'docs',
         url: 'https://erioifpud.github.io/script-pad-docs/',
       },
-      reused: true,
+      reusable: true,
     })
   }, [])
 
