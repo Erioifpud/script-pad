@@ -53,7 +53,7 @@ export class Template {
    * @param propsData 传入显示的数据
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async use(id: string, propsData: Record<string, any>) {
+  use(id: string, propsData: Record<string, any>) {
     const Component = getComponent(id, propsData)
     return Component
   }
