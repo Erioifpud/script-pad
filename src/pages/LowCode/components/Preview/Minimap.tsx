@@ -1,5 +1,5 @@
 import { AnyNode, Group, TreeNode } from '@/store/lowcode/type';
-import React, { memo, useCallback, useContext } from 'react';
+import React, { memo, useCallback, useContext, useState } from 'react';
 import { LowCodeContext } from '../../context/LowCodeContext/context';
 import ActionMenu from '@/components/ActionMenu';
 import { useToast } from '@/components/ui/use-toast';
@@ -10,6 +10,8 @@ import { cloneDeep } from 'lodash-es';
 import { randomUUID } from '@/store/utils';
 import { createNode } from '@/store/lowcode/utils';
 import { MacScrollbar } from 'mac-scrollbar';
+import { cn } from '@/lib/utils';
+import { MenuIcon } from 'lucide-react';
 
 interface RenderOptions {
   handleAdd: (id: string) => void;
@@ -38,13 +40,20 @@ function renderTreeNodes(nodes: TreeNode<keyof HTMLElementTagNameMap> | null, op
           { id: 'delete', label: '删除', onClick: () => options.handleDelete(nodes.id), className: 'text-red-500' },
         ]}
       >
-        <div key={nodes.id} data-key={nodes.id} className="flex flex-col flex-nowrap px-1 pb-0 w-fit" onClick={(ev) => handleClick(nodes.id, ev)}>
+        <div key={nodes.id} data-key={nodes.id} className="flex flex-col flex-nowrap px-2 pb-0 w-fit" onClick={(ev) => handleClick(nodes.id, ev)}>
           <div className="info relative items-center flex flex-nowrap hover:bg-gray-200 rounded-md p-1 transition-all cursor-pointer">
-            <div className="whitespace-nowrap flex-shrink-0 mr-2 text-gray-700 text-sm">{nodes.name || nodes.type}</div>
+            <div
+              className={cn(
+                'whitespace-nowrap flex-shrink-0 mr-2 text-gray-700 text-sm',
+                selectedNodeId === nodes.id ? 'text-blue-500' : '',
+              )}
+            >
+              {nodes.name || nodes.type}
+            </div>
             <div className="whitespace-nowrap text-xs text-gray-400">[{nodes.id}]</div>
-            {selectedNodeId === nodes.id && (
+            {/* {selectedNodeId === nodes.id && (
               <div className="highlight absolute left-0 bottom-0 w-full h-[2px] bg-green-500"></div>
-            )}
+            )} */}
           </div>
           <div className="children pl-2">
             {nodes.children.map((node) => {
@@ -85,6 +94,8 @@ const Minimap = memo(() => {
   const { setSelectedNodeId, selectedNodeId, nestedNode, currentGroup } = useContext(LowCodeContext);
   const setGroup = useLowCodeStore(state => state.setGroup);
   const { toast } = useToast();
+
+  const [isExpand, setIsExpand] = useState(false);
 
   // 选中节点
   const handleClick = useCallback((id: string, ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -210,20 +221,33 @@ const Minimap = memo(() => {
   if (!nestedNode) return null;
 
   return (
-    <MacScrollbar className="absolute left-2 top-2 max-w-44 w-fit h-max-80 bg-[#f3f4f6] bg-opacity-80 rounded-xl shadow-[0_0_8px_0px_rgba(0,0,0,0.25)] backdrop-blur overflow-auto">
-      <div className="flex flex-nowrap px-1 py-1 pb-0 w-fit text-sm" onClick={() => setSelectedNodeId('')}>
-        <div className="info relative items-center flex flex-nowrap hover:bg-gray-200 rounded-md p-1 transition-all cursor-pointer">
-          选择分组
+    <MacScrollbar
+      className="absolute left-2 top-2 max-w-44 w-fit h-max-80 bg-white rounded-xl shadow-[0_0_8px_0px_rgba(0,0,0,0.1)] overflow-auto border-[3px] border-solid border-gray-200"
+      onMouseMove={() => setIsExpand(true)}
+      onMouseLeave={() => setIsExpand(false)}
+    >
+      {!isExpand && (
+        <div className="p-2 cursor-pointer">
+          <MenuIcon />
         </div>
-      </div>
-      {renderTreeNodes(nestedNode, {
-        handleClick,
-        selectedNodeId,
-        handleCopy,
-        handleDelete,
-        handleMove,
-        handleAdd,
-      })}
+      )}
+      {isExpand && (
+        <>
+          <div className="flex flex-nowrap px-2 py-2 pb-0 w-fit text-sm" onClick={() => setSelectedNodeId('')}>
+            <div className="info relative items-center flex flex-nowrap hover:bg-gray-200 rounded-md p-1 transition-all cursor-pointer">
+              选择分组
+            </div>
+          </div>
+          {renderTreeNodes(nestedNode, {
+            handleClick,
+            selectedNodeId,
+            handleCopy,
+            handleDelete,
+            handleMove,
+            handleAdd,
+          })}
+        </>
+      )}
     </MacScrollbar>
   );
 });
