@@ -95,10 +95,11 @@ export function renderTreeNodeFn<T extends keyof HTMLElementTagNameMap>(
 
           // lodash 的模版函数
           templateSettings.interpolate = /{([\s\S]+?)}/g
-          const compiled = template(node.value)
-          let content
+
           // 避免 mockData 缺少字段时报错
+          let content
           try {
+            const compiled = template(node.value)
             content = compiled(fullData)
           } catch (e) {
             console.warn(e)
