@@ -523,6 +523,42 @@ class Frame {
   static async closeWindow(label: string): Promise<void>;
 }
 
+// -------- Registry --------
+
+type HKeyType = 'ClassesRoot' | 'CurrentUser' | 'LocalMachine' | 'Users' | 'PerformanceData' | 'PerformanceText' | 'PerformanceNLSText' | 'CurrentConfig' | 'DynData' | 'CurrentUserLocalSettings';
+
+interface RegValue {
+  success: boolean;
+  reason: string;
+  value: string;
+  valueType: string;
+  lastWriteTime: string;
+}
+
+interface RegKeys {
+  success: boolean;
+  reason: string;
+  keys: string[];
+}
+
+interface RegItem {
+  name: string;
+  value: string;
+  valueType: string;
+}
+
+interface RegItems {
+  success: boolean;
+  reason: string;
+  items: RegItem[];
+}
+
+class Registry {
+  static async getValue(hkey: HKeyType, path: string, name: string): Promise<RegValue>;
+  static async getKeys(hkey: HKeyType, path: string): Promise<RegKeys>;
+  static async getValues(hkey: HKeyType, path: string): Promise<RegItems>;
+}
+
 declare global {
   interface Window {
     FileManager: FileManager;
@@ -547,6 +583,7 @@ declare global {
     RemoteCall: RemoteCall;
     Api: Api;
     Frame: Frame;
+    Registry: Registry;
   }
 }
 `

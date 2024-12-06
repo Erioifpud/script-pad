@@ -25,6 +25,7 @@ import { Api } from './modules/Api';
 import { Frame } from './modules/Frame';
 import ReactLib from 'react';
 import { Script } from './vm-browserify'
+import { Registry } from './modules/Registry';
 
 const template = (code: string) => {
   return `(async () => {
@@ -78,6 +79,7 @@ export function executeScriptRaw(code: string, vars: Record<string, string>, inj
     Path: new Path(),
     Api: new Api(),
     Frame: new Frame(),
+    Registry: new Registry(),
     // iframe 版加载图片后读取不出尺寸
     Image: window.Image,
     ...injectVars,

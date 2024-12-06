@@ -10,3 +10,10 @@ export const WINDOW_PLUGIN = {
 export const SIGN_PLUGIN = {
   SIGN_TEMPLATE: 'plugin:sign|sign_template',
 }
+
+export const REGISTRY_PLUGIN = {
+  GET_REGISTRY_VALUE: 'plugin:registry|get_registry_value',
+  GET_REGISTRY_KEYS: 'plugin:registry|get_registry_keys',
+  GET_REGISTRY_VALUES: 'plugin:registry|get_registry_values',
+}
+
