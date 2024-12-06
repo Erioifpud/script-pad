@@ -6,23 +6,23 @@ import {
 import { CSSProperties, ReactNode } from 'react';
 
 export class App {
-  async showText(text: string) {
+  showText(text: string) {
     showTextInPlayground(text)
   }
 
-  async showComponent(node: ReactNode, style: string, wrapperStyle?: CSSProperties) {
+  showComponent(node: ReactNode, style: string, wrapperStyle?: CSSProperties) {
     showComponentInPlayground(node, style, wrapperStyle)
   }
 
-  async showRawComponent(node: ReactNode) {
+  showRawComponent(node: ReactNode) {
     showRawComponentInPlayground(node)
   }
 
-  async start() {
+  start() {
     console.warn('App.start 功能已被移除')
   }
 
-  async done() {
+  done() {
     console.warn('App.done 功能已被移除')
   }
 }

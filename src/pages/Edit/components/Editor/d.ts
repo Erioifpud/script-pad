@@ -261,23 +261,23 @@ class AI {
 // -------- Config --------
 
 class Config {
-  static async get(key: string): Promise<any>;
-  static async keys(): Promise<string[]>;
-  static async values(): Promise<any[]>;
+  static get(key: string): any;
+  static keys(): string[];
+  static values(): any[];
 }
 
 // -------- HTML --------
 
 class HTML {
-  static async getPlainText(html: string): Promise<string>;
+  static getPlainText(html: string): string;
 }
 
 // -------- App --------
 
 class App {
-  static async showText(text: string): Promise<void>;
-  static async showComponent(node: any, style: string, wrapperStyle: Record<string, any>): Promise<void>;
-  static async showRawComponent(node: any): Promise<void>;
+  static showText(text: string): void;
+  static showComponent(node: any, style: string, wrapperStyle: Record<string, any>): void;
+  static showRawComponent(node: any): void;
 }
 
 // -------- Input --------
@@ -330,7 +330,7 @@ class Input {
 // -------- TTS --------
 
 class TTS {
-  static async speak(text: string): Promise<void>;
+  static speak(text: string): void;
 }
 
 // -------- Clipboard --------
@@ -350,7 +350,7 @@ class Clipboard {
 // -------- UUID --------
 
 class UUID {
-  static async generate(): Promise<string>;
+  static generate(): string;
 }
 
 // -------- Lib --------
@@ -372,8 +372,8 @@ class Misc {
   static async sleep(ms: number): Promise<void>;
   static async saveAs(binaryData: Uint8Array, title: string);
   static async saveAsZip(binaryData: Uint8Array, title: string);
-  static async toBase64(str: string): Promise<string>;
-  static async fromBase64(b64: string): Promise<string>;
+  static toBase64(str: string): string;
+  static fromBase64(b64: string): string;
 }
 
 // -------- Doc --------
@@ -383,28 +383,28 @@ interface WriteOptions {
 }
 
 class Doc {
-  static async readByLines(id: string, lines: number): Promise<string>;
-  static async read(id: string): Promise<string>;
-  static async write(id: string, content: string, options: WriteOptions = { mode: 'override' }): Promise<string>;
-  static async updateTitle(id: string, title: string): Promise<void>;
+  static readByLines(id: string, lines: number): string;
+  static read(id: string): string;
+  static write(id: string, content: string, options: WriteOptions = { mode: 'override' }): string;
+  static updateTitle(id: string, title: string): void;
 }
 
 // -------- Random --------
 
 class Random {
-  static async integer(min: number, max: number): Promise<number>;
-  static async float(min: number, max: number): Promise<number>;
-  static async boolean(): Promise<boolean>;
-  static async string(length: number): Promise<string>;
-  static async shuffle<T>(array: T[]): Promise<T[]>;
-  static async seed(seed: string): Promise<() => number>;
+  static integer(min: number, max: number): number;
+  static float(min: number, max: number): number;
+  static boolean(): boolean;
+  static string(length: number): string;
+  static shuffle<T>(array: T[]): T[];
+  static seed(seed: string): () => number;
 }
 
 // -------- Time --------
 
 class Time {
-  static async format(date: Date | number, formatStr: string): Promise<string>;
-  static async parse(dateStr: string, formatStr: string, referenceDate: string | number | Date): Promise<Date>;
+  static format(date: Date | number, formatStr: string): string;
+  static parse(dateStr: string, formatStr: string, referenceDate: string | number | Date): Date;
 }
 
 // -------- Capture --------
@@ -428,10 +428,10 @@ class Archive {
 // -------- Template --------
 
 class Template {
-  static async showRaw(id: string, propsData: Record<string, any>): Promise<void>;
-  static async show(id: string, propsData: Record<string, any>, wrapperStyle?: Record<string, any>): Promise<void>;
-  static use(id: string, propsData: Record<string, any>): Promise<any, string | React.JSXElementConstructor<any>> | null>;
-  static async renderToString(id: string, propsData: Record<string, any>): Promise<string>;
+  static showRaw(id: string, propsData: Record<string, any>): void;
+  static show(id: string, propsData: Record<string, any>, wrapperStyle?: Record<string, any>): void;
+  static use(id: string, propsData: Record<string, any>): any | null;
+  static renderToString(id: string, propsData: Record<string, any>): string;
   static async renderToImage(id: string, propsData: Record<string, any>, options: { width: number, height: number, scale: number }): Promise<string>;
 }
 
@@ -443,7 +443,7 @@ enum Mode {
 }
 
 class RemoteCall {
-  static async getMode(): Promise<number>;
+  static getMode(): number;
   static async getBody(): Promise<any>;
   static async toResponse(data: any): Promise<void>;
   // static async _stopTask(): Promise<void>;

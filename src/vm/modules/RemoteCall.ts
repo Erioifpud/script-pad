@@ -13,7 +13,7 @@ export class RemoteCall {
     this.win = win
   }
 
-  async getMode() {
+  getMode() {
     if ('$httpTaskId' in this.win) {
       return Mode.HTTP;
     }

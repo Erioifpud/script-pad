@@ -1,7 +1,7 @@
 import { randomUUID } from '@/store/utils';
 
 export class UUID {
-  async generate() {
+  generate() {
     return randomUUID();
   }
 }

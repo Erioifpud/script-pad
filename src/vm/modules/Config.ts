@@ -5,15 +5,15 @@ export class Config {
     this.vars = vars
   }
 
-  async get(key: string) {
+  get(key: string) {
     return this.vars[key]
   }
 
-  async keys() {
+  keys() {
     return Object.keys(this.vars)
   }
 
-  async values() {
+  values() {
     return Object.values(this.vars)
   }
 }

@@ -34,7 +34,7 @@ export class Misc {
     ])
   }
 
-  async toBase64(str: string) {
+  toBase64(str: string) {
     return btoa(
       String.fromCharCode(
         ...new TextEncoder().encode(str)
@@ -42,7 +42,7 @@ export class Misc {
     )
   }
 
-  async fromBase64(b64: string) {
+  fromBase64(b64: string) {
     return new TextDecoder().decode(
       Uint8Array.from(
         atob(b64),

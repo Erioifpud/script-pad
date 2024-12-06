@@ -31,7 +31,7 @@ export class Template {
    * @param propsData 传入显示的数据
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async showRaw(id: string, propsData: Record<string, any>) {
+  showRaw(id: string, propsData: Record<string, any>) {
     const Component = getComponent(id, propsData)
     new App().showRawComponent(Component)
   }
@@ -42,7 +42,7 @@ export class Template {
    * @param propsData 传入显示的数据
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async show(id: string, propsData: Record<string, any>, wrapperStyle?: CSSProperties) {
+  show(id: string, propsData: Record<string, any>, wrapperStyle?: CSSProperties) {
     const Component = getComponent(id, propsData)
     new App().showComponent(Component, '', wrapperStyle)
   }
@@ -65,8 +65,8 @@ export class Template {
    * @returns 渲染后的 HTML 字符串
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async renderToString(id: string, propsData: Record<string, any>) {
-    const Component = await this.use(id, propsData)
+  renderToString(id: string, propsData: Record<string, any>) {
+    const Component = this.use(id, propsData)
     return ReactDOMServer.renderToStaticMarkup(
       Component
     )
