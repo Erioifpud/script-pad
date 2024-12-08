@@ -32,9 +32,8 @@ const PreviewContainer = memo(() => {
   // 切换到隔离模式时生成 html 代码
   useEffect(() => {
     if (!currentGroup || !iframeMode) return
-    new Template().renderToString(currentGroup.id, currentGroup.mockData).then(html => {
-      setHtmlCode(html);
-    });
+    const html = new Template().renderToString(currentGroup.id, currentGroup.mockData)
+    setHtmlCode(html);
     // eslint-disable-next-line
   }, [iframeMode, currentGroup]);
 
