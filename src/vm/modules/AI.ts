@@ -60,7 +60,57 @@ interface QwenChatOptions {
   key: string
 }
 
+interface OpenChatRawOptions {
+  model: string
+  messages: Message[]
+  stream?: boolean
+  max_tokens?: number
+  stop?: string | string[]
+  temperature?: number
+  top_p?: number
+  top_k?: number
+  frequency_penalty?: number
+  n?: number
+  response_format?: {
+    type: string
+  }
+  tools?: any
+  key: string
+  endpoint: string
+}
+
+interface OpenResponse {
+  id: string
+  choices: Choice[]
+  usage: {
+    output_tokens: number
+    input_tokens: number
+    total_tokens: number
+  }
+  created: number
+  model: string
+  object: string[]
+}
+
 export class AI {
+  async openChatRaw(options: OpenChatRawOptions) {
+    const resp = await new Request().post(options.endpoint, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${options.key}`
+      },
+      body: Body.json({
+        ...options,
+        key: undefined,
+        endpoint: undefined,
+      })
+    }) as OpenResponse
+    if ('code' in resp) {
+      throw new Error(`OpenAI 请求错误：${JSON.stringify(resp)}`)
+    }
+    return resp
+  }
+
   async qwenChatRaw(options: QwenChatRawOptions) {
     const resp = await new Request().post('https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation', {
       headers: {

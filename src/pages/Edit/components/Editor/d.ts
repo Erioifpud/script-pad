@@ -252,7 +252,27 @@ interface QwenChatOptions {
   key: string
 }
 
+interface OpenChatRawOptions {
+  model: string
+  messages: Message[]
+  stream?: boolean
+  max_tokens?: number
+  stop?: string | string[]
+  temperature?: number
+  top_p?: number
+  top_k?: number
+  frequency_penalty?: number
+  n?: number
+  response_format?: {
+    type: string
+  }
+  tools?: any
+  key: string
+  endpoint: string
+}
+
 class AI {
+  static async openChatRaw(options: OpenChatRawOptions): Promise<OpenResponse>;
   static async qwenChatRaw(options: QwenChatRawOptions): Promise<QwenResponse>;
   static async qwenChatSimple(options: QwenChatOptions): Promise<string>;
   static async qwenChat(options: QwenChatRawOptions): Promise<string>;
