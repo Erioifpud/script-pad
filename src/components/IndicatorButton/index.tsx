@@ -2,6 +2,7 @@ import { memo, useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { ComponentIcon, RefreshCwIcon } from 'lucide-react'
 import { eventBus } from '@/event';
+import { router } from '@/router';
 
 const IndicatorButton = memo(() => {
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ const IndicatorButton = memo(() => {
 
   return (
     <Button variant="outline" size="icon" aria-label="Home">
-      <a href="/">
+      <a onClick={() => router.navigate('/')}>
         {loading && (
           <RefreshCwIcon className="animate-spin" />
         )}
