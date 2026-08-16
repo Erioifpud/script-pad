@@ -23,10 +23,10 @@ pub fn init() -> TauriPlugin<Wry> {
             let state_args = handle.state::<Mutex<Args>>();
             let args = state_args.lock().unwrap().clone();
             let boxed_handle = Box::new(handle);
-            run_http_server(boxed_handle, crate::http_server::ServerOptions {
-                http_addr: args.http_addr,
-                http_port: args.http_port,
-            });
+            // run_http_server(boxed_handle, crate::http_server::ServerOptions {
+            //     http_addr: args.http_addr,
+            //     http_port: args.http_port,
+            // });
 
             Ok(())
         })
